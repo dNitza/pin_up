@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
     "lib/pin-payments.rb",
     "lib/pin-payments/base.rb",
     "lib/pin-payments/cards.rb",
+    "pin-payments.gemspec",
     "spec/cards_spec.rb",
     "spec/spec_helper.rb",
     "test/helper.rb",
@@ -46,12 +47,14 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_development_dependency(%q<simplecov>, [">= 0"])
+      s.add_runtime_dependency(%q<httparty>, [">= 0"])
     else
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_dependency(%q<simplecov>, [">= 0"])
+      s.add_dependency(%q<httparty>, [">= 0"])
     end
   else
     s.add_dependency(%q<shoulda>, [">= 0"])
@@ -59,6 +62,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
     s.add_dependency(%q<simplecov>, [">= 0"])
+    s.add_dependency(%q<httparty>, [">= 0"])
   end
 end
 
