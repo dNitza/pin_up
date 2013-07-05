@@ -55,7 +55,7 @@ Gem::Specification.new do |s|
     "spec/vcr/Refund/should_list_all_refunds_made_to_a_charge_given_a_token.yml",
     "spec/vcr/Refund/should_return_nothing_if_looking_for_a_charge_without_a_refund.yml",
     "test/helper.rb",
-    "test/test_pin_up.rb"
+    "test/test_pin-payments.rb"
   ]
   s.homepage = "http://github.com/dNitza/pin_up"
   s.licenses = ["MIT"]
