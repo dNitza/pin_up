@@ -1,9 +1,9 @@
-= pin-payments
+= pin_up
 
 Description goes here.
 
-== Contributing to pin-payments
- 
+== Contributing to pin_up
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
 * Fork the project.

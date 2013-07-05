@@ -4,7 +4,7 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = "pin-payments"
+  s.name = "pin_up"
   s.version = ""
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
@@ -23,13 +23,13 @@ Gem::Specification.new do |s|
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
-    "lib/pin-payments.rb",
-    "lib/pin-payments/base.rb",
-    "lib/pin-payments/card.rb",
-    "lib/pin-payments/charge.rb",
-    "lib/pin-payments/customer.rb",
-    "lib/pin-payments/refund.rb",
-    "pin-payments.gemspec",
+    "lib/pin_up.rb",
+    "lib/pin_up/base.rb",
+    "lib/pin_up/card.rb",
+    "lib/pin_up/charge.rb",
+    "lib/pin_up/customer.rb",
+    "lib/pin_up/refund.rb",
+    "pin_up.gemspec",
     "spec/base_spec.rb",
     "spec/cards_spec.rb",
     "spec/charges_spec.rb",
@@ -55,9 +55,9 @@ Gem::Specification.new do |s|
     "spec/vcr/Refund/should_list_all_refunds_made_to_a_charge_given_a_token.yml",
     "spec/vcr/Refund/should_return_nothing_if_looking_for_a_charge_without_a_refund.yml",
     "test/helper.rb",
-    "test/test_pin-payments.rb"
+    "test/test_pin_up.rb"
   ]
-  s.homepage = "http://github.com/dNitza/pin-payments"
+  s.homepage = "http://github.com/dNitza/pin_up"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "2.0.3"

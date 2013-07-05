@@ -10,7 +10,7 @@ require "net/https"
 require "uri"
 
 #gem
-require 'pin-payments'
+require 'pin_up'
 
 RSpec.configure do |config|
   config.include WebMock::API
