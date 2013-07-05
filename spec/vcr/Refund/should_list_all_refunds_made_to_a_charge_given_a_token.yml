@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://<key>:@test-api.pin.net.au/1/charges/ch_S_3tP81Q9_sDngSv27gShQ/refunds
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 05 Jul 2013 14:18:10 GMT
+      Etag:
+      - '"6d6a37ded1f5d0464a4e269566eafa62"'
+      Server:
+      - Apache/2.2.20 (Ubuntu)
+      Status:
+      - '200'
+      Strict-Transport-Security:
+      - max-age=31536000
+      Vary:
+      - User-Agent
+      X-Powered-By:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      X-Rack-Cache:
+      - miss
+      X-Request-Id:
+      - 7120fc5c23b945f65ff219f59dd4ceb6
+      X-Runtime:
+      - '0.046016'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '228'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"response":[{"token":"rf_O4lHrNzwXYmMmTbBq0ZLPw","success":true,"amount":500,"currency":"AUD","charge":"ch_S_3tP81Q9_sDngSv27gShQ","created_at":"2013-03-02T04:20:46Z","error_message":null,"status_message":"Success"}],"count":1}'
+    http_version: 
+  recorded_at: Fri, 05 Jul 2013 14:18:14 GMT
+recorded_with: VCR 2.5.0

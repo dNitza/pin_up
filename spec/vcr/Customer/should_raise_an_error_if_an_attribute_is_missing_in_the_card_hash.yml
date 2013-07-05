@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://<key>:@test-api.pin.net.au/1/customers/cus_sRtAD2Am-goZoLg1K-HVpA
+    body:
+      encoding: UTF-8
+      string: email=dNitza%40gmail.com&card[number]=5520000000000000&card[address_line1]=12345%20Fake%20Street&card[expiry_month]=05&card[expiry_year]=2014&card[cvc]=123&card[name]=Daniel%20Nitsikopoulos&card[address_city]=Melbourne&card[address_postcode]=1234&card[address_state]=VIC
+    headers: {}
+  response:
+    status:
+      code: 422
+      message: Unprocessable Entity
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 05 Jul 2013 13:18:46 GMT
+      Server:
+      - Apache/2.2.20 (Ubuntu)
+      Status:
+      - '422'
+      Strict-Transport-Security:
+      - max-age=31536000
+      Vary:
+      - User-Agent
+      X-Powered-By:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      X-Rack-Cache:
+      - invalidate, pass
+      X-Request-Id:
+      - c294712fde0eee03bba666ec6691d998
+      X-Runtime:
+      - '0.027077'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '230'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"error":"invalid_resource","error_description":"One or more parameters
+        were missing or invalid.","messages":[{"param":"card.address_country","code":"card_address_country_invalid","message":"Card
+        address country can''t be blank"}]}'
+    http_version: 
+  recorded_at: Fri, 05 Jul 2013 13:18:50 GMT
+recorded_with: VCR 2.5.0

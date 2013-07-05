@@ -24,6 +24,7 @@ Jeweler::Tasks.new do |gem|
   # dependencies defined in Gemfile
   gem.add_dependency "httparty"
   gem.add_development_dependency "webmock"
+  gem.add_development_dependency "vcr"
 end
 Jeweler::RubygemsDotOrgTasks.new
 

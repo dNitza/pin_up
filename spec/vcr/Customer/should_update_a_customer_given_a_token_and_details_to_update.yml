@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://<key>:@test-api.pin.net.au/1/customers/cus_sRtAD2Am-goZoLg1K-HVpA
+    body:
+      encoding: UTF-8
+      string: email=dNitza%40gmail.com&card[number]=5520000000000000&card[address_line1]=12345%20Fake%20Street&card[expiry_month]=05&card[expiry_year]=2014&card[cvc]=123&card[name]=Daniel%20Nitsikopoulos&card[address_city]=Melbourne&card[address_postcode]=1234&card[address_state]=VIC&card[address_country]=Australia
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 05 Jul 2013 12:02:07 GMT
+      Etag:
+      - '"5d3324ac758be9e325101ba26da32f79"'
+      Server:
+      - Apache/2.2.20 (Ubuntu)
+      Status:
+      - '200'
+      Strict-Transport-Security:
+      - max-age=31536000
+      Vary:
+      - User-Agent
+      X-Powered-By:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      X-Rack-Cache:
+      - invalidate, pass
+      X-Request-Id:
+      - 724f1ad63fd2a45c6b76492647f0d3f1
+      X-Runtime:
+      - '0.086696'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '380'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"response":{"token":"cus_sRtAD2Am-goZoLg1K-HVpA","email":"dNitza@gmail.com","created_at":"2013-07-04T17:35:54Z","card":{"token":"card_DyGj9CzoLi4W4e2bvVuwXQ","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"12345
+        Fake Street","address_line2":null,"address_city":"Melbourne","address_postcode":"1234","address_state":"VIC","address_country":"Australia"}}}'
+    http_version: 
+  recorded_at: Fri, 05 Jul 2013 12:02:10 GMT
+recorded_with: VCR 2.5.0

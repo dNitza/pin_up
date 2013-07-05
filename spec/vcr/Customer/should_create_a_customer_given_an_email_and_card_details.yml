@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://<key>:@test-api.pin.net.au/1/customers
+    body:
+      encoding: UTF-8
+      string: card[number]=5520000000000000&card[expiry_month]=12&card[expiry_year]=2014&card[cvc]=123&card[name]=Roland%20Robot&card[address_line1]=123%20fake%20street&card[address_city]=Melbourne&card[address_postcode]=1234&card[address_state]=Vic&card[address_country]=Australia&email=dNitza%40gmail.com
+    headers: {}
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 05 Jul 2013 21:03:37 GMT
+      Etag:
+      - '"926ea611ac987f5957810f855e18584c"'
+      Server:
+      - Apache/2.2.20 (Ubuntu)
+      Status:
+      - '201'
+      Strict-Transport-Security:
+      - max-age=31536000
+      Vary:
+      - User-Agent
+      X-Powered-By:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      X-Rack-Cache:
+      - invalidate, pass
+      X-Request-Id:
+      - 4730511db21c8ae4d9d8ebec20fd460e
+      X-Runtime:
+      - '0.078666'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '378'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"response":{"token":"cus_tM6mcDTVmYQ8PVQYcdpRYg","email":"dNitza@gmail.com","created_at":"2013-07-05T21:03:38Z","card":{"token":"card_skwU5JgE6PzvM_Wt5bvDpQ","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"123
+        fake street","address_line2":null,"address_city":"Melbourne","address_postcode":"1234","address_state":"Vic","address_country":"Australia"}}}'
+    http_version: 
+  recorded_at: Fri, 05 Jul 2013 21:03:38 GMT
+recorded_with: VCR 2.5.0

@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://<key>:@test-api.pin.net.au/1/cards
+    body:
+      encoding: UTF-8
+      string: number=5520000000000000&expiry_month=12&expiry_year=2018&cvc=123&name=Roland%20Robot&address_line1=123%20Fake%20Road&address_line2=&address_city=Melbourne&address_postcode=1223&address_state=Vic&address_country=AU
+    headers: {}
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 05 Jul 2013 20:53:41 GMT
+      Etag:
+      - '"840a0aa79998a6dbbcb5491caf5d2cfa"'
+      Server:
+      - Apache/2.2.20 (Ubuntu)
+      Status:
+      - '201'
+      Strict-Transport-Security:
+      - max-age=31536000
+      Vary:
+      - User-Agent
+      X-Powered-By:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      X-Rack-Cache:
+      - invalidate, pass
+      X-Request-Id:
+      - df7580d0aa62d26b2ea1626ca1ff34fd
+      X-Requested-From:
+      - 77.49.16.4
+      X-Runtime:
+      - '0.069357'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '284'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"response":{"token":"card_7FC2zeR-epqR_PAbZ3VSrw","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"123
+        Fake Road","address_line2":"","address_city":"Melbourne","address_postcode":"1223","address_state":"Vic","address_country":"AU"},"ip_address":"77.49.16.4"}'
+    http_version: 
+  recorded_at: Fri, 05 Jul 2013 20:53:42 GMT
+recorded_with: VCR 2.5.0

@@ -1,0 +1,96 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://<key>:@test-api.pin.net.au/1/charges
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 04 Jul 2013 17:52:51 GMT
+      Etag:
+      - '"ac05fcf4c482fd2dcf90ee98df27440e"'
+      Server:
+      - Apache/2.2.20 (Ubuntu)
+      Status:
+      - '200'
+      Strict-Transport-Security:
+      - max-age=31536000
+      Vary:
+      - User-Agent
+      X-Powered-By:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      X-Rack-Cache:
+      - miss
+      X-Request-Id:
+      - 6f00a51b40df1194a8cf1b999a603c96
+      X-Runtime:
+      - '0.439797'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '13035'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"response":[{"token":"ch_0kdOMXP7gG0_W_Vh8qAWdA","success":true,"amount":190000,"currency":"AUD","description":"mid
+        Plan - My Focusbook","email":"hello@myfocusbook.com.au","ip_address":"24.84.102.169","created_at":"2013-03-23T01:30:30Z","status_message":"An
+        unexpected error has occurred","error_message":null,"card":{"token":"card_h5nBfXPhwVJH5W0jqwl-pQ","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"33
+        Lyon Street","address_line2":"","address_city":"Melbourne","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":5730,"merchant_entitlement":184270,"refund_pending":false},{"token":"ch_0-AWghJMsN2OVC0R9XQ7-A","success":true,"amount":190000,"currency":"AUD","description":"mid
+        Plan - My Focusbook","email":"daniel@myfocusbook.com.au","ip_address":"127.0.0.1","created_at":"2013-03-23T01:19:11Z","status_message":"An
+        unexpected error has occurred","error_message":null,"card":{"token":"card_ZuXvGMFo3_1RqWxSBeXc2g","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"333
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":5730,"merchant_entitlement":184270,"refund_pending":false},{"token":"ch_dxogCDk-7ct7uJO5oRkS0A","success":true,"amount":110000,"currency":"AUD","description":"low
+        Plan - My Focusbook","email":"daniel@myfocusbook.com.au","ip_address":"127.0.0.1","created_at":"2013-03-22T02:36:54Z","status_message":"An
+        unexpected error has occurred","error_message":null,"card":{"token":"card_ZuXvGMFo3_1RqWxSBeXc2g","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"333
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":3330,"merchant_entitlement":106670,"refund_pending":false},{"token":"ch_DL6R0kwJ4k_eEKAce38kvw","success":true,"amount":110000,"currency":"AUD","description":"low
+        Plan - My Focusbook","email":"daniel@myfocusbook.com.au","ip_address":"127.0.0.1","created_at":"2013-03-22T02:36:26Z","status_message":"An
+        unexpected error has occurred","error_message":null,"card":{"token":"card_ZuXvGMFo3_1RqWxSBeXc2g","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"333
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":3330,"merchant_entitlement":106670,"refund_pending":false},{"token":"ch_gEDbJOmf-lAK84FsCObaMA","success":true,"amount":110000,"currency":"AUD","description":"low
+        Plan - My Focusbook","email":"daniel@myfocusbook.com.au","ip_address":"127.0.0.1","created_at":"2013-03-22T02:35:05Z","status_message":"An
+        unexpected error has occurred","error_message":null,"card":{"token":"card_ZuXvGMFo3_1RqWxSBeXc2g","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"333
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":3330,"merchant_entitlement":106670,"refund_pending":false},{"token":"ch_VDBX8mkIDeDBgZlW9-Qv1A","success":true,"amount":110000,"currency":"AUD","description":"low
+        Plan - My Focusbook","email":"daniel@myfocusbook.com.au","ip_address":"127.0.0.1","created_at":"2013-03-22T02:30:10Z","status_message":"An
+        unexpected error has occurred","error_message":null,"card":{"token":"card_ZuXvGMFo3_1RqWxSBeXc2g","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"333
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":3330,"merchant_entitlement":106670,"refund_pending":false},{"token":"ch_QG_2Gl5x47WEzTdBIwnluQ","success":true,"amount":7900,"currency":"AUD","description":"solo
+        Plan - My Focusbook","email":"daniel@myfocusbook.com.au","ip_address":"127.0.0.1","created_at":"2013-03-06T12:31:58Z","status_message":"Success","error_message":null,"card":{"token":"card_ZuXvGMFo3_1RqWxSBeXc2g","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"333
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":267,"merchant_entitlement":7633,"refund_pending":false},{"token":"ch_nOzZH3ceMucgheiR_OBWFg","success":true,"amount":20700,"currency":"AUD","description":"low
+        Plan - My Focusbook","email":"daniel@myfocusbook.com.au","ip_address":"127.0.0.1","created_at":"2013-03-06T10:15:29Z","status_message":"Success","error_message":null,"card":{"token":"card_ZuXvGMFo3_1RqWxSBeXc2g","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"333
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":651,"merchant_entitlement":20049,"refund_pending":false},{"token":"ch_H9ieGOe0M3UaU_gecVJfxw","success":true,"amount":167700,"currency":"AUD","description":"high
+        Plan - My Focusbook","email":"info@stmhad.com.au","ip_address":"127.0.0.1","created_at":"2013-03-05T10:29:46Z","status_message":"Success","error_message":null,"card":{"token":"card_auzkMFcSm5Mqoho35za3PQ","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"2
+        Rose Avenue, Niddrie","address_line2":"","address_city":"Melbourne","address_postcode":"3042","address_state":"Vic","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":5061,"merchant_entitlement":162639,"refund_pending":false},{"token":"ch_9m8J7ySXfwbNhpIah_eMLQ","success":true,"amount":6500,"currency":"AUD","description":"solo
+        Plan - My Focusbook","email":"daniel@myfocusbook.com.au","ip_address":"127.0.0.1","created_at":"2013-03-03T05:05:36Z","status_message":"Success","error_message":null,"card":{"token":"card_ZuXvGMFo3_1RqWxSBeXc2g","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"333
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":225,"merchant_entitlement":6275,"refund_pending":false},{"token":"ch_zWVS2-ZRZhSzUfqQny1tZQ","success":true,"amount":20700,"currency":"AUD","description":"low
+        Plan - My Focusbook","email":"daniel@myfocusbook.com.au","ip_address":"58.161.82.9","created_at":"2013-03-03T05:00:29Z","status_message":"Success","error_message":null,"card":{"token":"card_ZuXvGMFo3_1RqWxSBeXc2g","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"333
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":651,"merchant_entitlement":20049,"refund_pending":false},{"token":"ch_35IrfI6lAmS40EK_UnhMOw","success":true,"amount":20700,"currency":"AUD","description":"low
+        Plan - My Focusbook","email":"daniel@myfocusbook.com.au","ip_address":"127.0.0.1","created_at":"2013-03-03T04:59:33Z","status_message":"Success","error_message":null,"card":{"token":"card_ZuXvGMFo3_1RqWxSBeXc2g","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"333
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":651,"merchant_entitlement":20049,"refund_pending":false},{"token":"ch_s5JDycLDa0p0jOUvWfH3Pg","success":true,"amount":1500,"currency":"AUD","description":"solo
+        Plan - My Focusbook","email":"daniel@myfocusbook.com.au","ip_address":"127.0.0.1","created_at":"2013-03-03T04:58:54Z","status_message":"Success","error_message":null,"card":{"token":"card_ZuXvGMFo3_1RqWxSBeXc2g","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"333
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":75,"merchant_entitlement":1425,"refund_pending":false},{"token":"ch_NLEbb_xRgtyz58RGQ5zVqg","success":true,"amount":167700,"currency":"AUD","description":"high
+        Plan - My Focusbook","email":"daniel@myfocusbook.com.au","ip_address":"127.0.0.1","created_at":"2013-03-03T04:55:45Z","status_message":"Success","error_message":null,"card":{"token":"card_ZuXvGMFo3_1RqWxSBeXc2g","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"333
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":5061,"merchant_entitlement":162639,"refund_pending":false},{"token":"ch_1Lbp-F6y40eUU-WJKHhM3A","success":true,"amount":1500,"currency":"AUD","description":"solo
+        Plan - My Focusbook","email":"daniel@myfocusbook.com.au","ip_address":"127.0.0.1","created_at":"2013-03-03T04:00:37Z","status_message":"Success","error_message":null,"card":{"token":"card_ZuXvGMFo3_1RqWxSBeXc2g","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"333
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":75,"merchant_entitlement":1425,"refund_pending":false},{"token":"ch_V7m6bXXULhnV38o5jsES2w","success":true,"amount":20700,"currency":"AUD","description":"low
+        Plan - My Focusbook","email":"daniel@myfocusbook.com.au","ip_address":"127.0.0.1","created_at":"2013-03-03T02:30:38Z","status_message":"Success","error_message":null,"card":{"token":"card_ZuXvGMFo3_1RqWxSBeXc2g","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"333
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":651,"merchant_entitlement":20049,"refund_pending":false},{"token":"ch_IFVWqiep_8hswm6J3j5MKw","success":true,"amount":6500,"currency":"AUD","description":"solo
+        Plan - My Focusbook","email":"daniel@myfocusbook.com.au","ip_address":"127.0.0.1","created_at":"2013-03-03T01:54:47Z","status_message":"Success","error_message":null,"card":{"token":"card_VaeirBlO45hLNYzGE6TSzw","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"33
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":225,"merchant_entitlement":6275,"refund_pending":false},{"token":"ch_eAyztfEM3_L9zWeCUVONhw","success":true,"amount":128700,"currency":"AUD","description":"mid
+        Plan - My Focusbook","email":"daniel@myfocusbook.com.au","ip_address":"127.0.0.1","created_at":"2013-03-03T00:47:08Z","status_message":"Success","error_message":null,"card":{"token":"card_VaeirBlO45hLNYzGE6TSzw","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"33
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":3891,"merchant_entitlement":124809,"refund_pending":false},{"token":"ch_rqPIWDK71YU46M4MAQHQKg","success":true,"amount":400,"currency":"AUD","description":"solo
+        Plan - My Focusbook","email":"daniel@myfocusbook.com.au","ip_address":"127.0.0.1","created_at":"2013-03-02T05:45:37Z","status_message":"Success","error_message":null,"card":{"token":"card_VaeirBlO45hLNYzGE6TSzw","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"33
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"Australia"},"transfer":[],"amount_refunded":0,"total_fees":42,"merchant_entitlement":358,"refund_pending":false},{"token":"ch_S_3tP81Q9_sDngSv27gShQ","success":true,"amount":500,"currency":"AUD","description":"Solo
+        Plan - My Focusbook","email":"dNitza@gmail.com","ip_address":null,"created_at":"2013-03-02T01:35:49Z","status_message":"Success","error_message":null,"card":{"token":"card_uoOzrQsq3TCDKMPPoSrozA","display_number":"XXXX-XXXX-XXXX-0000","scheme":"master","address_line1":"33
+        Lyon Street","address_line2":"","address_city":"Essendon","address_postcode":"3040","address_state":"Victoria","address_country":"AU"},"transfer":[],"amount_refunded":500,"total_fees":45,"merchant_entitlement":455,"refund_pending":false}],"count":20,"pagination":{"current":1,"previous":null,"next":null,"per_page":25,"pages":1,"count":20}}'
+    http_version: 
+  recorded_at: Thu, 04 Jul 2013 17:52:55 GMT
+recorded_with: VCR 2.5.0

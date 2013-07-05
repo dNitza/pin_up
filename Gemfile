@@ -12,4 +12,6 @@ group :development do
   gem "httparty"
   gem "jeweler", "~> 1.8.4"
   gem "simplecov", ">= 0"
+  gem "webmock"
+  gem "vcr"
 end

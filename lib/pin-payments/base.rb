@@ -2,10 +2,11 @@ module Pin
   class Base
     include HTTParty
 
-    def initialize(key: "", password: "", env: :live)
+    def initialize(key: "", env: :live)
       @key = key
       env = env.to_sym
-      @base_url = if env == :live
+      @@auth = {username: key, password: ''}
+      @@base_url = if env == :live
         "https://api.pin.net.au/1/"
       elsif env == :test
         "https://test-api.pin.net.au/1/"
@@ -18,18 +19,36 @@ module Pin
       @key
     end
 
-    def url
-      @base_url
+    def uri
+      @@base_url
     end
 
     protected
 
-    def self.get
-
+    def self.auth_get(url, token: nil)
+      HTTParty.get("#{@@base_url}#{url}", basic_auth: @@auth)
     end
 
-    def self.post()
-      options = { body: {email: @school.email, description: "#{@plan.capitalize} Plan - My Focusbook", amount: "#{@price.to_i}00", currency: "AUD", ip_address: @school.ip_address,  card_token: @card_token}, basic_auth: {username: ENV["PIN_SECRET"], password:""}}
+    def self.auth_post(url, options = {})
+      HTTParty.post("#{@@base_url}#{url}", body: options, basic_auth: @@auth)
+    end
+
+    def self.auth_put(url, options = {})
+      HTTParty.put("#{@@base_url}#{url}", body: options, basic_auth: @@auth)
+    end
+
+    def self.build_response(response)
+      response.parsed_response['response']
+    end
+
+    def self.build_collection_response(response)
+      models = []
+      if response.code == 200
+        response.parsed_response['response'].each do |model|
+          models << model
+        end
+      end
+      models
     end
   end
 end
