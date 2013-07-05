@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Daniel Nitsikopoulos"]
-  s.date = "2013-07-03"
+  s.date = "2013-07-05"
   s.description = "TODO: longer description of your gem"
   s.email = "dnitza@gmail.com"
   s.extra_rdoc_files = [
@@ -25,11 +25,35 @@ Gem::Specification.new do |s|
     "Rakefile",
     "lib/pin-payments.rb",
     "lib/pin-payments/base.rb",
-    "lib/pin-payments/cards.rb",
+    "lib/pin-payments/card.rb",
+    "lib/pin-payments/charge.rb",
+    "lib/pin-payments/customer.rb",
+    "lib/pin-payments/refund.rb",
     "pin-payments.gemspec",
     "spec/base_spec.rb",
     "spec/cards_spec.rb",
+    "spec/charges_spec.rb",
+    "spec/customers_spec.rb",
+    "spec/refund_spec.rb",
     "spec/spec_helper.rb",
+    "spec/vcr/Base/should_list_succesfully_connect_to_Pin.yml",
+    "spec/vcr/Card/should_create_a_card_and_respond_with_the_card_detail_from_pin.yml",
+    "spec/vcr/Charge/should_create_a_charge_given_details.yml",
+    "spec/vcr/Charge/should_list_charges_in_Pin.yml",
+    "spec/vcr/Charge/should_not_show_a_charge_if_end_date_is_out_of_range.yml",
+    "spec/vcr/Charge/should_show_a_charge_given_a_search_term.yml",
+    "spec/vcr/Charge/should_show_a_charge_given_a_token.yml",
+    "spec/vcr/Customer/should_create_a_customer_given_a_card_token_customer_email.yml",
+    "spec/vcr/Customer/should_create_a_customer_given_an_email_and_card_details.yml",
+    "spec/vcr/Customer/should_list_charges_to_a_customer_given_a_token.yml",
+    "spec/vcr/Customer/should_list_customers.yml",
+    "spec/vcr/Customer/should_raise_an_error_if_an_attribute_is_missing_in_the_card_hash.yml",
+    "spec/vcr/Customer/should_show_a_customer_given_a_token.yml",
+    "spec/vcr/Customer/should_update_a_customer_given_a_token_and_details_to_update.yml",
+    "spec/vcr/Refund/should_create_a_refund_for_a_given_amount_and_charge.yml",
+    "spec/vcr/Refund/should_create_a_refund_for_the_entire_amount_of_a_charge_if_no_amount_given.yml",
+    "spec/vcr/Refund/should_list_all_refunds_made_to_a_charge_given_a_token.yml",
+    "spec/vcr/Refund/should_return_nothing_if_looking_for_a_charge_without_a_refund.yml",
     "test/helper.rb",
     "test/test_pin-payments.rb"
   ]
@@ -49,8 +73,11 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<httparty>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_development_dependency(%q<simplecov>, [">= 0"])
+      s.add_development_dependency(%q<webmock>, [">= 0"])
+      s.add_development_dependency(%q<vcr>, [">= 0"])
       s.add_runtime_dependency(%q<httparty>, [">= 0"])
       s.add_development_dependency(%q<webmock>, [">= 0"])
+      s.add_development_dependency(%q<vcr>, [">= 0"])
     else
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
@@ -58,8 +85,11 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<httparty>, [">= 0"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_dependency(%q<simplecov>, [">= 0"])
+      s.add_dependency(%q<webmock>, [">= 0"])
+      s.add_dependency(%q<vcr>, [">= 0"])
       s.add_dependency(%q<httparty>, [">= 0"])
       s.add_dependency(%q<webmock>, [">= 0"])
+      s.add_dependency(%q<vcr>, [">= 0"])
     end
   else
     s.add_dependency(%q<shoulda>, [">= 0"])
@@ -68,8 +98,11 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<httparty>, [">= 0"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
     s.add_dependency(%q<simplecov>, [">= 0"])
+    s.add_dependency(%q<webmock>, [">= 0"])
+    s.add_dependency(%q<vcr>, [">= 0"])
     s.add_dependency(%q<httparty>, [">= 0"])
     s.add_dependency(%q<webmock>, [">= 0"])
+    s.add_dependency(%q<vcr>, [">= 0"])
   end
 end
 
