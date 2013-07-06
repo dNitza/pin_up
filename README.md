@@ -10,7 +10,7 @@ Support for Ruby 1.9.x & Ruby 2.0.0
 
 or add:
 
-  gem 'pin_up'
+    gem 'pin_up'
 
 to your Gemfile.
 
@@ -61,13 +61,13 @@ If passing a hash of details, it must be the full list of details of the credit 
 ###### Update only an email
 ---
 
-  hash_of_details = {email: 'new_email@example.com'}
+    hash_of_details = {email: 'new_email@example.com'}
     Pin::Customer.update('cus_token', hash_of_details)
 
 ###### Update card by token
 ---
 
-  hash_of_details = {card_token: 'new_card_token'}
+    hash_of_details = {card_token: 'new_card_token'}
     Pin::Customer.update('cus_token', hash_of_details)
 
 ##### Creat A Customer Given a Card Token and Email
