@@ -107,7 +107,9 @@ Only use this method if you're comfortable sending card details to your server -
 
 ## Todo
 
-Validate a response before it gets sent to Pin (eg. Update customer)
+  * Validate a response before it gets sent to Pin (eg. Update customer)
+  * Pagination
+  # Better error handling (for 4** responses)
 
 ## Contributing to pin_up
 
