@@ -2,16 +2,16 @@ require 'spec_helper'
 
 describe "Base", :vcr, class: Pin::Base do
   before(:each) do
-    @test_pin = Pin::Base.new(key: "W_VrFld7oc9BnC4pOdQxmw", env: :test)
+    @test_pin = Pin::Base.new("W_VrFld7oc9BnC4pOdQxmw", :test)
   end
 
   it "should set key correctly"  do
-    @pin = Pin::Base.new(key: "KEY", env: :live)
+    @pin = Pin::Base.new("KEY", :live)
     expect(@pin.key).to eq "KEY"
   end
 
   it "should set environment to live if no env set" do
-    @pin = Pin::Base.new(key: "KEY", env: :live)
+    @pin = Pin::Base.new("KEY", :live)
     expect(@pin.uri).to eq "https://api.pin.net.au/1/"
   end
 
@@ -20,7 +20,7 @@ describe "Base", :vcr, class: Pin::Base do
   end
 
   it "should raise an error if anything other than '' :live or :test is passed to a new instance" do
-    expect{Pin::Base.new(key: "KEY", env: :foo)}.to raise_error(RuntimeError, "'env' option must be :live or :test. Leave blank for live payments")
+    expect{Pin::Base.new("KEY", :foo)}.to raise_error(RuntimeError, "'env' option must be :live or :test. Leave blank for live payments")
   end
 
   it "should list succesfully connect to Pin" do

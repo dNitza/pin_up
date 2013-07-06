@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Charge", :vcr, class: Pin::Charges do
   before(:each) do
-    Pin::Base.new(key: "W_VrFld7oc9BnC4pOdQxmw", env: :test)
+    Pin::Base.new("W_VrFld7oc9BnC4pOdQxmw", :test)
   end
 
   it "should list charges in Pin" do

@@ -23,8 +23,6 @@ Jeweler::Tasks.new do |gem|
   gem.authors = ["Daniel Nitsikopoulos"]
   # dependencies defined in Gemfile
   gem.add_dependency "httparty"
-  gem.add_development_dependency "webmock"
-  gem.add_development_dependency "vcr"
 end
 Jeweler::RubygemsDotOrgTasks.new
 

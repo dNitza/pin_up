@@ -2,7 +2,7 @@ module Pin
   class Base
     include HTTParty
 
-    def initialize(key: "", env: :live)
+    def initialize(key = "", env = :live)
       @key = key
       env = env.to_sym
       @@auth = {username: key, password: ''}
