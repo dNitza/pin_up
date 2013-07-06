@@ -9,6 +9,7 @@ require 'vcr'
 require "net/https"
 require "uri"
 
+ENV.update YAML.load(File.read(File.expand_path("../test_data.yml", __FILE__)))
 #gem
 require 'pin_up'
 

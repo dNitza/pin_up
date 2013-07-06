@@ -12,6 +12,9 @@ doc
 # bundler
 .bundle
 
+#test data
+spec/test_data.yml
+
 # jeweler generated
 pkg
 

@@ -109,7 +109,7 @@ Only use this method if you're comfortable sending card details to your server -
 
   * Validate a response before it gets sent to Pin (eg. Update customer)
   * Pagination
-  # Better error handling (for 4** responses)
+  * Better error handling (for 4** responses)
 
 ## Contributing to pin_up
 

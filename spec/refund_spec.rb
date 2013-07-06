@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe "Refund", :vcr, class: Pin::Refund do
   before(:each) do
-    Pin::Base.new("W_VrFld7oc9BnC4pOdQxmw", :test)
+    Pin::Base.new(ENV["PIN_SECRET"], :test)
   end
 
   it "should list all refunds made to a charge given a token" do

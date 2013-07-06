@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Base", :vcr, class: Pin::Base do
   before(:each) do
-    @test_pin = Pin::Base.new("W_VrFld7oc9BnC4pOdQxmw", :test)
+    @test_pin = Pin::Base.new(ENV["PIN_SECRET"], :test)
   end
 
   it "should set key correctly"  do
