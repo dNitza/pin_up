@@ -105,6 +105,15 @@ Will return a card_token that can be stored against a customer.
 
 Only use this method if you're comfortable sending card details to your server - otherwise you can use a form that Pin provides (https://pin.net.au/docs/guides/payment-forms) and get the card_token that way.
 
+## Testing localy
+Create a YAML file under 'spec' called 'test_data.yml' and add in:
+
+    PIN_SECRET: "your pin test secret"
+
+run
+
+    rspec spec/*.rb
+
 ## Todo
 
   * Validate a response before it gets sent to Pin (eg. Update customer)
