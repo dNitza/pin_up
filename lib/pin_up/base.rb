@@ -25,7 +25,7 @@ module Pin
 
     protected
 
-    def self.auth_get(url, token: nil)
+    def self.auth_get(url, token = nil)
       HTTParty.get("#{@@base_url}#{url}", basic_auth: @@auth)
     end
 
