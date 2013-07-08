@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/pin_up.rb",
+    "lib/pin_up/pin_errors.rb",
     "lib/pin_up/base.rb",
     "lib/pin_up/card.rb",
     "lib/pin_up/charge.rb",
