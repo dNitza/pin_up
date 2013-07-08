@@ -15,7 +15,7 @@ describe "Refund", :vcr, class: Pin::Refund do
   end
 
   it "should create a refund for a given amount and charge" do
-    @charge = Pin::Charges.search({query: "1000"})[0]
+    @charge = Pin::Charges.search({query: "1000"})[1]
     Pin::Refund.create(@charge['token'], "400")['amount'].should == 400
   end
 
