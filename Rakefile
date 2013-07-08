@@ -22,7 +22,7 @@ Jeweler::Tasks.new do |gem|
   gem.email = "dnitza@gmail.com"
   gem.authors = ["Daniel Nitsikopoulos"]
   # dependencies defined in Gemfile
-  gem.files.exclude "vcr"
+  gem.files.exclude "spec/vcr"
   gem.add_dependency "httparty"
 end
 Jeweler::RubygemsDotOrgTasks.new
