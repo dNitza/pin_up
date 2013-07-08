@@ -118,7 +118,6 @@ run
 
   * Validate a response before it gets sent to Pin (eg. Update customer)
   * Pagination
-  * Better error handling (for 4** responses)
 
 ## Contributing to pin_up
 
