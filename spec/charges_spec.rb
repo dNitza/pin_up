@@ -22,7 +22,7 @@ describe "Charge", :vcr, class: Pin::Charges do
   end
 
   it "should create a charge given details" do
-    options = {email: "dNitza@gmail.com", description: "A new charge from testing Pin gem", amount: "400", currency: "AUD", ip_address: "127.0.0.1", customer_token: "cus_sRtAD2Am-goZoLg1K-HVpA"   }
+    options = {email: "dNitza@gmail.com", description: "A new charge from testing Pin gem", amount: "400", currency: "AUD", ip_address: "127.0.0.1", customer_token: "cus_8ImkZdEZ6BXUA6NcJDZg_g"   }
     Pin::Charges.create(options)["success"].should eq true
   end
 end

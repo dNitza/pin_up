@@ -43,7 +43,7 @@ describe "Errors", :vcr, class: Pin::PinError do
         address_state: "WA",
         address_country: "Australia",
       }}
-    expect{Pin::Charges.create(options)}.to raise_error(Pin::ChargeError, "card_declined: The card was declined. Charge token: ch_9ElYaQ-OpRjlRWvDTpKY8Q")
+    expect{Pin::Charges.create(options)}.to raise_error(Pin::ChargeError)
   end
 
   it "should raise a 422 error when trying to make a payment with an invalid card" do
