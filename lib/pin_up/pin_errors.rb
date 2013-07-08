@@ -1,5 +1,5 @@
 module Pin
-  class PinError < StandardError
+  class PinError < Exception
 
     def initialize(status = nil, message = nil)
       @status = status

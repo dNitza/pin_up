@@ -59,7 +59,11 @@ module Pin
     ##
     # Builds a response of a single object
     def self.build_response(response)
-      response.parsed_response['response']
+      if response.code != 200
+        raise(Pin::PinError, response['error'], caller)
+      else
+        response.parsed_response['response']
+      end
     end
 
     ##
