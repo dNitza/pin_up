@@ -10,7 +10,7 @@ describe "Charge", :vcr, class: Pin::Charges do
   end
 
   it "should show a charge given a token" do
-    Pin::Charges.find("ch_0kdOMXP7gG0_W_Vh8qAWdA")["token"].should == "ch_0kdOMXP7gG0_W_Vh8qAWdA"
+    Pin::Charges.find("ch_0kdOMXP7gG0_W_Vh8qAWdA")["token"].should match(/^[a-z]{2}[_]/)
   end
 
   it "should show a charge given a search term" do
