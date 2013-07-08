@@ -59,8 +59,8 @@ module Pin
     ##
     # Builds a response of a single object
     def self.build_response(response)
-      if response.code != 200
-        raise(Pin::PinError, response['error'], caller)
+      if response.code >= 400
+        Pin::PinError.handle_error(response.code, response.parsed_response)
       else
         response.parsed_response['response']
       end
@@ -74,6 +74,8 @@ module Pin
         response.parsed_response['response'].each do |model|
           models << model
         end
+      elsif response.code >= 400
+        Pin::PinError.handle_error(response.code, response.parsed_response)
       end
       models
     end

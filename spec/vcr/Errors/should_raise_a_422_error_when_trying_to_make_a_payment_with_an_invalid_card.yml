@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://<key>:@test-api.pin.net.au/1/charges
+    body:
+      encoding: UTF-8
+      string: email=dNitza%40gmail.com&description=A%20new%20charge%20from%20testing%20Pin%20gem&amount=400&currency=AUD&ip_address=127.0.0.1&card[number]=5520000000000099&card[expiry_month]=05&card[expiry_year]=2014&card[cvc]=123&card[name]=Roland%20Robot&card[address_line1]=42%20Sevenoaks%20St&card[address_city]=Lathlain&card[address_postcode]=6454&card[address_state]=WA&card[address_country]=Australia
+    headers: {}
+  response:
+    status:
+      code: 422
+      message: Unprocessable Entity
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 08 Jul 2013 15:54:22 GMT
+      Server:
+      - Apache/2.2.20 (Ubuntu)
+      Status:
+      - '422'
+      Strict-Transport-Security:
+      - max-age=31536000
+      Vary:
+      - User-Agent
+      X-Powered-By:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      X-Rack-Cache:
+      - invalidate, pass
+      X-Request-Id:
+      - 62a02a23ec2654bee73ea0f2de18d551
+      X-Runtime:
+      - '0.026801'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '222'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"error":"invalid_resource","error_description":"One or more parameters
+        were missing or invalid.","messages":[{"param":"card.number","code":"card_number_invalid","message":"Card
+        number is not a valid credit card number"}]}'
+    http_version: 
+  recorded_at: Mon, 08 Jul 2013 15:54:25 GMT
+recorded_with: VCR 2.5.0
