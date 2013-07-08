@@ -15,7 +15,7 @@ describe "Customer", :vcr, class: Pin::Customer do
   end
 
   it "should list charges to a customer given a token" do
-    Pin::Customer.charges('cus_8ImkZdEZ6BXUA6NcJDZg_g')[0]['token'].should == "ch_0kdOMXP7gG0_W_Vh8qAWdA"
+    Pin::Customer.charges('cus_8ImkZdEZ6BXUA6NcJDZg_g')[0]['token'].should match(/^[a-z]{2}[_]/)
   end
 
   it "should create a customer given an email and card details" do
