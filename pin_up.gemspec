@@ -53,7 +53,6 @@ Gem::Specification.new do |s|
     "spec/vcr/Customer/should_raise_an_error_if_an_attribute_is_missing_in_the_card_hash.yml",
     "spec/vcr/Customer/should_show_a_customer_given_a_token.yml",
     "spec/vcr/Customer/should_update_a_customer_given_a_token_and_details_to_update.yml",
-    "spec/vcr/Errors/Should_raise_a_ResourceNotFound_error_when_looking_for_charges_that_belong_to_a_non_existent_customer.yml",
     "spec/vcr/Errors/should_raise_a_400_error_when_trying_to_make_a_payment_and_a_valid_card_gets_declined.yml",
     "spec/vcr/Errors/should_raise_a_404_error_when_looking_for_a_customer_that_doesn_t_exist.yml",
     "spec/vcr/Errors/should_raise_a_422_error_when_trying_to_make_a_payment_with_an_expired_card.yml",

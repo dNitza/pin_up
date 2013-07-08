@@ -62,7 +62,7 @@ describe "Errors", :vcr, class: Pin::PinError do
     expect{Pin::Charges.create(options)}.to raise_error(Pin::InvalidResource, "card_number_invalid: Card number is not a valid credit card number")
   end
 
-  it "Should raise a ResourceNotFound error when looking for charges that belong to a non-existent customer" do
+  it "Should raise a ResourceNotFound error when can't find customer" do
     expect{Pin::Customer.charges("foo")}.to raise_error(Pin::ResourceNotFound, "The requested resource could not be found.")
   end
 
