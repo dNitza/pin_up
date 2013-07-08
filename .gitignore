@@ -14,7 +14,7 @@ doc
 
 #test data
 spec/test_data.yml
-spec/vcr/*/*.yml
+spec/vcr/*.yml
 
 # jeweler generated
 pkg
