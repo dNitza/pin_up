@@ -1,0 +1,9 @@
+Generated: pin_up.gemspec
+pin_up.gemspec is valid.
+  Successfully built RubyGem
+  Name: pin_up
+  Version: 0.4.1
+  File: pin_up-0.4.1.gem
+Executing "gem push ./pkg/pin_up-0.4.1.gem":
+Pushing gem to https://rubygems.org...
+Successfully registered gem: pin_up (0.4.1)
