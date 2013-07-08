@@ -5,3 +5,5 @@ env:
       UKmLaC2MJVnOkabgb0yiE7SnrjdZejEKyJfBrWK2e3ai4yguY2eH5G1l4ZW/
       SIpiwsfzJw3gugh4CBSOTBl0FMzGDumZdvxerTJSzkNI2rsDTXpJZW/x0tn6
       zyYYrNO9T5DNdN4SOjrzsTwZTs/E4rDvr4HqszbPQOGlBkCWUxQ=
+
+script: rspec spec
