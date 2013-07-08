@@ -4,6 +4,8 @@ A Ruby gem wrapper for the pin-payments (pin.net.au) API, all of it.
 
 Support for Ruby 1.9.x & Ruby 2.0.0
 
+https://travis-ci.org/dNitza/pin_up.png
+
 ## Installation
 
     gem install pin_up
