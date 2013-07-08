@@ -15,6 +15,8 @@ module Pin
       case http_status
       when 400
         raise(Pin::ChargeError, "#{response['error']}: #{response['error_description']}. Charge token: #{response['charge_token']}")
+      when 402
+        raise(Pin::InsufficientPinBalance, "#{response['error_description']}")
       when 404
         raise(Pin::ResourceNotFound, "#{response['error_description']}")
       when 422
@@ -34,6 +36,9 @@ module Pin
   end
 
   class ChargeError < PinError
+  end
+
+  class InsufficientPinBalance <PinError
   end
 
 end
