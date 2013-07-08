@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "pin_up"
-  s.version = "0.3.1"
+  s.version = "0.4.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Daniel Nitsikopoulos"]
-  s.date = "2013-07-06"
+  s.date = "2013-07-08"
   s.description = "A Ruby gem wrapper for the pin-payments (pin.net.au) API"
   s.email = "dnitza@gmail.com"
   s.extra_rdoc_files = [
@@ -25,17 +25,18 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/pin_up.rb",
-    "lib/pin_up/pin_errors.rb",
     "lib/pin_up/base.rb",
     "lib/pin_up/card.rb",
     "lib/pin_up/charge.rb",
     "lib/pin_up/customer.rb",
+    "lib/pin_up/pin_errors.rb",
     "lib/pin_up/refund.rb",
     "pin_up.gemspec",
     "spec/base_spec.rb",
     "spec/cards_spec.rb",
     "spec/charges_spec.rb",
     "spec/customers_spec.rb",
+    "spec/errors_spec.rb",
     "spec/refund_spec.rb",
     "spec/spec_helper.rb",
     "spec/vcr/Base/should_list_succesfully_connect_to_Pin.yml",
@@ -52,12 +53,17 @@ Gem::Specification.new do |s|
     "spec/vcr/Customer/should_raise_an_error_if_an_attribute_is_missing_in_the_card_hash.yml",
     "spec/vcr/Customer/should_show_a_customer_given_a_token.yml",
     "spec/vcr/Customer/should_update_a_customer_given_a_token_and_details_to_update.yml",
+    "spec/vcr/Errors/Should_raise_a_ResourceNotFound_error_when_looking_for_charges_that_belong_to_a_non_existent_customer.yml",
+    "spec/vcr/Errors/should_raise_a_400_error_when_trying_to_make_a_payment_and_a_valid_card_gets_declined.yml",
+    "spec/vcr/Errors/should_raise_a_404_error_when_looking_for_a_customer_that_doesn_t_exist.yml",
+    "spec/vcr/Errors/should_raise_a_422_error_when_trying_to_make_a_payment_with_an_expired_card.yml",
+    "spec/vcr/Errors/should_raise_a_422_error_when_trying_to_make_a_payment_with_an_invalid_card.yml",
+    "spec/vcr/Errors/should_raise_a_422_error_when_trying_to_update_missing_a_param.yml",
+    "spec/vcr/Errors/should_show_a_charge_given_a_token.yml",
     "spec/vcr/Refund/should_create_a_refund_for_a_given_amount_and_charge.yml",
     "spec/vcr/Refund/should_create_a_refund_for_the_entire_amount_of_a_charge_if_no_amount_given.yml",
     "spec/vcr/Refund/should_list_all_refunds_made_to_a_charge_given_a_token.yml",
-    "spec/vcr/Refund/should_return_nothing_if_looking_for_a_charge_without_a_refund.yml",
-    "test/helper.rb",
-    "test/test_pin-payments.rb"
+    "spec/vcr/Refund/should_return_nothing_if_looking_for_a_charge_without_a_refund.yml"
   ]
   s.homepage = "http://github.com/dNitza/pin_up"
   s.licenses = ["MIT"]
