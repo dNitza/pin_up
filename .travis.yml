@@ -2,8 +2,7 @@
 env:
   global:
     secure: |-
-      UKmLaC2MJVnOkabgb0yiE7SnrjdZejEKyJfBrWK2e3ai4yguY2eH5G1l4ZW/
-      SIpiwsfzJw3gugh4CBSOTBl0FMzGDumZdvxerTJSzkNI2rsDTXpJZW/x0tn6
-      zyYYrNO9T5DNdN4SOjrzsTwZTs/E4rDvr4HqszbPQOGlBkCWUxQ=
-
+      Z7eqtE7oQVsmz2iw45MULCsk9Ff028nsPHJjX04GskTCeqhn2AgeFbNEjB7d
+      1mlrJDZyRggBW2ENK6Kti7p196hB1WfH52SYl9dZSLABWDW9oIKo46HjymNP
+      J9RERcoevctKkRGUCvyx0kvX1uN4iI56OJPXFAsYA+w0zAm/1/c=
 script: rspec spec
