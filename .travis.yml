@@ -5,4 +5,4 @@ env:
       Z7eqtE7oQVsmz2iw45MULCsk9Ff028nsPHJjX04GskTCeqhn2AgeFbNEjB7d
       1mlrJDZyRggBW2ENK6Kti7p196hB1WfH52SYl9dZSLABWDW9oIKo46HjymNP
       J9RERcoevctKkRGUCvyx0kvX1uN4iI56OJPXFAsYA+w0zAm/1/c=
-script: rspec spec
+script: bundle exec rspec spec
