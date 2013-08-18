@@ -7,9 +7,13 @@ module Pin
     # Find a refund by charge token
     # returns: a collection of refund objects
     # args: token (String)
+    #
+    # if pagination is passed, access the response hash with [:response]
+    # and the pagination hash with [:pagination]
+    #
     # https://pin.net.au/docs/api/refunds#get-refunds
-    def self.find(token)
-      build_collection_response(auth_get("charges/#{token}/refunds"))
+    def self.find(token, page = nil, pagination = false)
+      build_collection_response(auth_get("charges/#{token}/refunds?page=#{page}"), pagination)
     end
 
     ##

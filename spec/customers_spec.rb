@@ -37,6 +37,14 @@ describe "Customer", :vcr, class: Pin::Customer do
     Pin::Customer.charges('cus_8ImkZdEZ6BXUA6NcJDZg_g')[0]['token'].should match(/^[a-z]{2}[_]/)
   end
 
+  it "should show pagination on a page given a token and a page" do
+    Pin::Customer.charges('cus_8ImkZdEZ6BXUA6NcJDZg_g',5,true)[:pagination]["current"] == 5
+  end
+
+  it "should list charges to a customer on a page given a token and a page" do
+    Pin::Customer.charges('cus_8ImkZdEZ6BXUA6NcJDZg_g',1,true)[:response][0]['token'].should match(/^[a-z]{2}[_]/)
+  end
+
   it "should create a customer given an email and card details" do
     Pin::Customer.create('dNitza@gmail.com', {number: '5520000000000000', expiry_month: "12", expiry_year: "2014", cvc: "123", name: 'Roland Robot', address_line1: '123 fake street', address_city: 'Melbourne', address_postcode: '1234', address_state: 'Vic', address_country: 'Australia'})["token"].should match(/^[a-z]{3}[_]/)
   end

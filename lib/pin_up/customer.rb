@@ -5,7 +5,12 @@ module Pin
 
     ##
     # Lists all customers for your account
+    # args: page (Fixnum), pagination (Boolean)
     # returns: a collection of customer objects
+    #
+    # if pagination is passed, access the response hash with [:response]
+    # and the pagination hash with [:pagination]
+    #
     # https://pin.net.au/docs/api/customers#get-customers
     def self.all(page=nil, pagination=false)
       build_collection_response(auth_get("customers?page=#{page}"), pagination)
@@ -47,11 +52,15 @@ module Pin
 
     ##
     # Get a list of charges for a customer
-    # args: token (String)
+    # args: token (String), page (Fixnum), pagination (Boolean)
     # returns: a collection of charge objects
+    #
+    # if pagination is passed, access the response hash with [:response]
+    # and the pagination hash with [:pagination]
+    #
     # https://pin.net.au/docs/api/customers#get-customers-charges
-    def self.charges(token)
-      build_collection_response(auth_get("customers/#{token}/charges"))
+    def self.charges(token, page=nil, pagination=false)
+      build_collection_response(auth_get("customers/#{token}/charges?page=#{page}"), pagination)
     end
   end
 end

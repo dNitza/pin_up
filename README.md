@@ -27,6 +27,18 @@ An option second paramater can be passed in to set the environment (:live or :te
 ### Charges
 ##### List All Charges
     Pin::Charges.all
+
+Show charges on a particular page:
+
+    Pin::Charges.all(6)
+
+With Pagination:
+
+    Pin::Charges.all(6,true)
+    # request = Pin::Charges.all(6,true)
+    # request[:response] => response hash
+    # request[:pagination] => "pagination":{"current":6,"previous":5,"next":7,"per_page":25,"pages":1,"count":15}
+
 ##### Find A Charge
     Pin::Charges.find("token")
 ##### Search For A Charge
@@ -55,6 +67,18 @@ With Pagination:
     Pin::Customer.find('token')
 ##### List Charges For A Customer
     Pin::Customer.charges('cus_token')
+
+Show customers on a particular page:
+
+    Pin::Customer.charges(6)
+
+With Pagination:
+
+    Pin::Customer.all(6,true)
+    # request = Pin::Customer.all(6,true)
+    # request[:response] => response hash
+    # request[:pagination] => "pagination":{"current":6,"previous":5,"next":7,"per_page":25,"pages":1,"count":15}
+
 ##### Create A Customer
     Pin::Customer.create(email, hash_of_customer_details)
 

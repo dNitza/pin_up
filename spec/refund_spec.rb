@@ -14,6 +14,10 @@ describe "Refund", :vcr, class: Pin::Refund do
     Pin::Refund.find('ch_rqPIWDK71YU46M4MAQHQKg').should == []
   end
 
+  it "should return a page of refunds given a page and token" do
+    Pin::Refund.find('ch_S_3tP81Q9_sDngSv27gShQ',1,true)[:response].should_not == []
+  end
+
   xit "should create a refund for a given amount and charge" do
     @charge = Pin::Charges.search({query: "1000"})[2]
     Pin::Refund.create(@charge['token'], "400")['amount'].should == 400

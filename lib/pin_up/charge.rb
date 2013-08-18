@@ -4,10 +4,15 @@ module Pin
   class Charges < Base
     ##
     # Lists all of the charges for your account
+    # args: page (Fixnum), pagination (Boolean)
     # returns: a collection of charge objects
+    #
+    # if pagination is passed, access the response hash with [:response]
+    # and the pagination hash with [:pagination]
+    #
     # https://pin.net.au/docs/api/charges#get-charges
-    def self.all
-      build_response(auth_get('charges'))
+    def self.all(page=nil, pagination=false)
+      build_collection_response(auth_get("charges?page=#{page}"),pagination)
     end
 
     ##

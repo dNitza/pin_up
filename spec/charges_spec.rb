@@ -25,4 +25,12 @@ describe "Charge", :vcr, class: Pin::Charges do
     options = {email: "dNitza@gmail.com", description: "A new charge from testing Pin gem", amount: "400", currency: "AUD", ip_address: "127.0.0.1", customer_token: "cus_8ImkZdEZ6BXUA6NcJDZg_g"   }
     Pin::Charges.create(options)["success"].should eq true
   end
+
+  it "should return pagination if 'pagination' is true" do
+    Pin::Charges.all(3,true)[:pagination]["current"] == 3
+  end
+
+  it "should list charges on a page given a page" do
+    Pin::Charges.all(1).should_not == []
+  end
 end
