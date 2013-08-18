@@ -10,7 +10,7 @@ require "net/https"
 require "uri"
 
 ## Uncomment to load in a .yml with your pin key
-# ENV.update YAML.load(File.read(File.expand_path("../test_data.yml", __FILE__)))
+ENV.update YAML.load(File.read(File.expand_path("../test_data.yml", __FILE__)))
 # gem
 require 'pin_up'
 
