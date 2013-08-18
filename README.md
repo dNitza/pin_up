@@ -154,7 +154,6 @@ run
 ## Todo
 
   * Validate a response before it gets sent to Pin (eg. Update customer)
-  * Pagination
 
 ## Contributing to pin_up
 
