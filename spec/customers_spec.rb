@@ -1,13 +1,32 @@
 require 'spec_helper'
 
-
 describe "Customer", :vcr, class: Pin::Customer do
   before(:each) do
     Pin::Base.new(ENV["PIN_SECRET"], :test)
   end
 
   it "should list customers" do
-    Pin::Customer.all.should_not == nil
+    Pin::Customer.all.should_not == []
+  end
+
+  it "should go to a specific page when page paramater is passed" do
+    request = Pin::Customer.all(20,true)
+    request[:pagination]["current"].should == 20
+  end
+
+  it "should list customers on a page given a page" do
+    request = Pin::Customer.all(1,true)
+    request[:response].should_not == []
+  end
+
+  it "should return pagination if true is passed for pagination" do
+    request = Pin::Customer.all(1,true)
+    request[:pagination].keys.include?(["current", "previous", "next", "per_page", "pages", "count"])
+  end
+
+  it "should not list customers on a page given a page if there are no customers" do
+    request = Pin::Customer.all(25,true)
+    request[:response].should == []
   end
 
   it "should show a  customer given a token" do

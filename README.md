@@ -42,6 +42,15 @@ See https://pin.net.au/docs/api/charges#search-charges for a full list of option
 ### Customers
 ##### List All Customers
     Pin::Customer.all
+
+Show customers on a particular page:
+
+    Pin::Customer.all(3)
+
+With Pagination:
+
+    Pin::Customer.all(3,true)
+
 ##### Find A Customer
     Pin::Customer.find('token')
 ##### List Charges For A Customer
@@ -111,6 +120,8 @@ Only use this method if you're comfortable sending card details to your server -
 Create a YAML file under 'spec' called 'test_data.yml' and add in:
 
     PIN_SECRET: "your pin test secret"
+
+uncomment line 13 in spec_helper.rb and
 
 run
 

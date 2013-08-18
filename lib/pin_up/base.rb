@@ -68,16 +68,23 @@ module Pin
 
     ##
     # Builds a response of a collection if the response code is 200 otherwise an empty array is returned
-    def self.build_collection_response(response)
+    def self.build_collection_response(response, pagination=false)
       models = []
       if response.code == 200
-        response.parsed_response['response'].each do |model|
-          models << model
+        if pagination
+          response.parsed_response['response'].each do |model|
+            models << model
+          end
+          return {response: models, pagination: response.parsed_response['pagination']}
+        else
+          response.parsed_response['response'].each do |model|
+            models << model
+          end
         end
       elsif response.code >= 400
         Pin::PinError.handle_error(response.code, response.parsed_response)
       end
-      models
+      # models
     end
   end
 end

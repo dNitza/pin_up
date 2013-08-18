@@ -14,4 +14,6 @@ group :development do
   gem "simplecov", ">= 0"
   gem "webmock"
   gem "vcr"
+  gem 'guard-rspec'
+  gem 'terminal-notifier-guard'
 end

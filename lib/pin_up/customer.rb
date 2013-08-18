@@ -7,8 +7,8 @@ module Pin
     # Lists all customers for your account
     # returns: a collection of customer objects
     # https://pin.net.au/docs/api/customers#get-customers
-    def self.all
-      build_collection_response(auth_get('customers'))
+    def self.all(page=nil, pagination=false)
+      build_collection_response(auth_get("customers?page=#{page}"), pagination)
     end
 
     ##
