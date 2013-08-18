@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "pin_up"
-  s.version = "0.4.2"
+  s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Daniel Nitsikopoulos"]
-  s.date = "2013-07-08"
+  s.date = "2013-08-18"
   s.description = "A Ruby gem wrapper for the pin-payments (pin.net.au) API"
   s.email = "dnitza@gmail.com"
   s.extra_rdoc_files = [
@@ -18,8 +18,19 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
+    ".idea/.name",
+    ".idea/.rakeTasks",
+    ".idea/encodings.xml",
+    ".idea/misc.xml",
+    ".idea/modules.xml",
+    ".idea/pin_up.iml",
+    ".idea/scopes/scope_settings.xml",
+    ".idea/vcs.xml",
+    ".idea/workspace.xml",
+    ".travis.yml",
     "Gemfile",
     "Gemfile.lock",
+    "Guardfile",
     "LICENSE.txt",
     "README.md",
     "Rakefile",
@@ -39,32 +50,7 @@ Gem::Specification.new do |s|
     "spec/customers_spec.rb",
     "spec/errors_spec.rb",
     "spec/refund_spec.rb",
-    "spec/spec_helper.rb",
-    "spec/vcr/Base/should_list_succesfully_connect_to_Pin.yml",
-    "spec/vcr/Card/should_create_a_card_and_respond_with_the_card_detail_from_pin.yml",
-    "spec/vcr/Charge/should_create_a_charge_given_details.yml",
-    "spec/vcr/Charge/should_list_charges_in_Pin.yml",
-    "spec/vcr/Charge/should_not_show_a_charge_if_end_date_is_out_of_range.yml",
-    "spec/vcr/Charge/should_show_a_charge_given_a_search_term.yml",
-    "spec/vcr/Charge/should_show_a_charge_given_a_token.yml",
-    "spec/vcr/Customer/should_create_a_customer_given_a_card_token_customer_email.yml",
-    "spec/vcr/Customer/should_create_a_customer_given_an_email_and_card_details.yml",
-    "spec/vcr/Customer/should_list_charges_to_a_customer_given_a_token.yml",
-    "spec/vcr/Customer/should_list_customers.yml",
-    "spec/vcr/Customer/should_raise_an_error_if_an_attribute_is_missing_in_the_card_hash.yml",
-    "spec/vcr/Customer/should_show_a_customer_given_a_token.yml",
-    "spec/vcr/Customer/should_update_a_customer_given_a_token_and_details_to_update.yml",
-    "spec/vcr/Errors/Should_raise_a_ResourceNotFound_error_when_can_t_find_customer.yml",
-    "spec/vcr/Errors/should_raise_a_400_error_when_trying_to_make_a_payment_and_a_valid_card_gets_declined.yml",
-    "spec/vcr/Errors/should_raise_a_404_error_when_looking_for_a_customer_that_doesn_t_exist.yml",
-    "spec/vcr/Errors/should_raise_a_422_error_when_trying_to_make_a_payment_with_an_expired_card.yml",
-    "spec/vcr/Errors/should_raise_a_422_error_when_trying_to_make_a_payment_with_an_invalid_card.yml",
-    "spec/vcr/Errors/should_raise_a_422_error_when_trying_to_update_missing_a_param.yml",
-    "spec/vcr/Errors/should_show_a_charge_given_a_token.yml",
-    "spec/vcr/Refund/should_create_a_refund_for_a_given_amount_and_charge.yml",
-    "spec/vcr/Refund/should_create_a_refund_for_the_entire_amount_of_a_charge_if_no_amount_given.yml",
-    "spec/vcr/Refund/should_list_all_refunds_made_to_a_charge_given_a_token.yml",
-    "spec/vcr/Refund/should_return_nothing_if_looking_for_a_charge_without_a_refund.yml"
+    "spec/spec_helper.rb"
   ]
   s.homepage = "http://github.com/dNitza/pin_up"
   s.licenses = ["MIT"]
@@ -85,6 +71,8 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<simplecov>, [">= 0"])
       s.add_development_dependency(%q<webmock>, [">= 0"])
       s.add_development_dependency(%q<vcr>, [">= 0"])
+      s.add_development_dependency(%q<guard-rspec>, [">= 0"])
+      s.add_development_dependency(%q<terminal-notifier-guard>, [">= 0"])
       s.add_runtime_dependency(%q<httparty>, [">= 0"])
     else
       s.add_dependency(%q<httparty>, [">= 0"])
@@ -96,6 +84,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<simplecov>, [">= 0"])
       s.add_dependency(%q<webmock>, [">= 0"])
       s.add_dependency(%q<vcr>, [">= 0"])
+      s.add_dependency(%q<guard-rspec>, [">= 0"])
+      s.add_dependency(%q<terminal-notifier-guard>, [">= 0"])
       s.add_dependency(%q<httparty>, [">= 0"])
     end
   else
@@ -108,6 +98,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<simplecov>, [">= 0"])
     s.add_dependency(%q<webmock>, [">= 0"])
     s.add_dependency(%q<vcr>, [">= 0"])
+    s.add_dependency(%q<guard-rspec>, [">= 0"])
+    s.add_dependency(%q<terminal-notifier-guard>, [">= 0"])
     s.add_dependency(%q<httparty>, [">= 0"])
   end
 end
