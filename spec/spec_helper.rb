@@ -11,7 +11,7 @@ require "uri"
 
 ## Uncomment to load in a .yml with your pin key
 # ENV.update YAML.load(File.read(File.expand_path("../test_data.yml", __FILE__)))
-#gem
+# gem
 require 'pin_up'
 
 RSpec.configure do |config|
@@ -28,5 +28,5 @@ VCR.configure do |c|
   c.cassette_library_dir = "spec/vcr"
   c.hook_into :webmock
   c.allow_http_connections_when_no_cassette = true
-  c.filter_sensitive_data('<key>') {'W_VrFld7oc9BnC4pOdQxmw'}
+  c.filter_sensitive_data('<key>') {ENV["PIN_SECRET"]}
 end
