@@ -1,0 +1,215 @@
+<html>
+<head>
+  <title><%= @company_name %></title>
+  <style type="text/css">
+    body{
+      font-family: "Helvetica", arial, sans-serif;
+      text-align: center;
+      background: #eee;
+      font-size: 14px;
+    }
+    a{
+      color:#4b4b4b;
+      text-decoration: none;
+    }
+    a:hover{
+      color: #ccc;
+    }
+    h3,h5,h6{
+      color:#9ba4ae;
+      margin: 0px;
+    }
+    h5{
+      font-size: 14px;
+      margin: 20px 0 5px 0;
+    }
+    h3{
+      font-size: 16px;
+    }
+    h4{
+      color:#4b4b4b;
+      font-weight: 600;
+      margin:0;
+      /*font-size: 14px;*/
+    }
+    h2{
+      color:#4b4b4b;
+      text-align: left;
+    }
+    .half p{
+      /*margin: 20px 0 5px 0;*/
+    }
+    .full{
+      width:100%;
+      float: left;
+      overflow: hidden;
+    }
+    #receipt{
+      width:640px;
+      margin: 0 auto;
+      border:1px solid #ccc;
+      border-top:5px solid #4b4b4b;
+      padding: 15px;
+      overflow: hidden;
+      background: #fff;
+      margin-top: 55px;
+    }
+    .logo{
+      padding: 15px 0 25px 0;
+    }
+    .half{
+      width:50%;
+      overflow: hidden;
+    }
+    .right{
+      float: right;
+      text-align: right;
+    }
+    .left{
+      float: left;
+      text-align: left;
+    }
+    .center{
+      text-align: center;
+    }
+    section{
+      width:100%;
+      overflow: hidden;
+      float: left;
+    }
+    .text-right{
+      text-align: right;
+      color:#9ba4ae;
+    }
+    .break hr{
+      border-top: 2px solid #eee;
+      border-left:none;
+    }
+    table{
+      text-align: left;
+      font-size: 14px;
+    }
+    table th{
+      border-bottom: 2px solid #eee;
+      padding: 10px 0;
+    }
+    table td{
+      padding: 10px 0;
+    }
+    table td:first-child{
+      width:570px;
+      font-weight: 600;
+      padding-right: 90px;
+    }
+    .discount{
+      color: green;
+    }
+    .fee{
+      color: red;
+    }
+    .charge td{
+      border-bottom: 1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+  <div id="receipt">
+    <header>
+      <div class="full center">
+        <h1><%= @details[0] %></h1>
+      </div>
+      <div class="full center">
+        <h3>Receipt</h3>
+      </div>
+    </header>
+
+    <section class="company-details">
+      <div class="half left">
+        <h5>Date</h5>
+        <h4><%= Time.parse(@charge["created_at"]).strftime("%d/%m/%Y") %></h4>
+
+        <h5>Prepared for</h5>
+        <h4><%= @charge["card"]["name"] %></h4>
+        <p><%= @charge["card"]["address_line1"] %></p>
+        <p><%= @charge["card"]["address_line2"] %></p>
+        <p><%= @charge["card"]["address_city"] %></p>
+        <p><%= @charge["card"]["address_state"] %></p>
+        <p><%= @charge["card"]["address_country"] %></p>
+      </div>
+      <div class="half right">
+        <h5>Prepared by</h5>
+        <h4><%= @details[0] %></h4>
+        <% @details.drop(1).each do |detail| %>
+          <p><%= detail %></p>
+        <% end %>
+      </div>
+    </section>
+
+    <section class="break">
+      <hr />
+    </section>
+
+    <section class="summary">
+      <h2>Invoice Summary</h2>
+      <table>
+        <tr>
+          <th>Description</th>
+          <th>Amount</th>
+        </tr>
+        <tr class="charge">
+          <td>
+            <p><%= @charge["description"] %></p>
+            <small><%= @charge["token"] %></small>
+          </td>
+          <td><%= @amount %></td>
+        </tr>
+        <tr>
+          <td class="text-right">Subtotal</td>
+          <td><%= @amount %></td>
+        </tr>
+        <% if @payment_options["discount"] %>
+        <tr class="discount">
+          <td class="text-right"><%= @payment_options["discount"]["name"] %></td>
+          <td><%= @payment_options["discount"]["amount"] %></td>
+        </tr>
+        <% end %>
+
+        <% if @payment_options["fee"] %>
+        <tr class="fee">
+          <td class="text-right"><% @payment_options["fee"]["name"] %></td>
+          <td><%= @payment_options["fee"]["amount"] %></td>
+        </tr>
+        <% end %>
+
+        <% if @payment_options["tax"] %>
+        <tr>
+          <td class="text-right"><% @payment_options["tax"]["name"] %></td>
+          <td><%= @payment_options["tax"]["amount"] %></td>
+        </tr>
+        <% end %>
+
+        <tr>
+          <td class="text-right">Total</td>
+          <td>$<%= @charge["amount"].to_f / 100.00 %></td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="break">
+      <hr />
+    </section>
+
+    <section class="info">
+      <h2 class="center">That's it!</h2>
+      <p>If this paid invoice is correct, you do not need to take any further action.</p>
+      <p>Your credit card <em><%= @charge["card"]["display_number"] %></em> has been charged.</p>
+      <p>Payment processed by <a href="https://pin.net.au" target="_blank">Pin Payments.</a></p>
+      <p>Thank You.</p>
+      <div class="full center">
+        <img src="#" class="logo">
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

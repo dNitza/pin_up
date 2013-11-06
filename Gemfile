@@ -1,10 +1,7 @@
 source "http://rubygems.org"
-# Add dependencies required to use your gem here.
-# Example:
-  gem "httparty"
 
-# Add dependencies to develop your gem here.
-# Include everything needed to run rake, tests, features, etc.
+gem "httparty"
+
 group :development do
   gem "shoulda", ">= 0"
   gem "rdoc", "~> 3.12"
@@ -14,6 +11,7 @@ group :development do
   gem "simplecov", ">= 0"
   gem "webmock"
   gem "vcr"
-  gem 'guard-rspec'
-  gem 'terminal-notifier-guard'
+  gem "guard-rspec"
+  gem "terminal-notifier-guard"
+  gem "capybara"
 end

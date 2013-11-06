@@ -151,8 +151,9 @@ run
 
     rspec spec/*.rb
 
-## Todo
+## To do
 
+  * Flesh out receipts - handle failed transactions and refunds
   * Validate a response before it gets sent to Pin (eg. Update customer)
 
 ## Contributing to pin_up

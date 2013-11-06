@@ -4,6 +4,7 @@ SimpleCov.start
 require 'rubygems'
 require 'bundler/setup'
 require 'webmock/rspec'
+require 'capybara/rspec'
 require 'vcr'
 
 require "net/https"
@@ -11,7 +12,8 @@ require "uri"
 
 ## Uncomment to load in a .yml with your pin key
 # ENV.update YAML.load(File.read(File.expand_path("../test_data.yml", __FILE__)))
-# gem
+
+# require pin_up gem
 require 'pin_up'
 
 RSpec.configure do |config|

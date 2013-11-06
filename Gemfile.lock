@@ -10,6 +10,12 @@ GEM
     addressable (2.3.5)
     atomic (1.1.10)
     builder (3.2.2)
+    capybara (2.1.0)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
     coderay (1.0.9)
     crack (0.4.0)
       safe_yaml (~> 0.9.0)
@@ -60,6 +66,7 @@ GEM
       rb-kqueue (>= 0.2)
     lumberjack (1.0.3)
     method_source (0.8.1)
+    mime-types (1.25)
     minitest (4.7.5)
     multi_json (1.7.7)
     multi_xml (0.5.4)
@@ -77,6 +84,8 @@ GEM
       method_source (~> 0.8)
       slop (~> 3.4)
     rack (1.5.2)
+    rack-test (0.6.2)
+      rack (>= 1.0)
     rake (10.1.0)
     rb-fsevent (0.9.3)
     rb-inotify (0.9.0)
@@ -114,11 +123,14 @@ GEM
     webmock (1.12.3)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  capybara
   guard-rspec
   httparty
   jeweler (~> 1.8.4)
