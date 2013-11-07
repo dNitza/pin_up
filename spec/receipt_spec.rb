@@ -21,4 +21,14 @@ describe "Receipt", :vcr, class: Pin::Receipt do
     expect @receipt.send(:number_to_currency, 1989, 'null').should match(/[$,£,€]\d{1,}[.]\d{2}/)
   end
 
+  it "should print payment option information" do
+    payment_options = {}
+    payment_options["fee"] = {"name" => "late fee", "amount" => "$10.00"}
+    payment_options["tax"] = {"name" => "GST", "amount" => "$10.00"}
+    payment_options["discount"] = {"name" => "Member Discount", "amount" => "$10.00"}
+
+    @detailed_receipt = Pin::Receipt.new(@charge, @company_details, nil, payment_options)
+    expect @detailed_receipt.render().should include("GST")
+  end
+
 end

@@ -176,14 +176,14 @@
 
         <% if @payment_options["fee"] %>
         <tr class="fee">
-          <td class="text-right"><% @payment_options["fee"]["name"] %></td>
+          <td class="text-right"><%= @payment_options["fee"]["name"] %></td>
           <td><%= @payment_options["fee"]["amount"] %></td>
         </tr>
         <% end %>
 
         <% if @payment_options["tax"] %>
         <tr>
-          <td class="text-right"><% @payment_options["tax"]["name"] %></td>
+          <td class="text-right"><%= @payment_options["tax"]["name"] %></td>
           <td><%= @payment_options["tax"]["amount"] %></td>
         </tr>
         <% end %>
