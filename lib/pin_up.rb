@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'httparty'
 require 'json'
 require 'erb'
