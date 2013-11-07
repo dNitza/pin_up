@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Pin
   ##
   # This class lets you generate and save receipts from a Pin::Charge.
