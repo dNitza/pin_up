@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title><%= @company_name %></title>
+  <title><%= @details[0] %></title>
   <style type="text/css">
     body{
       font-family: "Helvetica", arial, sans-serif;
@@ -205,9 +205,11 @@
       <p>Your credit card <em><%= @charge["card"]["display_number"] %></em> has been charged.</p>
       <p>Payment processed by <a href="https://pin.net.au" target="_blank">Pin Payments.</a></p>
       <p>Thank You.</p>
-      <div class="full center">
-        <img src="#" class="logo">
-      </div>
+      <% unless @logo == '' %>
+        <div class="full center">
+          <img src="<%= @logo %>" class="logo">
+        </div>
+      <% end %>
     </section>
 
   </div>

@@ -8,14 +8,18 @@ module Pin
     # Args:
     #  charge: Charge hash from Pin::Charge.find
     #  your_details: (Array), an Array of details you would like displayed about you or your company
-    #  payment_options: (Hash), If your charge had extra components (such as late fees or discounts or taxes) pass them in here as a hash
-    # eg.  payment_options: {"fee": {name: "foo", amount: "bar"},
-    #                       {"tax": {name: "foo", amount: "bar"},
-    #                       {"discount": {name: "foo", amount: "bar"}
+    #  payment_options: (Hash), If your charge had extra components (such as late fees or discounts or taxes) pass them in here as a hash eg:
+    #
+    #     payment_options = {}
+    #     payment_options["fee"] = {"name" => "late fee", "amount" => "$10.00"}
+    #     payment_options["tax"] = {"name" => "GST", "amount" => "$10.00"}
+    #     payment_options["discount"] = {"name" => "Member Discount", "amount" => "$10.00"}
+    #
     #  template_path: (String), path to your own template if you wish to design your own receipt (take a look at the included template for variable names)
     #  save_path: (String), path that the HTML receipt will be saved
-    def initialize(charge, your_details, payment_options={}, template_path = 'views/receipt.html.erb', save_path = 'tmp/receipt.html')
+    def initialize(charge, your_details, logo_path='', payment_options={}, template_path = 'views/receipt.html.erb', save_path = 'tmp/receipt.html')
       @charge = charge
+      @logo = logo_path
       @details = your_details
       @payment_options = payment_options
       @template_path = template_path if template_path

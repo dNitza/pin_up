@@ -140,6 +140,29 @@ Will return a card_token that can be stored against a customer.
 
 Only use this method if you're comfortable sending card details to your server - otherwise you can use a form that Pin provides (https://pin.net.au/docs/guides/payment-forms) and get the card_token that way.
 
+## Receipts
+
+One of the things I've found lacking with Pin is the ability to generate a receipt for a sale. So I've added this functionality into pin_up.
+
+At the moment basic receipt creation from a succesful charge is supported, however, I'd like to build out this feature and include failed transactions and refunds.
+
+There are two ways to go about creating and viewing / sharing a receipt.
+
+##### Rendering a receipt
+
+###### Basic Usage:
+
+The following will return a HTML receipt for you to do with as you wish.
+
+    @charge = Pin::Charges.find("token")
+    @company_details = ["ABC Widgets", "123 Fake Street Melbourne","VIC 3000", "ABN: 12 345 678 910"]
+    @receipt = Pin::Receipt.new(@charge, @company_details)
+    @receipt.render()
+
+
+
+##### Saving a receipt
+
 ## Testing localy
 Create a YAML file under 'spec' called 'test_data.yml' and add in:
 
