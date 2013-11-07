@@ -16,6 +16,7 @@ describe "Receipt", :vcr, class: Pin::Receipt do
   it "should save an index.html file for the receipt" do
     @receipt.save()
     File.read('tmp/receipt.html').should include(@charge["token"])
+    File.delete('tmp/receipt.html')
   end
 
   it "should format a number as a currency" do
