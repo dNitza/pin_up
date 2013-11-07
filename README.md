@@ -148,20 +148,44 @@ At the moment basic receipt creation from a succesful charge is supported, howev
 
 There are two ways to go about creating and viewing / sharing a receipt.
 
-##### Rendering a receipt
+#### Rendering a receipt as HTML
 
-###### Basic Usage:
+##### Basic Usage:
 
 The following will return a HTML receipt for you to do with as you wish.
 
     @charge = Pin::Charges.find("token")
-    @company_details = ["ABC Widgets", "123 Fake Street Melbourne","VIC 3000", "ABN: 12 345 678 910"]
+    @company_details = ["ABC Widgets","123 Fake Street Melbourne","VIC 3000","ABN: 12 345 678 910"]
     @receipt = Pin::Receipt.new(@charge, @company_details)
     @receipt.render()
 
+Your "comapny_details" can be replaced with whatever information you wish to be displayed at the top right hand side (see `tmp/receipt.html`).
+
+##### Advanced Usage:
+
+There are four additional options that can be passed to `Pin::Receipt.new`.
+
+The first is the path to your logo should you wish to include it in the footer.
+
+The second is some additional payment information you might want to add (such as tax, fee or discount information). This can be done by passing a hash in as argument 4 eg:
+
+    payment_options = {}
+    payment_options["fee"] = {"name" => "late fee", "amount" => "$10.00"}
+    payment_options["tax"] = {"name" => "GST", "amount" => "$10.00"}
+    payment_options["discount"] = {"name" => "Member Discount", "amount" => "$10.00"}
+
+A path to a custom receipt template can be passed in as the 5th argument, while a path that you would like the receipt to be saved to can be passed in as the 6th argument.
 
 
 ##### Saving a receipt
+
+To save a receipt it's exactky the same as above, just call `save` instead of render. By default, a receipt will be saved into `tmp/receipt.html` unless a path is specified.
+
+If you would like a PDF receipt, you should be able to "print as PDF" from a browser dialog.
+
+##### Custom receipt template
+
+If you would like you can use a custom receipt template to suit your branding or design needs. To get an idea of which variables are available, take a look at  `/views/receit.html.erb`
 
 ## Testing localy
 Create a YAML file under 'spec' called 'test_data.yml' and add in:
