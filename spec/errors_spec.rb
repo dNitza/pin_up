@@ -11,7 +11,7 @@ describe "Errors", :vcr, class: Pin::PinError do
 
   it "should raise a 422 error when trying to update missing a param" do
     options = {email: "dNitza@gmail.com", card: {address_line1: "12345 Fake Street", expiry_month: "05", expiry_year: "2014", cvc: "123", name: "Daniel Nitsikopoulos", address_city: "Melbourne", address_postcode: "1234", address_state: "VIC", address_country: "Australia"}}
-    expect{Pin::Customer.update('cus_sRtAD2Am-goZoLg1K-HVpA', options)}.to raise_error(Pin::InvalidResource, "card_number_invalid: Card number is required")
+    expect{Pin::Customer.update('cus_sRtAD2Am-goZoLg1K-HVpA', options)}.to raise_error(Pin::InvalidResource, "card_number_invalid: Card number can't be blank")
   end
 
   it "should raise a 422 error when trying to make a payment with an expired card" do
@@ -27,14 +27,14 @@ describe "Errors", :vcr, class: Pin::PinError do
         address_state: "WA",
         address_country: "Australia",
       }}
-    expect{Pin::Charges.create(options)}.to raise_error(Pin::InvalidResource, "card_expiry_year_invalid: Card expiry year expired")
+    expect{Pin::Charges.create(options)}.to raise_error(Pin::InvalidResource, "card_expiry_month_invalid: Card expiry month is expiredcard_expiry_year_invalid: Card expiry year is expired")
   end
 
   it "should raise a 400 error when trying to make a payment and a valid card gets declined" do
     options = {email: "dNitza@gmail.com", description: "A new charge from testing Pin gem", amount: "400", currency: "AUD", ip_address: "127.0.0.1", card: {
         number: "5560000000000001",
         expiry_month: "05",
-        expiry_year: "2014",
+        expiry_year: "2018",
         cvc: "123",
         name: "Roland Robot",
         address_line1: "42 Sevenoaks St",
@@ -59,7 +59,7 @@ describe "Errors", :vcr, class: Pin::PinError do
         address_state: "WA",
         address_country: "Australia",
       }}
-    expect{Pin::Charges.create(options)}.to raise_error(Pin::InvalidResource, "card_number_invalid: Card number is not a valid credit card number")
+    expect{Pin::Charges.create(options)}.to raise_error(Pin::InvalidResource, "card_number_invalid: Card number is not a valid Pin Payments test card number.                           See https://pin.net.au/docs/api/test-cards")
   end
 
   it "Should raise a ResourceNotFound error when can't find customer" do
