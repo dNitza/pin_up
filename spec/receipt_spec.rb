@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe "Receipt", :vcr, class: Pin::Receipt do
