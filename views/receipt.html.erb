@@ -167,21 +167,21 @@
           <td class="text-right">Subtotal</td>
           <td><%= @amount %></td>
         </tr>
-        <% if @payment_options["discount"] %>
+        <% if @payment_options && @payment_options["discount"] %>
         <tr class="discount">
           <td class="text-right"><%= @payment_options["discount"]["name"] %></td>
           <td><%= @payment_options["discount"]["amount"] %></td>
         </tr>
         <% end %>
 
-        <% if @payment_options["fee"] %>
+        <% if @payment_options && @payment_options["fee"] %>
         <tr class="fee">
           <td class="text-right"><%= @payment_options["fee"]["name"] %></td>
           <td><%= @payment_options["fee"]["amount"] %></td>
         </tr>
         <% end %>
 
-        <% if @payment_options["tax"] %>
+        <% if @payment_options && @payment_options["tax"] %>
         <tr>
           <td class="text-right"><%= @payment_options["tax"]["name"] %></td>
           <td><%= @payment_options["tax"]["amount"] %></td>
