@@ -59,7 +59,7 @@ describe "Errors", :vcr, class: Pin::PinError do
         address_state: "WA",
         address_country: "Australia",
       }}
-    expect{Pin::Charges.create(options)}.to raise_error(Pin::InvalidResource, "card_number_invalid: Card number is not a valid Pin Payments test card number.                           See https://pin.net.au/docs/api/test-cards")
+    expect{Pin::Charges.create(options)}.to raise_error(Pin::InvalidResource, "card_number_invalid: Card number is not a valid Visa or Mastercard number")
   end
 
   it "Should raise a ResourceNotFound error when can't find customer" do
