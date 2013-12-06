@@ -21,9 +21,13 @@ module Pin
         raise(Pin::ResourceNotFound, "#{response['error_description']}")
       when 422
         message = ""
-        response['messages'].each do |m|
-          message += "#{m['code']}: #{m['message']}"
-        end
+          begin
+            response['messages'].each do |m|
+              message += "#{m['code']}: #{m['message']}"
+            end             
+           rescue
+             message = "#{response['error']}: #{response['error_description']}. Amount: #{response['messages']['amount'][0]}"
+           end 
         raise(Pin::InvalidResource, message)
       end
     end

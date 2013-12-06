@@ -66,4 +66,17 @@ describe "Errors", :vcr, class: Pin::PinError do
     expect{Pin::Customer.charges("foo")}.to raise_error(Pin::ResourceNotFound, "The requested resource could not be found.")
   end
 
+
+  it "should raise a 422 error if no 2nd argument is given" do
+    options = {email: "dNitza@gmail.com", description: "A new charge from testing Pin gem", amount: "400", currency: "AUD", ip_address: "127.0.0.1", customer_token: "cus_8ImkZdEZ6BXUA6NcJDZg_g"   }
+    @charge = Pin::Charges.create(options)    
+    expect{Pin::Refund.create(@charge['token'])}.to raise_error(Pin::InvalidResource, "invalid_resource: One or more parameters were missing or invalid. Amount: can't be blank")
+  end  
+
+  xit "should raise a 422 error if a value of < 100 is given" do
+    options = {email: "dNitza@gmail.com", description: "A new charge from testing Pin gem", amount: "400", currency: "AUD", ip_address: "127.0.0.1", customer_token: "cus_8ImkZdEZ6BXUA6NcJDZg_g"   }
+    @charge = Pin::Charges.create(options)    
+    expect{Pin::Refund.create(@charge['token'], 90)}.to raise_error(Pin::InvalidResource, "One or more parameters were missing or invalid")
+  end  
+
 end

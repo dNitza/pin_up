@@ -18,17 +18,10 @@ describe "Refund", :vcr, class: Pin::Refund do
     Pin::Refund.find('ch_S_3tP81Q9_sDngSv27gShQ',1,true)[:response].should_not == []
   end
 
-  xit "should create a refund for a given amount and charge" do
-    @charge = Pin::Charges.search({query: "1000"})[2]
+  it "should create a refund for a given amount and charge" do
+    options = {email: "dNitza@gmail.com", description: "A new charge from testing Pin gem", amount: "400", currency: "AUD", ip_address: "127.0.0.1", customer_token: "cus_8ImkZdEZ6BXUA6NcJDZg_g"   }
+    @charge = Pin::Charges.create(options)
     Pin::Refund.create(@charge['token'], "400")['amount'].should == 400
-  end
-
-  #having issues with Pin raising a 500 error with this one.
-  xit "should create a refund for the entire amount of a charge if no amount given" do
-    @charge = Pin::Charges.search({query: "1000"})[1]
-    @refund = Pin::Refund.create(@charge['token'])
-    raise @refund.inspect
-    @refund['amount'].should == @charge['amount']
   end
 
 end
