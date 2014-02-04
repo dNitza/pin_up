@@ -24,10 +24,15 @@ module Pin
           begin
             response['messages'].each do |m|
               message += "#{m['code']}: #{m['message']}"
-            end             
+            end
            rescue
-             message = "#{response['error']}: #{response['error_description']}. Amount: #{response['messages']['amount'][0]}"
-           end 
+            begin response['messages']['amount'][0]
+              message = "#{response['error']}: #{response['error_description']}. Amount: #{response['messages']['amount'][0]}"
+            rescue
+              message = "#{response['error']}: #{response['error_description']}"
+            end
+
+           end
         raise(Pin::InvalidResource, message)
       end
     end
