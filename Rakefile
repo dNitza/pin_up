@@ -17,13 +17,12 @@ Jeweler::Tasks.new do |gem|
   gem.name = "pin_up"
   gem.homepage = "http://github.com/dNitza/pin_up"
   gem.license = "MIT"
-  gem.summary = %Q{A Ruby gem wrapper for the pin-payments (pin.net.au) API}
+  gem.summary = %Q{A Ruby gem wrapper for the pin-payments API}
   gem.description = %Q{A Ruby gem wrapper for the pin-payments (pin.net.au) API}
   gem.email = "dnitza@gmail.com"
   gem.authors = ["Daniel Nitsikopoulos"]
   # dependencies defined in Gemfile
   gem.files.exclude(Dir.glob('spec/vcr/*.yml'))
-  gem.add_dependency "httparty"
 end
 Jeweler::RubygemsDotOrgTasks.new
 

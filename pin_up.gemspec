@@ -58,7 +58,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/dNitza/pin_up"
   s.licenses = ["MIT"]
   s.rubygems_version = "2.2.0"
-  s.summary = "A Ruby gem wrapper for the pin-payments (pin.net.au) API"
+  s.summary = "A Ruby gem wrapper for the pin-payments API"
 
   if s.respond_to? :specification_version then
     s.specification_version = 4
@@ -75,7 +75,6 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<guard-rspec>, ["~> 3.0.2"])
       s.add_development_dependency(%q<terminal-notifier-guard>, ["~> 1.5.3"])
       s.add_development_dependency(%q<capybara>, ["~> 2.1.0"])
-      s.add_runtime_dependency(%q<httparty>, [">= 0"])
     else
       s.add_dependency(%q<httparty>, ["= 0.11.0"])
       s.add_dependency(%q<shoulda>, ["~> 3.5"])
@@ -88,7 +87,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<guard-rspec>, ["~> 3.0.2"])
       s.add_dependency(%q<terminal-notifier-guard>, ["~> 1.5.3"])
       s.add_dependency(%q<capybara>, ["~> 2.1.0"])
-      s.add_dependency(%q<httparty>, [">= 0"])
     end
   else
     s.add_dependency(%q<httparty>, ["= 0.11.0"])
@@ -102,7 +100,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<guard-rspec>, ["~> 3.0.2"])
     s.add_dependency(%q<terminal-notifier-guard>, ["~> 1.5.3"])
     s.add_dependency(%q<capybara>, ["~> 2.1.0"])
-    s.add_dependency(%q<httparty>, [">= 0"])
   end
 end
 
