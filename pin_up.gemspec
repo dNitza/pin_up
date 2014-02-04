@@ -58,7 +58,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/dNitza/pin_up"
   s.licenses = ["MIT"]
   s.rubygems_version = "2.2.0"
-  s.summary = "A Ruby gem wrapper for the pin-payments API"
+  s.summary = "A Ruby gem wrapper for the pin-payments (pin.net.au) API"
 
   if s.respond_to? :specification_version then
     s.specification_version = 4
