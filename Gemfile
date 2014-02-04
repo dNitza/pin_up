@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem "httparty"
+gem "httparty", ">= 0.11.0"
 
 group :development do
   gem "shoulda", "~> 3.5"
