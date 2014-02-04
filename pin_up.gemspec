@@ -64,7 +64,7 @@ Gem::Specification.new do |s|
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<httparty>, [">= 0.11.0"])
+      s.add_runtime_dependency(%q<httparty>, ["~> 0.11.0"])
       s.add_development_dependency(%q<shoulda>, ["~> 3.5"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_development_dependency(%q<rspec>, ["~> 2.13"])
@@ -73,9 +73,8 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<webmock>, ["~> 1.12.3"])
       s.add_development_dependency(%q<vcr>, ["~> 2.5.0"])
       s.add_development_dependency(%q<guard-rspec>, ["~> 3.0.2"])
-      s.add_development_dependency(%q<terminal-notifier-guard>, [">= 0"])
       s.add_development_dependency(%q<capybara>, ["~> 2.1.0"])
-      s.add_runtime_dependency(%q<httparty>, [">= 0"])
+
     else
       s.add_dependency(%q<httparty>, [">= 0.11.0"])
       s.add_dependency(%q<shoulda>, ["~> 3.5"])
