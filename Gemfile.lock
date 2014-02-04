@@ -130,14 +130,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  capybara
-  guard-rspec
+  capybara (~> 2.1.0)
+  guard-rspec (~> 3.0.2)
   httparty
   jeweler (~> 1.8.4)
   rdoc (~> 3.12)
-  rspec
-  shoulda
+  rspec (~> 2.13)
+  shoulda (~> 3.5)
   simplecov
   terminal-notifier-guard
-  vcr
-  webmock
+  vcr (~> 2.5.0)
+  webmock (~> 1.12.3)
