@@ -43,5 +43,15 @@ module Pin
     def self.create(options = {})
       build_response(auth_post("charges", options))
     end
+
+    # Captures a previously authorised charge and returns its details.
+    # args: charge-token (String)
+    # returns: charge object
+    # https://pin.net.au/docs/api/charges#put-charges
+
+    def self.capture(token)
+      build_response(auth_put("/charges/#{token}/capture"))
+    end
+
   end
 end

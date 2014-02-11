@@ -33,4 +33,15 @@ describe "Charge", :vcr, class: Pin::Charges do
   it "should list charges on a page given a page" do
     Pin::Charges.all(1).should_not == []
   end
+
+  it "should create a pre-auth (capture a charge)" do
+    options = {email: "dNitza@gmail.com", description: "A new captured charge from testing Pin gem", amount: "400", currency: "AUD", ip_address: "127.0.0.1", customer_token: "cus_8ImkZdEZ6BXUA6NcJDZg_g", capture: false   }
+    Pin::Charges.create(options)["captured"].should eq false
+  end
+
+  it "should capture a charge" do
+    options = {email: "dNitza@gmail.com", description: "A new captured charge from testing Pin gem", amount: "400", currency: "AUD", ip_address: "127.0.0.1", customer_token: "cus_8ImkZdEZ6BXUA6NcJDZg_g", capture: false   }
+    token = Pin::Charges.create(options)["token"]
+    Pin::Charges.capture(token)["success"].should eq true
+  end
 end
