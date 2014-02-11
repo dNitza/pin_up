@@ -51,6 +51,16 @@ See https://pin.net.au/docs/api/charges#search-charges for a full list of option
 
     Pin::Charges.create(charge)
 
+##### Authorise A Charge (but don't charge it yet)
+Also known as a pre-auth, this will hold a charge to be captured by for up to 5 days
+
+    charge = {email: "email@example.com", description: "Description", amount: "400", currency: "AUD", ip_address: "127.0.0.1", customer_token: "cus_token"  capture: false }
+
+    Pin::Charges.create(charge)
+
+##### Capture an authorised charge
+    Pin::Charges.capture(charge)
+
 ### Customers
 ##### List All Customers
     Pin::Customer.all
