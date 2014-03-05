@@ -21,7 +21,7 @@ module Pin
       when 404
         fail(Pin::ResourceNotFound, "#{response['error_description']}")
       when 422
-        handle_bad_response(response, message)
+        message = handle_bad_response(response)
         fail(Pin::InvalidResource, message)
       end
     end
@@ -39,7 +39,7 @@ module Pin
           message = "#{response['error']}: #{response['error_description']}"
         end
       end
-      response
+      message
     end
   end
 
