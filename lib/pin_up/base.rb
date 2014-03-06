@@ -4,9 +4,6 @@ module Pin
   # utility methods to be shared between classes.
   class Base
     include HTTParty
-    # class << self
-    attr_accessor :base_url, :auth
-    # end
 
     attr_reader :key
     ##
@@ -19,7 +16,7 @@ module Pin
     def initialize(key = '', env = :live)
       @key = key
       env = env.to_sym
-      @@auth = { username: key, password: '' }
+      @@auth = { username: @key, password: '' }
       @@base_url = if env == :live
         'https://api.pin.net.au/1/'
       elsif env == :test
@@ -31,11 +28,11 @@ module Pin
 
     ##
     # Provides access to the base URL if needed
-    def base_url
+    def base_uri
       @@base_url
     end
 
-    protected
+    # protected
 
     ##
     # Sends an authorised GET request to pins server

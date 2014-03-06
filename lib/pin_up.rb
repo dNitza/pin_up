@@ -2,6 +2,7 @@ require 'httparty'
 require 'json'
 require 'erb'
 
+require 'pin_up/utils'
 require 'pin_up/base'
 require 'pin_up/card'
 require 'pin_up/charge'
