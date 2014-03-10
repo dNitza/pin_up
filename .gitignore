@@ -2,6 +2,9 @@
 coverage
 coverage.data
 
+# Rubocop
+.rubocop.yml
+
 # rdoc generated
 rdoc
 
