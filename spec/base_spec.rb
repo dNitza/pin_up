@@ -12,11 +12,11 @@ describe "Base", :vcr, class: Pin::Base do
 
   it "should set environment to live if no env set" do
     @pin = Pin::Base.new("KEY", :live)
-    expect(@pin.uri).to eq "https://api.pin.net.au/1/"
+    expect(@pin.base_url).to eq "https://api.pin.net.au/1/"
   end
 
   it "should set environment to test when set" do
-    expect(@test_pin.uri).to eq "https://test-api.pin.net.au/1/"
+    expect(@test_pin.base_url).to eq "https://test-api.pin.net.au/1/"
   end
 
   it "should raise an error if anything other than '' :live or :test is passed to a new instance" do

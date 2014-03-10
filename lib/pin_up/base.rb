@@ -1,37 +1,37 @@
 module Pin
   ##
-  # This class sets up a few things like the base URL and provides a few utility methods to be shared between classes.
+  # This class sets up a few things like the base URL and provides a few
+  # utility methods to be shared between classes.
   class Base
     include HTTParty
+    # class << self
+    attr_accessor :base_url, :auth
+    # end
 
+    attr_reader :key
     ##
     # Create a new Pin instance
     # Args:
     #  key: Your Pin secret key
-    #  env: The environment you want to use. Leave blank for live and pass in :test for test
+    #  env: The environment you want to use.
+    #    Leave blank for live and pass :test for test
     # An error is raised if an invalid env is passed in.
-    def initialize(key = "", env = :live)
+    def initialize(key = '', env = :live)
       @key = key
       env = env.to_sym
-      @@auth = {username: key, password: ''}
+      @@auth = { username: key, password: '' }
       @@base_url = if env == :live
-        "https://api.pin.net.au/1/"
+        'https://api.pin.net.au/1/'
       elsif env == :test
-        "https://test-api.pin.net.au/1/"
+        'https://test-api.pin.net.au/1/'
       else
-        raise "'env' option must be :live or :test. Leave blank for live payments"
+        fail "'env' option must be :live or :test. Leave blank for live payments"
       end
     end
 
     ##
-    # Provides access to your key if needed
-    def key
-      @key
-    end
-
-    ##
     # Provides access to the base URL if needed
-    def uri
+    def base_url
       @@base_url
     end
 
@@ -67,15 +67,19 @@ module Pin
     end
 
     ##
-    # Builds a response of a collection if the response code is 200 otherwise an empty array is returned
-    def self.build_collection_response(response, pagination=false)
+    # Builds a response of a collection if the response code is 200
+    #  otherwise an empty array is returned
+    def self.build_collection_response(response, pagination = false)
       models = []
       if response.code == 200
         if pagination
           response.parsed_response['response'].each do |model|
             models << model
           end
-          return {response: models, pagination: response.parsed_response['pagination']}
+          return {
+            response: models,
+            pagination: response.parsed_response['pagination']
+          }
         else
           response.parsed_response['response'].each do |model|
             models << model

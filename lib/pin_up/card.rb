@@ -2,7 +2,6 @@ module Pin
   ##
   # This class models Pin's Cards API
   class Card < Base
-
     ##
     # creates a card given a hash of options
     # https://pin.net.au/docs/api/cards
