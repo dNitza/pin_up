@@ -1,6 +1,5 @@
 require 'httparty'
 require 'json'
-require 'erb'
 
 require 'pin_up/base'
 require 'pin_up/card'
