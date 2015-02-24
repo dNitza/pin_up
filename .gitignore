@@ -52,6 +52,12 @@ pkg
 # For redcar:
 #.redcar
 
+# For rbenv:
+.ruby-version
+
+# For RubyMine:
+.idea/
+
 # For rubinius:
 #*.rbc
 *.gem
