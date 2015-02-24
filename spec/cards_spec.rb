@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Card', :vcr, class: Pin::Card do
+RSpec.describe 'Card', :vcr, class: Pin::Card do
   before(:each) do
     Pin::Base.new(ENV['PIN_SECRET'], :test)
   end

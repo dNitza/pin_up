@@ -12,7 +12,7 @@ module Pin
     #
     # https://pin.net.au/docs/api/customers#get-customers
     def self.all(page = nil, pagination = false)
-      build_collection_response(auth_get("customers?page=#{page}"), pagination)
+      build_collection_response(make_request(:get, {url: "customers?page=#{page}" } ), pagination)
     end
 
     ##
@@ -27,7 +27,7 @@ module Pin
         { card_token: card }
       end.merge(email: email)
 
-      build_response(auth_post('customers', options))
+      build_response(make_request(:post, { url: 'customers', options: options }))
     end
 
     ##
@@ -36,7 +36,7 @@ module Pin
     # returns: a customer object
     # https://pin.net.au/docs/api/customers#get-customers
     def self.find(token)
-      build_response(auth_get("customers/#{token}"))
+      build_response(make_request(:get, {url: "customers/#{token}" } ))
     end
 
     ##
@@ -48,7 +48,7 @@ module Pin
     # NB: When providing a card (hash), you need to specify
     # the full list of details.
     def self.update(token, options = {})
-      build_response(auth_put("customers/#{token}", options))
+      build_response(make_request(:put, { url: "customers/#{token}", options: options }))
     end
 
     ##
@@ -62,7 +62,7 @@ module Pin
     # https://pin.net.au/docs/api/customers#get-customers-charges
     def self.charges(token, page = nil, pagination = false)
       build_collection_response(
-        auth_get("customers/#{token}/charges?page=#{page}"), pagination
+        make_request(:get, {url: "customers/#{token}/charges?page=#{page}" }), pagination
       )
     end
   end

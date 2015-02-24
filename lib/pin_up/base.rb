@@ -32,25 +32,16 @@ module Pin
       @@base_url
     end
 
-    # protected
-
     ##
-    # Sends an authorised GET request to pins server
-    # args: url (eg: 'charges' or 'charges/token')
-    def self.auth_get(url, token = nil)
-      HTTParty.get("#{@@base_url}#{url}", basic_auth: @@auth)
-    end
-
-    ##
-    # Sends an authorised POST request to pins server
-    def self.auth_post(url, options = {})
-      HTTParty.post("#{@@base_url}#{url}", body: options, basic_auth: @@auth)
-    end
-
-    ##
-    # Sends an authorised PUT request to pins server
-    def self.auth_put(url, options = {})
-      HTTParty.put("#{@@base_url}#{url}", body: options, basic_auth: @@auth)
+    # Sends an authenticated request to pin's server
+    # args: method (Symbol), args (Hash)
+    # eg. args => { url: 'cards', options: { ... } }
+    def self.make_request(method, args)
+      if %i(get post put patch delete).include? method
+        HTTParty.send(method, "#{@@base_url}#{args[:url]}", body: args[:options], basic_auth: @@auth)
+      else
+        Pin::PinError.handle_bad_request
+      end
     end
 
     ##

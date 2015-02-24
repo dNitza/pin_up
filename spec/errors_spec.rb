@@ -10,8 +10,8 @@ describe 'Errors', :vcr, class: Pin::PinError do
   end
 
   it 'should raise a 422 error when trying to update missing a param' do
-    options = { email: 'dNitza@gmail.com', card: { address_line1: '12345 Fake Street', expiry_month: '05', expiry_year: '2014', cvc: '123', address_city: 'Melbourne', address_postcode: '1234', address_state: 'VIC', address_country: 'Australia' } }
-    expect { Pin::Customer.update('cus_sRtAD2Am-goZoLg1K-HVpA', options) }.to raise_error(Pin::InvalidResource, 'invalid_resource: One or more parameters were missing or invalid')
+    options = { email: 'dNitza@gmail.com', card: { address_line1: '12345 Fake Street', expiry_month: '05', expiry_year: '2016', cvc: '123', address_city: 'Melbourne', address_postcode: '1234', address_state: 'VIC', address_country: 'Australia' } }
+    expect { Pin::Customer.update('cus_sRtAD2Am-goZoLg1K-HVpA', options) }.to raise_error(Pin::InvalidResource, "card_number_invalid: Card number can't be blankcard_name_invalid: Card name can't be blank")
   end
 
   it 'should raise a 422 error when trying to make a payment with an expired card' do
@@ -50,7 +50,7 @@ describe 'Errors', :vcr, class: Pin::PinError do
     options = { email: 'dNitza@gmail.com', description: 'A new charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', card: {
         number: '5520000000000099',
         expiry_month: '05',
-        expiry_year: '2014',
+        expiry_year: '2019',
         cvc: '123',
         name: 'Roland Robot',
         address_line1: '42 Sevenoaks St',
@@ -69,7 +69,7 @@ describe 'Errors', :vcr, class: Pin::PinError do
   it 'should raise a 422 error if no 2nd argument is given' do
     options = { email: 'dNitza@gmail.com', description: 'A new charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', customer_token: 'cus_8ImkZdEZ6BXUA6NcJDZg_g' }
     @charge = Pin::Charges.create(options)
-    expect { Pin::Refund.create(@charge['token']) }.to raise_error(Pin::InvalidResource, 'invalid_resource: One or more parameters were missing or invalid. Amount: can\'t be blank')
+    expect { Pin::Refund.create(@charge['token']) }.to raise_error(Pin::InvalidResource, "amount_invalid: Amount can't be blankamount_invalid: Amount is not a number")
   end
 
   xit 'should raise a 422 error if a value of < 100 is given' do

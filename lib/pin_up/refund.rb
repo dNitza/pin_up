@@ -12,7 +12,7 @@ module Pin
     #
     # https://pin.net.au/docs/api/refunds#get-refunds
     def self.find(token, page = nil, pagination = false)
-      build_collection_response(auth_get("charges/#{token}/refunds?page=#{page}"), pagination)
+      build_collection_response(make_request(:get, { url: "charges/#{token}/refunds?page=#{page}" } ), pagination)
     end
 
     ##
@@ -23,7 +23,7 @@ module Pin
     # https://pin.net.au/docs/api/refunds#post-refunds
     def self.create(token, amount = nil)
       options = { amount: amount }
-      build_response(auth_post("charges/#{token}/refunds", options))
+      build_response(make_request(:post, { url: "charges/#{token}/refunds", options: options } ))
     end
   end
 end

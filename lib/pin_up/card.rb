@@ -11,7 +11,7 @@ module Pin
     # args: card_details (Hash)
     # returns: card object
     def self.create(options)
-      build_response(auth_post('cards', options))
+      build_response(make_request(:post, { url: 'cards', options: options }))
     end
   end
 end

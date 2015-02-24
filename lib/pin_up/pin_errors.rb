@@ -41,6 +41,10 @@ module Pin
       end
       message
     end
+
+    def self.handle_bad_request
+      message = "request :method must be one of get, post, put, patch or delete"
+    end
   end
 
   class ResourceNotFound < PinError

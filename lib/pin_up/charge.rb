@@ -12,7 +12,7 @@ module Pin
     #
     # https://pin.net.au/docs/api/charges#get-charges
     def self.all(page = nil, pagination = false)
-      build_collection_response(auth_get("charges?page=#{page}"), pagination)
+      build_collection_response(make_request(:get, { url: "charges?page=#{page}" }), pagination)
     end
 
     ##
@@ -21,7 +21,7 @@ module Pin
     # returns: a charge object
     # https://pin.net.au/docs/api/charges#get-charge
     def self.find(token)
-      build_response(auth_get("charges/#{token}"))
+      build_response(make_request(:get, {url: "charges/#{token}" } ))
     end
 
     # Find a charge(s) for your account given a search term or set of terms
@@ -33,7 +33,7 @@ module Pin
       options.each do |key, option|
         term += "#{key.to_s}=#{URI.encode(option)}&"
       end
-      build_response(auth_get("charges/search?#{term}"))
+      build_response(make_request(:get, {url: "charges/search?#{term}" } ))
     end
 
     # Create a charge given charge details and a card,
@@ -42,7 +42,7 @@ module Pin
     # returns: a charge object
     # https://pin.net.au/docs/api/charges#post-charges
     def self.create(options = {})
-      build_response(auth_post('charges', options))
+      build_response(make_request(:post, {url: 'charges', options: options} ))
     end
 
     # Captures a previously authorised charge and returns its details.
@@ -50,7 +50,7 @@ module Pin
     # returns: charge object
     # https://pin.net.au/docs/api/charges#put-charges
     def self.capture(token)
-      build_response(auth_put("/charges/#{token}/capture"))
+      build_response(make_request(:put, { url: "/charges/#{token}/capture" } ))
     end
   end
 end
