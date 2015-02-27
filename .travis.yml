@@ -6,3 +6,6 @@ env:
       1mlrJDZyRggBW2ENK6Kti7p196hB1WfH52SYl9dZSLABWDW9oIKo46HjymNP
       J9RERcoevctKkRGUCvyx0kvX1uN4iI56OJPXFAsYA+w0zAm/1/c=
 script: bundle exec rspec spec
+language: ruby
+rvm:
+  - 2.1.5
