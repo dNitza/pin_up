@@ -28,4 +28,10 @@ RSpec.describe 'Client', class: Pin::Client do
     expect{client.make_request}.to raise_error('Ooops!')
     expect(inner).to have_received(:make_request).exactly(3).times
   end
+
+  it 'fails if invalid http verb is used' do
+    inner = Pin::Client.new(:foo, {}, '', '')
+    client = Pin::RetryingClient.new(inner)
+    expect {client.make_request}.to raise_error(Pin::ClientError, 'request :method must be one of get, post, put, patch or delete')
+  end
 end

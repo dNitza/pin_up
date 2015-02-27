@@ -30,11 +30,11 @@ module Pin
       message = ''
       begin
         response['messages'].each do |m|
-          message += "#{m['code']}: #{m['message']}"
+          message += "#{m['code']}: #{m['message']} "
         end
       rescue
         begin response['messages']['amount'][0]
-          message = "#{response['error']}: #{response['error_description']}. Amount: #{response['messages']['amount'][0]}"
+          message = "#{response['error']}: #{response['error_description']}. Amount: #{response['messages']['amount'][0]} "
         rescue
           message = "#{response['error']}: #{response['error_description']}"
         end
@@ -43,7 +43,7 @@ module Pin
     end
 
     def self.handle_bad_request
-      message = "request :method must be one of get, post, put, patch or delete"
+      fail(Pin::ClientError, 'request :method must be one of get, post, put, patch or delete')
     end
   end
 
@@ -57,5 +57,8 @@ module Pin
   end
 
   class InsufficientPinBalance < PinError
+  end
+
+  class ClientError < PinError
   end
 end
