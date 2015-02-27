@@ -12,7 +12,7 @@ module Pin
     # args: method (Symbol), args (Hash)
     # eg. args => { url: 'cards', options: { ... } }
     def make_request(times)
-      if %i(get post put patch delete).include? @method
+      if [:get, :post, :put, :patch, :delete].include? @method
         HTTParty.send(@method, "#{@base_url}#{@args[:url]}", body: @args[:options], basic_auth: @auth)
       else
         Pin::PinError.handle_bad_request
