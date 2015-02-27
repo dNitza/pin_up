@@ -1,11 +1,12 @@
-require 'pin_up/base'
-require 'delegate'
+module Pin
+  require 'delegate'
 
-class RetryingClient < DelegateClass(Pin::Base)
-  def make_request(*, times: 3)
-    super
-  rescue
-    retry if (times -= 1) > 0
-    raise
+  class RetryingClient < DelegateClass(Pin::Client)
+    def make_request(*, times: 3)
+      super
+    rescue
+      retry if (times -= 1) > 0
+      raise
+    end
   end
 end
