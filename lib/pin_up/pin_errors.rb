@@ -15,7 +15,12 @@ module Pin
     def self.handle_error(http_status, response)
       case http_status
       when 400
-        fail(Pin::ChargeError, "#{response['error']}: #{response['error_description']}. Charge token: #{response['charge_token']}")
+        case response['error']
+        when 'cannot_delete_primary_card'
+          fail(Pin::InvalidResource, response['error_description'])
+        else
+          fail(Pin::ChargeError, "#{response['error']}: #{response['error_description']}. Charge token: #{response['charge_token']}")
+        end
       when 402
         fail(Pin::InsufficientPinBalance, "#{response['error_description']}")
       when 404

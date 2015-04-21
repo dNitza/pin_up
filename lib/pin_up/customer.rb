@@ -95,5 +95,14 @@ module Pin
 
       build_response(make_request(:post, {url: "customers/#{token}/cards", options: options} ))
     end
+
+    ##
+    # Deletes a card for customer given a card_token
+    # args: email(String), card (Hash)
+    # returns: a card object
+    # https://pin.net.au/docs/api/customers#delete-customers-card
+    def self.delete_card(token, card_token)
+      build_response(make_request(:delete, {url: "customers/#{token}/cards/#{card_token}"} ))
+    end
   end
 end
