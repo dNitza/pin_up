@@ -65,5 +65,20 @@ module Pin
         make_request(:get, {url: "customers/#{token}/charges?page=#{page}" }), pagination
       )
     end
+
+    ##
+    # Get a list of cards for a customer
+    # args: token (String), page (Fixnum), pagination (Boolean)
+    # returns: a collection of cards objects
+    #
+    # if pagination is passed, access the response hash with [:response]
+    # and the pagination hash with [:pagination]
+    #
+    # https://pin.net.au/docs/api/customers#get-customers-charges
+    def self.cards(token, page = nil, pagination = false)
+      build_collection_response(
+        make_request(:get, {url: "customers/#{token}/cards?page=#{page}" }), pagination
+      )
+    end
   end
 end
