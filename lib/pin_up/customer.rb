@@ -65,5 +65,44 @@ module Pin
         make_request(:get, {url: "customers/#{token}/charges?page=#{page}" }), pagination
       )
     end
+
+    ##
+    # Get a list of cards for a customer
+    # args: token (String), page (Fixnum), pagination (Boolean)
+    # returns: a collection of cards objects
+    #
+    # if pagination is passed, access the response hash with [:response]
+    # and the pagination hash with [:pagination]
+    #
+    # https://pin.net.au/docs/api/customers#get-customers-cards
+    def self.cards(token, page = nil, pagination = false)
+      build_collection_response(
+        make_request(:get, {url: "customers/#{token}/cards?page=#{page}" }), pagination
+      )
+    end
+
+    ##
+    # Create a card for customer given a card OR a card_token
+    # args: email(String), card (Hash)
+    # returns: a card object
+    # https://pin.net.au/docs/api/customers#post-customers-cards
+    def self.create_card(token, card)
+      options = if card.respond_to?(:to_hash)
+        { card: card.to_hash }
+      else
+        { card_token: card }
+      end
+
+      build_response(make_request(:post, {url: "customers/#{token}/cards", options: options} ))
+    end
+
+    ##
+    # Deletes a card for customer given a card_token
+    # args: email(String), card (Hash)
+    # returns: a card object
+    # https://pin.net.au/docs/api/customers#delete-customers-card
+    def self.delete_card(token, card_token)
+      build_response(make_request(:delete, {url: "customers/#{token}/cards/#{card_token}"} ))
+    end
   end
 end

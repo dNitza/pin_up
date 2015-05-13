@@ -47,6 +47,8 @@ module Pin
     def self.build_response(response)
       if response.code >= 400
         Pin::PinError.handle_error(response.code, response.parsed_response)
+      elsif response.code == 204
+        response
       else
         response.parsed_response['response']
       end
