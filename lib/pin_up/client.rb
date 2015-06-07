@@ -1,10 +1,10 @@
 module Pin
   class Client
     def initialize(method, args, base_url, auth)
-        @method = method
-        @args = args
-        @base_url = base_url
-        @auth = auth
+      @method = method
+      @args = args
+      @base_url = base_url
+      @auth = auth
     end
 
     ##

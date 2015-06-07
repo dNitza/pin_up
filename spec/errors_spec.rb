@@ -11,7 +11,7 @@ describe 'Errors', :vcr, class: Pin::PinError do
 
   it 'should raise a 422 error when trying to update missing a param' do
     options = { email: 'dNitza@gmail.com', card: { address_line1: '12345 Fake Street', expiry_month: '05', expiry_year: '2016', cvc: '123', address_city: 'Melbourne', address_postcode: '1234', address_state: 'VIC', address_country: 'Australia' } }
-    expect { Pin::Customer.update('cus_sRtAD2Am-goZoLg1K-HVpA', options) }.to raise_error(Pin::InvalidResource, "card_number_invalid: Card number can't be blank card_name_invalid: Card name can't be blank ")
+    expect { Pin::Customer.update('cus_6XnfOD5bvQ1qkaf3LqmhfQ', options) }.to raise_error(Pin::InvalidResource, "card_number_invalid: Card number can't be blank card_name_invalid: Card name can't be blank ")
   end
 
   it 'should raise a 422 error when trying to make a payment with an expired card' do
@@ -67,15 +67,22 @@ describe 'Errors', :vcr, class: Pin::PinError do
   end
 
   it 'should raise a 422 error if no 2nd argument is given' do
-    options = { email: 'dNitza@gmail.com', description: 'A new charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', customer_token: 'cus_8ImkZdEZ6BXUA6NcJDZg_g' }
+    options = { email: 'dNitza@gmail.com', description: 'A new charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', customer_token: 'cus_6XnfOD5bvQ1qkaf3LqmhfQ' }
     @charge = Pin::Charges.create(options)
     expect { Pin::Refund.create(@charge['token']) }.to raise_error(Pin::InvalidResource, "amount_invalid: Amount can't be blank amount_invalid: Amount is not a number ")
   end
 
   xit 'should raise a 422 error if a value of < 100 is given' do
-    options = { email: 'dNitza@gmail.com', description: 'A new charge from testing Pin gem', amount: '10', currency: 'AUD', ip_address: '127.0.0.1', customer_token: 'cus_8ImkZdEZ6BXUA6NcJDZg_g' }
+    options = { email: 'dNitza@gmail.com', description: 'A new charge from testing Pin gem', amount: '10', currency: 'AUD', ip_address: '127.0.0.1', customer_token: 'cus_6XnfOD5bvQ1qkaf3LqmhfQ' }
     @charge = Pin::Charges.create(options)
     expect { Pin::Refund.create(@charge['token'], 90) }.to raise_error(Pin::InvalidResource, 'amount_invalid: Amount must be more than 100 ($1.00 AUD) ')
+  end
+
+  it 'should raise a 400 error when attempting to delete customer\'s primary card' do
+    customer_token = 'cus_6XnfOD5bvQ1qkaf3LqmhfQ'
+    cards = Pin::Customer.cards(customer_token)
+    primary_card_token = cards.select{|card| card['primary'] }.first['token']
+    expect { Pin::Customer.delete_card(customer_token, primary_card_token) }.to raise_error(Pin::InvalidResource, 'You cannot delete a customer\'s primary card token')
   end
 
 end

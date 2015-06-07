@@ -29,20 +29,20 @@ describe 'Customer', :vcr, class: Pin::Customer do
     request[:response].should == []
   end
 
-  it 'should show a  customer given a token' do
-    Pin::Customer.find('cus_8ImkZdEZ6BXUA6NcJDZg_g')['token'].should == 'cus_8ImkZdEZ6BXUA6NcJDZg_g'
+  it 'should show a customer given a token' do
+    Pin::Customer.find('cus_6XnfOD5bvQ1qkaf3LqmhfQ')['token'].should == 'cus_6XnfOD5bvQ1qkaf3LqmhfQ'
   end
 
   it 'should list charges to a customer given a token' do
-    Pin::Customer.charges('cus_8ImkZdEZ6BXUA6NcJDZg_g')[0]['token'].should match(/^[a-z]{2}[_]/)
+    Pin::Customer.charges('cus_6XnfOD5bvQ1qkaf3LqmhfQ')[0]['token'].should match(/^[a-z]{2}[_]/)
   end
 
   it 'should show pagination on a page given a token and a page' do
-    Pin::Customer.charges('cus_8ImkZdEZ6BXUA6NcJDZg_g', 5, true)[:pagination]['current'] == 5
+    Pin::Customer.charges('cus_6XnfOD5bvQ1qkaf3LqmhfQ', 5, true)[:pagination]['current'] == 5
   end
 
   it 'should list charges to a customer on a page given a token and a page' do
-    Pin::Customer.charges('cus_8ImkZdEZ6BXUA6NcJDZg_g', 1, true)[:response][0]['token'].should match(/^[a-z]{2}[_]/)
+    Pin::Customer.charges('cus_6XnfOD5bvQ1qkaf3LqmhfQ', 1, true)[:response][0]['token'].should match(/^[a-z]{2}[_]/)
   end
 
   it 'should create a customer given an email and card details' do
@@ -51,13 +51,39 @@ describe 'Customer', :vcr, class: Pin::Customer do
 
   it 'should update a customer given a token and details to update' do
     options = { email: 'dNitza@gmail.com', card: { number: '5520000000000000', address_line1: '12345 Fake Street', expiry_month: '05', expiry_year: '2016', cvc: '123', name: 'Daniel Nitsikopoulos', address_city: 'Melbourne', address_postcode: '1234', address_state: 'VIC', address_country: 'Australia' } }
-    Pin::Customer.update('cus_sRtAD2Am-goZoLg1K-HVpA', options)['card']['address_line1'].should == '12345 Fake Street'
+    Pin::Customer.update('cus_6XnfOD5bvQ1qkaf3LqmhfQ', options)['card']['address_line1'].should == '12345 Fake Street'
   end
 
   it 'should create a customer given a card token customer email' do
     options = { number: '5520000000000000', expiry_month: '12', expiry_year: '2018', cvc: '123', name: 'Roland TestRobot', address_line1: '123 Fake Road', address_line2: '', address_city: 'Melbourne', address_postcode: '1223', address_state: 'Vic', address_country: 'AU' }
     @card = Pin::Card.create(options)
     Pin::Customer.create('nitza98@hotmail.com', @card['token'])['token'].should match(/^[a-z]{3}[_]/)
+  end
+
+  it 'should list all cards belonging to this customer' do
+    token = 'cus_6XnfOD5bvQ1qkaf3LqmhfQ'
+    Pin::Customer.cards(token).first['token'].should match(/(card)[_]([\w-]{22})/)
+  end
+
+  it 'should create a card given customer token and card hash' do
+    customer_token = 'cus_6XnfOD5bvQ1qkaf3LqmhfQ'
+    card = { publishable_api_key: ENV['PUBLISHABLE_SECRET'], number: '5520000000000000', expiry_month: '12', expiry_year: '2018', cvc: '123', name: 'Roland TestRobot', address_line1: '123 Fake Road', address_line2: '', address_city: 'Melbourne', address_postcode: '1223', address_state: 'Vic', address_country: 'AU' }
+    Pin::Customer.create_card(customer_token, card)['token'].should match(/(card)[_]([\w-]{22})/)
+  end
+
+  it 'should create a card then add it to a customer' do
+    options = { number: '5520000000000000', expiry_month: '12', expiry_year: '2018', cvc: '123', name: 'Roland Robot', address_line1: '123 Fake Road', address_line2: '', address_city: 'Melbourne', address_postcode: '1223', address_state: 'Vic', address_country: 'AU' }
+    card_token = Pin::Card.create(options)['token']
+    customer_token = 'cus_6XnfOD5bvQ1qkaf3LqmhfQ'
+    Pin::Customer.create_card(customer_token, card_token)['token'].should match(/(card)[_]([\w-]{22})/)
+  end
+
+  it 'should delete a card given a token' do
+    options = { number: '5520000000000000', expiry_month: '12', expiry_year: '2018', cvc: '123', name: 'Roland Robot', address_line1: '123 Fake Road', address_line2: '', address_city: 'Melbourne', address_postcode: '1223', address_state: 'Vic', address_country: 'AU' }
+    card_token = Pin::Card.create(options)['token']
+    customer_token = 'cus_6XnfOD5bvQ1qkaf3LqmhfQ'
+    Pin::Customer.create_card(customer_token, card_token)
+    Pin::Customer.delete_card(customer_token, card_token).code.should eq 204
   end
 
 end

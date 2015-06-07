@@ -4,7 +4,7 @@ SimpleCov.start
 require 'rubygems'
 require 'bundler/setup'
 require 'webmock/rspec'
-require 'capybara/rspec'
+# require 'capybara/rspec'
 require 'vcr'
 
 require 'net/https'

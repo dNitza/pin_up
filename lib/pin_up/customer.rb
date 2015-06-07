@@ -83,12 +83,12 @@ module Pin
 
     ##
     # Create a card for customer given a card OR a card_token
-    # args: email(String), card (Hash)
+    # args: customer_token (String), card (Hash) or (String) see docs.
     # returns: a card object
     # https://pin.net.au/docs/api/customers#post-customers-cards
     def self.create_card(token, card)
       options = if card.respond_to?(:to_hash)
-        { card: card.to_hash }
+        card
       else
         { card_token: card }
       end
@@ -98,7 +98,7 @@ module Pin
 
     ##
     # Deletes a card for customer given a card_token
-    # args: email(String), card (Hash)
+    # args: customer_token (String), card_token (String)
     # returns: a card object
     # https://pin.net.au/docs/api/customers#delete-customers-card
     def self.delete_card(token, card_token)
