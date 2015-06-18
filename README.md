@@ -123,6 +123,30 @@ If passing a hash of details, it must be the full list of details of the credit 
     card = Pin::Card.create(card_details)
     Pin::Customer.create('email@example.com',card['token'])
 
+##### List cards for a customer
+
+    token = 'customer_token'
+    Pin::Customer.cards(token)
+
+##### Create a card for a customer (this does not replace their primary card)
+
+    customer_token = 'customer_token'
+    card = { number: '5520000000000000', expiry_month: '12', expiry_year: '2018', cvc: '123', name: 'Roland TestRobot', address_line1: '123 Fake Road', address_line2: '', address_city: 'Melbourne', address_postcode: '1223', address_state: 'Vic', address_country: 'AU' }
+    Pin::Customer.create_card(customer_token, card)
+
+You can also use a card token rather than a card hash
+
+    customer_token = 'customer_token'
+    card_token = 'card_token'
+    Pin::Customer.create_card(customer_token, card_token)
+
+##### Delete a card given a customer and a token
+This method will raise an exception if attempting to remove the user's primary card
+    
+    customer_token = 'customer_token'
+    card_token = 'card_token'
+    Pin::Customer.delete_card(customer_token, card_token)
+
 ## Refunds
 
 ##### Find A Refund
