@@ -6,42 +6,42 @@ describe 'Charge', :vcr, class: Pin::Charges do
   end
 
   it 'should list charges in Pin' do
-    Pin::Charges.all.should_not == []
+    expect(Pin::Charges.all).to_not eq []
   end
 
   it 'should not show a charge if end_date is out of range' do
-    Pin::Charges.search(end_date: 'Mar 25, 2011').should == []
+    expect(Pin::Charges.search(end_date: 'Mar 25, 2011')).to eq []
   end
 
   it 'should create a charge given details' do
     options = { email: 'dNitza@gmail.com', description: 'A new charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', customer_token: 'cus_6XnfOD5bvQ1qkaf3LqmhfQ' }
-    Pin::Charges.create(options)['success'].should eq true
+    expect(Pin::Charges.create(options)['success']).to eq true
   end
 
   it 'should show a charge given a token' do
-    Pin::Charges.find('ch_YFEgBSs5qTIWggGt72jn7Q')['token'].should match(/^[a-z]{2}[_]/)
+    expect(Pin::Charges.find('ch_YFEgBSs5qTIWggGt72jn7Q')['token']).to match(/^[a-z]{2}[_]/)
   end
 
   it 'should show a charge given a search term' do
-    Pin::Charges.search(query: 'A new charge from testing Pin gem', end_date: 'Mar 25, 2016').should_not == []
+    expect(Pin::Charges.search(query: 'A new charge from testing Pin gem', end_date: 'Mar 25, 2016')).to_not eq []
   end
 
   it 'should return pagination if "pagination" is true' do
-    Pin::Charges.all(3, true)[:pagination]['current'] == 3
+    expect(Pin::Charges.all(3, true)[:pagination]['current']).to eq 3
   end
 
   it 'should list charges on a page given a page' do
-    Pin::Charges.all(1).should_not == []
+    expect(Pin::Charges.all(1)).to_not eq []
   end
 
   it 'should create a pre-auth (capture a charge)' do
     options = { email: 'dNitza@gmail.com', description: 'A new captured charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', customer_token: 'cus_6XnfOD5bvQ1qkaf3LqmhfQ', capture: false }
-    Pin::Charges.create(options)['captured'].should eq false
+    expect(Pin::Charges.create(options)['captured']).to eq false
   end
 
   it 'should capture a charge' do
     options = { email: 'dNitza@gmail.com', description: 'A new captured charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', customer_token: 'cus_6XnfOD5bvQ1qkaf3LqmhfQ', capture: false }
     token = Pin::Charges.create(options)['token']
-    Pin::Charges.capture(token)['success'].should eq true
+    expect(Pin::Charges.capture(token)['success']).to eq true
   end
 end

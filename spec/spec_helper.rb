@@ -11,14 +11,13 @@ require 'net/https'
 require 'uri'
 
 ## Uncomment to load in a .yml with your pin key
-# ENV.update YAML.load(File.read(File.expand_path('../test_data.yml', __FILE__)))
+ENV.update YAML.load(File.read(File.expand_path('../test_data.yml', __FILE__)))
 
 # require pin_up gem
 require 'pin_up'
 
 RSpec.configure do |config|
   config.include WebMock::API
-  config.treat_symbols_as_metadata_keys_with_true_values = true
   config.around(:each, :vcr) do |example|
     name = example
           .metadata[:full_description]
