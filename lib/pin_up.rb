@@ -9,5 +9,6 @@ require 'pin_up/customer'
 require 'pin_up/recipient'
 require 'pin_up/refund'
 require 'pin_up/retrying_client'
+require 'pin_up/transfer'
 
 require 'pin_up/pin_errors'
