@@ -15,6 +15,7 @@ doc
 # bundler
 .bundle
 .rbenv
+.rspec
 
 #test data
 spec/test_data.yml
