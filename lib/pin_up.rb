@@ -4,6 +4,7 @@ require 'json'
 require 'pin_up/base'
 
 require 'pin_up/balance'
+require 'pin_up/bank_accounts'
 require 'pin_up/card'
 require 'pin_up/charge'
 require 'pin_up/client'
