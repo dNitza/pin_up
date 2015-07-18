@@ -13,3 +13,7 @@ group :development do
   gem "guard-rspec" #, "~> 3.0.2"
   gem "terminal-notifier-guard", "~> 1.5.3"
 end
+
+group :test do
+  gem "codeclimate-test-reporter", require: nil
+end
