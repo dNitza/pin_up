@@ -175,6 +175,60 @@ Will return a card_token that can be stored against a customer.
 
 Only use this method if you're comfortable sending card details to your server - otherwise you can use a form that Pin provides (https://pin.net.au/docs/guides/payment-forms) and get the card_token that way.
 
+
+## Recipients (beta)
+The recipients API allows you to post bank account details and retrieve a token that you can safely store in your app. You can send funds to recipients using the [transfers API].
+
+##### Create a new recipient and returns its details
+`options = { email: 'hello@example.com', name: 'Roland Robot', bank_account: { name: 'Roland Robot', bsb: '123456', number: 987654321 } } `
+
+`Pin::Recipient.create(options)`
+
+##### Get a paginated list of all recipients.
+`Pin::Recipient.all `
+
+##### Get the details of a recipient.
+`Pin::Recipient.find(recipient_token) `
+
+##### Update the given details of a recipient and return its details.
+`Pin::Recipient.update(recipient_token, updated_options_hash)`
+
+##### Get a paginated list of a recipient's transfers.
+`Pin::Recipient.transfers(recipient_token) `
+
+## Transfers (beta)
+The transfers API allows you to send money to Australian bank accounts, and to retrieve details of previous transfers.
+
+##### Create a new transfer and returns its details.
+`transfer = { amount: 400, currency: 'AUD', description: 'Pay day', recipient: recipient_token } `
+
+`Pin::Transfer.create(transfer) `
+
+##### Get a paginated list of all transfers.
+`Pin::Transfer.all `
+
+##### Get the details of a transfer.
+`Pin::Transfer.find(transfer_token)`
+
+##### Get the line items associated with transfer.
+`Pin::Transfer.line_items(transfer_token)`
+
+## Balance (beta)
+The balance API allows you to see the current balance of funds in your Pin Payments account. You can use this to confirm whether a [transfer] is possible.
+
+Returns the current balance of your Pin Payments account. Transfers can only be made using the funds in the `available` balance. The `pending` amount will become available after the 7 day settlement schedule on your charges.
+
+`Pin::Balance.get `
+
+## Bank Accounts (beta)
+The bank account API allows you to securely store bank account details in exchange for a bank account token. This token can then be used to create a recipient using the [recipients API].
+A bank account token can only be used once to create a recipient. The token automatically expires after 1 month if it hasn’t been used.
+
+##### Create a bank account and return its details.
+`options = { name: 'Roland Robot', bsb: '123456', number: '987654321' } `
+
+`Pin::BankAccounts.create(options) `
+
 ## Receipts
 
 Receipts have been extracted out into their [own gem](https://github.com/dNitza/pin_up_receipts)
@@ -190,10 +244,6 @@ run
 
     rspec spec/*.rb
 
-## To do
-
-  * Validate a response before it gets sent to Pin (eg. Update customer)
-
 ## Contributing to pin_up
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
@@ -206,5 +256,5 @@ run
 
 ## Copyright
 
-Copyright (c) 2013 Daniel Nitsikopoulos. See LICENSE.txt for
+Copyright (c) Daniel Nitsikopoulos. See LICENSE.txt for
 further details.
