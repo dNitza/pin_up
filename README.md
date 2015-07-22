@@ -176,7 +176,7 @@ Will return a card_token that can be stored against a customer.
 Only use this method if you're comfortable sending card details to your server - otherwise you can use a form that Pin provides (https://pin.net.au/docs/guides/payment-forms) and get the card_token that way.
 
 
-## Recipients (beta)
+## Recipients
 The recipients API allows you to post bank account details and retrieve a token that you can safely store in your app. You can send funds to recipients using the [transfers API].
 
 ##### Create a new recipient and returns its details
@@ -196,7 +196,7 @@ The recipients API allows you to post bank account details and retrieve a token 
 ##### Get a paginated list of a recipient's transfers.
 `Pin::Recipient.transfers(recipient_token) `
 
-## Transfers (beta)
+## Transfers
 The transfers API allows you to send money to Australian bank accounts, and to retrieve details of previous transfers.
 
 ##### Create a new transfer and returns its details.
@@ -213,14 +213,14 @@ The transfers API allows you to send money to Australian bank accounts, and to r
 ##### Get the line items associated with transfer.
 `Pin::Transfer.line_items(transfer_token)`
 
-## Balance (beta)
+## Balance
 The balance API allows you to see the current balance of funds in your Pin Payments account. You can use this to confirm whether a [transfer] is possible.
 
 Returns the current balance of your Pin Payments account. Transfers can only be made using the funds in the `available` balance. The `pending` amount will become available after the 7 day settlement schedule on your charges.
 
 `Pin::Balance.get `
 
-## Bank Accounts (beta)
+## Bank Accounts
 The bank account API allows you to securely store bank account details in exchange for a bank account token. This token can then be used to create a recipient using the [recipients API].
 A bank account token can only be used once to create a recipient. The token automatically expires after 1 month if it hasn’t been used.
 
