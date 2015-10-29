@@ -23,7 +23,7 @@ If using rails add an initializer to your app:
 
     Pin::Base.new("your key")
 
-An option second paramater can be passed in to set the environment (:live or :test). The default is :live.
+An option second parameter can be passed in to set the environment (:live or :test). The default is :live.
 
 ### Charges
 ##### List All Charges
@@ -116,7 +116,7 @@ If passing a hash of details, it must be the full list of details of the credit 
     hash_of_details = {card_token: 'new_card_token'}
     Pin::Customer.update('cus_token', hash_of_details)
 
-##### Creat A Customer Given a Card Token and Email
+##### Create A Customer Given a Card Token and Email
 
     card_details = {number: "5520000000000000", expiry_month: "12", expiry_year: "2018", cvc: "123", name: "Roland TestRobot", address_line1: "123 Fake Road", address_line2: "", address_city: "Melbourne", address_postcode: "1223", address_state: "Vic", address_country: "AU"}
 
@@ -233,7 +233,7 @@ A bank account token can only be used once to create a recipient. The token auto
 
 Receipts have been extracted out into their [own gem](https://github.com/dNitza/pin_up_receipts)
 
-## Testing localy
+## Testing locally
 Create a YAML file under 'spec' called 'test_data.yml' and add in:
 
     PIN_SECRET: "your pin test secret"
