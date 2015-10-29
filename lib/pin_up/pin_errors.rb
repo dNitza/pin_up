@@ -1,7 +1,7 @@
 module Pin
   ##
-  # Base Pin Eror class
-  class PinError < Exception
+  # Base Pin Error class
+  class PinError < StandardError
     def initialize(message = nil, http_status = nil)
       @message = message
       @http_status = http_status
@@ -17,17 +17,17 @@ module Pin
       when 400
         case response['error']
         when 'cannot_delete_primary_card'
-          fail(Pin::InvalidResource, response['error_description'])
+          raise(Pin::InvalidResource, response['error_description'])
         else
-          fail(Pin::ChargeError, "#{response['error']}: #{response['error_description']}. Charge token: #{response['charge_token']}")
+          raise(Pin::ChargeError, "#{response['error']}: #{response['error_description']}. Charge token: #{response['charge_token']}")
         end
       when 402
-        fail(Pin::InsufficientPinBalance, "#{response['error_description']}")
+        raise(Pin::InsufficientPinBalance, "#{response['error_description']}")
       when 404
-        fail(Pin::ResourceNotFound, "#{response['error_description']}")
+        raise(Pin::ResourceNotFound, "#{response['error_description']}")
       when 422
         message = handle_bad_response(response)
-        fail(Pin::InvalidResource, message)
+        raise(Pin::InvalidResource, message)
       end
     end
 
@@ -48,7 +48,7 @@ module Pin
     end
 
     def self.handle_bad_request
-      fail(Pin::ClientError, 'request :method must be one of get, post, put, patch or delete')
+      raise(Pin::ClientError, 'request :method must be one of get, post, put, patch or delete')
     end
   end
 
