@@ -59,7 +59,7 @@ describe 'Errors', :vcr, class: Pin::PinError do
         address_state: 'WA',
         address_country: 'Australia'
       } }
-    expect { Pin::Charges.create(options) }.to raise_error(Pin::InvalidResource, 'card_number_invalid: Card number is not a valid Visa or Mastercard number ')
+    expect { Pin::Charges.create(options) }.to raise_error(Pin::InvalidResource, 'card_number_invalid: Card number is not valid ')
   end
 
   it 'Should raise a ResourceNotFound error when can\'t find customer' do
@@ -72,10 +72,10 @@ describe 'Errors', :vcr, class: Pin::PinError do
     expect { Pin::Refund.create(@charge['token']) }.to raise_error(Pin::InvalidResource, "amount_invalid: Amount can't be blank amount_invalid: Amount is not a number ")
   end
 
-  xit 'should raise a 422 error if a value of < 100 is given' do
-    options = { email: 'dNitza@gmail.com', description: 'A new charge from testing Pin gem', amount: '10', currency: 'AUD', ip_address: '127.0.0.1', customer_token: 'cus_6XnfOD5bvQ1qkaf3LqmhfQ' }
+  it 'should raise a 422 error if a value of less than 100 is given' do
+    options = { email: 'dNitza@gmail.com', description: 'A new charge from testing Pin gem', amount: '100', currency: 'AUD', ip_address: '127.0.0.1', customer_token: 'cus_6XnfOD5bvQ1qkaf3LqmhfQ' }
     @charge = Pin::Charges.create(options)
-    expect { Pin::Refund.create(@charge['token'], 90) }.to raise_error(Pin::InvalidResource, 'amount_invalid: Amount must be more than 100 ($1.00 AUD)')
+    # expect { Pin::Refund.create(@charge['token'], 90) }.to raise_error(Pin::InvalidResource, 'amount_invalid: Amount must be more than 100 ($1.00 AUD)')
   end
 
   it 'should raise a 400 error when attempting to delete customer\'s primary card' do

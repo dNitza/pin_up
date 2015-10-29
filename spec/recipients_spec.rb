@@ -27,10 +27,13 @@ describe Pin::Recipient, :vcr do
     expect(Pin::Recipient.update(recipient['token'], updated_options)['email']).to eq 'new_email@example.com'
   end
 
-  xit 'returns a list of recipients transfers' do
-    # disbaled until we have transfers
+  it 'returns a list of recipients transfers' do
     options = { email: 'hello@example.com', name: 'Roland Robot', bank_account: { name: 'Roland Robot', bsb: '123456', number: 987654321 } }
     recipient = Pin::Recipient.create(options)
+
+    transfer = { amount: 400, currency: 'AUD', description: 'Pay day', recipient: recipient['token'] }
+    Pin::Transfer.create(transfer)
+
     expect(Pin::Recipient.transfers(recipient['token'])).to_not eq []
   end
 end
