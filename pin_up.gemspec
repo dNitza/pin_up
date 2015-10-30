@@ -63,7 +63,7 @@ Gem::Specification.new do |s|
   if s.respond_to? :specification_version then
     s.specification_version = 4
 
-    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.1.1') then
       s.add_runtime_dependency(%q<httparty>, [">= 0.11.0"])
       s.add_development_dependency(%q<shoulda>, ["~> 3.5"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
