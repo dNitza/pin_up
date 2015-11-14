@@ -1,4 +1,4 @@
-require "codeclimate-test-reporter"
+require 'codeclimate-test-reporter'
 require 'simplecov'
 
 CodeClimate::TestReporter.start
