@@ -233,6 +233,26 @@ A bank account token can only be used once to create a recipient. The token auto
 
 Receipts have been extracted out into their [own gem](https://github.com/dNitza/pin_up_receipts)
 
+## Exceptions
+
+A number of different error types are built in:
+
+### ResourceNotFound
+The requested resource could not be found in Pin.
+
+### InvalidResource
+A number of parameters sent to Pin were invalid.
+
+### ChargeError
+Something went wrong while creating a charge in Pin. This could be due to insufficient funds, a card being declined or expired. A full list of possible errors is available [here](https://pin.net.au/docs/api/charges).
+
+### InsufficientPinBalance
+
+N.B. All of the above errors return an error object with a `message` and a `response` attribute. The response is the raw response from Pin (useful for logging).
+
+### ClientError
+An unsupported HTTP verb was used.
+
 ## Testing locally
 Create a YAML file under 'spec' called 'test_data.yml' and add in:
 
