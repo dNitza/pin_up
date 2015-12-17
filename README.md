@@ -1,5 +1,7 @@
 ## pin_up
 
+[![Join the chat at https://gitter.im/dNitza/pin_up](https://badges.gitter.im/dNitza/pin_up.svg)](https://gitter.im/dNitza/pin_up?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A Ruby gem wrapper for the pin-payments (pin.net.au) API, all of it.
 
 Support for Ruby Ruby 2.x.x
