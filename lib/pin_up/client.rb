@@ -11,7 +11,7 @@ module Pin
     # Sends an authenticated request to pin's server
     # args: method (Symbol), args (Hash)
     # eg. args => { url: 'cards', options: { ... } }
-    def make_request(times)
+    def make_request
       if %i(get post put patch delete).include? @method
         HTTParty.send(@method, "#{@base_url}#{@args[:url]}", body: @args[:options], basic_auth: @auth)
       else

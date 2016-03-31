@@ -37,9 +37,7 @@ module Pin
     # args: method (Symbol), args (Hash)
     # eg. args => { url: 'cards', options: { ... } }
     def self.make_request(method, args)
-      client = Pin::Client.new(method, args, @@base_url, @@auth)
-      retrying_client = Pin::RetryingClient.new(client)
-      retrying_client.make_request
+      Pin::Client.new(method, args, @@base_url, @@auth).make_request
     end
 
     ##

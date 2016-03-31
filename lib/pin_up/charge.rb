@@ -50,7 +50,7 @@ module Pin
     # returns: charge object
     # https://pin.net.au/docs/api/charges#put-charges
     def self.capture(token)
-      build_response(make_request(:put, { url: "/charges/#{token}/capture" } ))
+      build_response(make_request(:put, { url: "charges/#{token}/capture" } ))
     end
   end
 end

@@ -23,10 +23,9 @@ RSpec.describe 'Base', :vcr, class: Pin::Base do
     expect { Pin::Base.new('KEY', :foo) }.to raise_error(RuntimeError, "'env' option must be :live or :test. Leave blank for live payments")
   end
 
-  it 'should list succesfully connect to Pin' do
+  it 'should succesfully connect to Pin' do
     stub_request(:get, "https://#{@test_pin.key}:''@test-api.pin.net.au/1/customers")
     expect(Pin::Base.make_request(:get, { url: 'customers' }).code).to eq 200
-    # expect(Pin::Base.auth_get('customers').code).to eq 200
   end
 
 end
