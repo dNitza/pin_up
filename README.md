@@ -21,9 +21,11 @@ to your Gemfile.
 
 If using rails add an initializer to your app:
 
-    Pin::Base.new("your key")
+    Pin::Base.new("your key", :env, timeout)
 
-An option second parameter can be passed in to set the environment (:live or :test). The default is :live.
+An optional second parameter can be passed in to set the environment (:live or :test). The default is :live.
+
+An optional third parameter can be passed in to set the timeout of HTTParty in seconds. The default is `1800` (30 minutes).
 
 ### Charges
 ##### List All Charges
