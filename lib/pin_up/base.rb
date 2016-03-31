@@ -13,10 +13,11 @@ module Pin
     #  env: The environment you want to use.
     #    Leave blank for live and pass :test for test
     # An error is raised if an invalid env is passed in.
-    def initialize(key = '', env = :live)
+    def initialize(key = '', env = :live, timeout = 1800)
       @key = key
       env = env.to_sym
       @@auth = { username: @key, password: '' }
+      @@timeout = timeout
       @@base_url = if env == :live
                      'https://api.pin.net.au/1/'
                    elsif env == :test
@@ -37,7 +38,7 @@ module Pin
     # args: method (Symbol), args (Hash)
     # eg. args => { url: 'cards', options: { ... } }
     def self.make_request(method, args)
-      Pin::Client.new(method, args, @@base_url, @@auth).make_request
+      Pin::Client.new(method, args, @@base_url, @@auth, @@timeout).make_request
     end
 
     ##

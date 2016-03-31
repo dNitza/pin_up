@@ -28,4 +28,8 @@ RSpec.describe 'Base', :vcr, class: Pin::Base do
     expect(Pin::Base.make_request(:get, { url: 'customers' }).code).to eq 200
   end
 
+  it "raises a timeout error if we don't get a response in time" do
+    @test_pin = Pin::Base.new(ENV['PIN_SECRET'], :test, 0)
+    expect { Pin::Base.make_request(:get, { url: 'customers' }) }.to raise_error(Net::ReadTimeout)
+  end
 end
