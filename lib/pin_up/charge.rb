@@ -27,13 +27,19 @@ module Pin
     # Find a charge(s) for your account given a search term or set of terms
     # args: options (Hash)
     # returns: a collection of charge objects
+    #
+    # if pagination is passed, access the response hash with [:response]
+    # and the pagination hash with [:pagination]
+    #
     # https://pin.net.au/docs/api/charges#search-charges
-    def self.search(options = {})
+    def self.search(page = nil, pagination = false, **options)
       term = ''
+      options.merge! page: page if page
+
       options.each do |key, option|
-        term += "#{key.to_s}=#{URI.encode(option)}&"
+        term += "#{key.to_s}=#{URI.encode(option.to_s)}&"
       end
-      build_response(make_request(:get, {url: "charges/search?#{term}" } ))
+      build_collection_response(make_request(:get, {url: "charges/search?#{term}" } ), pagination)
     end
 
     # Create a charge given charge details and a card,

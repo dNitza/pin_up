@@ -44,8 +44,19 @@ With Pagination:
 
 ##### Find A Charge
     Pin::Charges.find("token")
-##### Search For A Charge
-    Pin::Charges.search({query: "foo", end_date: "Mar 25, 2013"})
+##### Search For Charges
+    Pin::Charges.search(query: "foo", end_date: "Mar 25, 2013")
+
+Show found charges on a particular page:
+
+    Pin::Charges.search(3, query: "foo", end_date: "Mar 25, 2013")
+
+With Pagination:
+
+    Pin::Charges.search(3, true, query: "foo", end_date: "Mar 25, 2013")
+    # request = Pin::Charges.search(3, true, query: "foo", end_date: "Mar 25, 2013")
+    # request[:response] => response hash
+    # request[:pagination] => "pagination":{"current":3,"previous":2,"next":4,"per_page":25,"pages":10,"count":239}
 
 See https://pin.net.au/docs/api/charges#search-charges for a full list of options.
 
