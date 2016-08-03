@@ -223,6 +223,22 @@ The transfers API allows you to send money to Australian bank accounts, and to r
 ##### Get the details of a transfer.
 `Pin::Transfer.find(transfer_token)`
 
+##### Search for transfers
+    Pin::Transfer.search(query: "foo", end_date: "Mar 25, 2013")
+
+Show found transfers on a particular page:
+
+    Pin::Transfer.search(3, query: "foo", end_date: "Mar 25, 2013")
+
+With Pagination:
+
+    Pin::Transfer.search(3, true, query: "foo", end_date: "Mar 25, 2013")
+    # request = Pin::Transfer.search(3, true, query: "foo", end_date: "Mar 25, 2013")
+    # request[:response] => response hash
+    # request[:pagination] => "pagination":{"current":3,"previous":2,"next":4,"per_page":25,"pages":10,"count":239}
+
+See https://pin.net.au/docs/api/transfers#search-transfers for a full list of options.
+
 ##### Get the line items associated with transfer.
 `Pin::Transfer.line_items(transfer_token)`
 
