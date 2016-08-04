@@ -14,7 +14,8 @@ describe 'Charge', :vcr, class: Pin::Charges do
   end
 
   it 'should create a charge given details' do
-    options = { email: 'dNitza@gmail.com', description: 'A new charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', customer_token: 'cus_6XnfOD5bvQ1qkaf3LqmhfQ' }
+    customer = Pin::Customer.create('email@example.com', number: '5520000000000000', expiry_month: '12', expiry_year: Time.now.year+1, cvc: '123', name: 'Roland Robot', address_line1: '123 fake street', address_city: 'Melbourne', address_postcode: '1234', address_state: 'Vic', address_country: 'Australia')
+    options = { email: 'email@example.com', description: 'A new charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', customer_token: customer['token'] }
     expect(Pin::Charges.create(options)['success']).to eq true
   end
 
@@ -43,12 +44,14 @@ describe 'Charge', :vcr, class: Pin::Charges do
   end
 
   it 'should create a pre-auth (capture a charge)' do
-    options = { email: 'dNitza@gmail.com', description: 'A new captured charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', customer_token: 'cus_6XnfOD5bvQ1qkaf3LqmhfQ', capture: false }
+    customer = Pin::Customer.create('email@example.com', number: '5520000000000000', expiry_month: '12', expiry_year: Time.now.year+1, cvc: '123', name: 'Roland Robot', address_line1: '123 fake street', address_city: 'Melbourne', address_postcode: '1234', address_state: 'Vic', address_country: 'Australia')
+    options = { email: 'email@example.com', description: 'A new captured charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', customer_token: customer['token'], capture: false }
     expect(Pin::Charges.create(options)['captured']).to eq false
   end
 
   it 'should capture a charge' do
-    options = { email: 'dNitza@gmail.com', description: 'A new captured charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', customer_token: 'cus_6XnfOD5bvQ1qkaf3LqmhfQ', capture: false }
+    customer = Pin::Customer.create('email@example.com', number: '5520000000000000', expiry_month: '12', expiry_year: Time.now.year+1, cvc: '123', name: 'Roland Robot', address_line1: '123 fake street', address_city: 'Melbourne', address_postcode: '1234', address_state: 'Vic', address_country: 'Australia')
+    options = { email: 'email@example.com', description: 'A new captured charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', customer_token: customer['token'], capture: false }
     token = Pin::Charges.create(options)['token']
     expect(Pin::Charges.capture(token)['success']).to eq true
   end
