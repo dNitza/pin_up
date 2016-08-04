@@ -21,6 +21,8 @@ module Pin
         else
           raise Pin::ChargeError.new(response)
         end
+      when 401
+        raise Pin::Unauthorized.new(response)
       when 402
         raise Pin::InsufficientPinBalance.new(response)
       when 404
@@ -62,6 +64,9 @@ module Pin
     def to_s
       @message
     end
+  end
+
+  class Unauthorized < SimpleError
   end
 
   class ResourceNotFound < SimpleError
