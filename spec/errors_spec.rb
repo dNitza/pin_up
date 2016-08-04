@@ -14,7 +14,7 @@ describe 'Errors', :vcr, class: Pin::PinError do
   end
 
   it 'should raise a 422 error when trying to update missing a param' do
-    options = { email: 'dNitza@gmail.com', card: { address_line1: '12345 Fake Street', expiry_month: '05', expiry_year: '2016', cvc: '123', address_city: 'Melbourne', address_postcode: '1234', address_state: 'VIC', address_country: 'Australia' } }
+    options = { email: 'email@example.com', card: { address_line1: '12345 Fake Street', expiry_month: '05', expiry_year: Time.now.year+1, cvc: '123', address_city: 'Melbourne', address_postcode: '1234', address_state: 'VIC', address_country: 'Australia' } }
     expect { Pin::Customer.update('cus_6XnfOD5bvQ1qkaf3LqmhfQ', options) }.to raise_error do |error|
       expect(error).to be_a Pin::InvalidResource
       expect(error.message).to eq "card_number_invalid: Card number can't be blank card_name_invalid: Card name can't be blank "
@@ -23,7 +23,7 @@ describe 'Errors', :vcr, class: Pin::PinError do
   end
 
   it 'should raise a 422 error when trying to make a payment with an expired card' do
-    options = { email: 'dNitza@gmail.com', description: 'A new charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', card: {
+    options = { email: 'email@example.com', description: 'A new charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', card: {
         number: '5520000000000000',
         expiry_month: '05',
         expiry_year: '2012',
@@ -43,7 +43,7 @@ describe 'Errors', :vcr, class: Pin::PinError do
   end
 
   it 'should raise a 400 error when trying to make a payment and a valid card gets declined' do
-    options = { email: 'dNitza@gmail.com', description: 'A new charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', card: {
+    options = { email: 'email@example.com', description: 'A new charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', card: {
         number: '5560000000000001',
         expiry_month: '05',
         expiry_year: '2018',
@@ -59,7 +59,7 @@ describe 'Errors', :vcr, class: Pin::PinError do
   end
 
   it 'should raise a 422 error when trying to make a payment with an invalid card' do
-    options = { email: 'dNitza@gmail.com', description: 'A new charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', card: {
+    options = { email: 'email@example.com', description: 'A new charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', card: {
         number: '5520000000000099',
         expiry_month: '05',
         expiry_year: '2019',
@@ -87,7 +87,8 @@ describe 'Errors', :vcr, class: Pin::PinError do
   end
 
   it 'should raise a 422 error if no 2nd argument is given' do
-    options = { email: 'dNitza@gmail.com', description: 'A new charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', customer_token: 'cus_6XnfOD5bvQ1qkaf3LqmhfQ' }
+    customer = Pin::Customer.create('email@example.com', number: '5520000000000000', expiry_month: '12', expiry_year: Time.now.year+1, cvc: '123', name: 'Roland Robot', address_line1: '123 fake street', address_city: 'Melbourne', address_postcode: '1234', address_state: 'Vic', address_country: 'Australia')
+    options = { email: 'email@example.com', description: 'A new charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', customer_token: customer['token'] }
     @charge = Pin::Charges.create(options)
     expect { Pin::Refund.create(@charge['token']) }.to raise_error do |error|
       expect(error).to be_a Pin::InvalidResource

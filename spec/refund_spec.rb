@@ -18,7 +18,8 @@ describe 'Refund', :vcr, class: Pin::Refund do
   end
 
   it 'should create a refund for a given amount and charge' do
-    options = { email: 'dNitza@gmail.com', description: 'A new charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', customer_token: 'cus_6XnfOD5bvQ1qkaf3LqmhfQ'}
+    customer = Pin::Customer.create('email@example.com', number: '5520000000000000', expiry_month: '12', expiry_year: Time.now.year+1, cvc: '123', name: 'Roland Robot', address_line1: '123 fake street', address_city: 'Melbourne', address_postcode: '1234', address_state: 'Vic', address_country: 'Australia')
+    options = { email: 'email@example.com', description: 'A new charge from testing Pin gem', amount: '400', currency: 'AUD', ip_address: '127.0.0.1', customer_token: customer['token']}
     @charge = Pin::Charges.create(options)
     expect(Pin::Refund.create(@charge['token'], '400')['amount']).to eq 400
   end
