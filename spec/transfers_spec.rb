@@ -34,4 +34,20 @@ describe Pin::Transfer, :vcr do
     transfer_token = Pin::Transfer.create(options)['token']
     expect(Pin::Transfer.find(transfer_token)['token']).to eq transfer_token
   end
+
+  it 'should not show a charge if end_date is out of range' do
+    expect(Pin::Transfer.search(end_date: 'Mar 25, 2011')).to eq []
+  end
+
+  it 'returns a paginated list of searched transfers' do
+    expect(Pin::Transfer.search(query: 'Pay day')).to_not eq []
+  end
+
+  it 'should return pagination for search if "pagination" is true' do
+    expect(Pin::Transfer.search(3, true, query: 'Pay day')[:pagination]['current']).to eq 3
+  end
+
+  it 'should list transfers for search on a page given a page' do
+    expect(Pin::Transfer.search(1, query: 'Pay day')).to_not eq []
+  end  
 end

@@ -31,6 +31,24 @@ module Pin
       build_response(make_request(:get, {url: "transfers/#{token}" } ))
     end
 
+    # Find a transfer(s) for your account given a search term or set of terms
+    # args: options (Hash)
+    # returns: a collection of transfer objects
+    #
+    # if pagination is passed, access the response hash with [:response]
+    # and the pagination hash with [:pagination]
+    #
+    # https://pin.net.au/docs/api/transfers#search-transfers
+    def self.search(page = nil, pagination = false, **options)
+      term = ''
+      options.merge! page: page if page
+
+      options.each do |key, option|
+        term += "#{key.to_s}=#{URI.encode(option.to_s)}&"
+      end
+      build_collection_response(make_request(:get, {url: "transfers/search?#{term}" } ), pagination)
+    end
+
     ##
     # Returns the line items associated with transfer.
     # args: token (String), page (Fixnum), pagination (Boolean)
