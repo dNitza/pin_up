@@ -108,4 +108,13 @@ describe 'Errors', :vcr, class: Pin::PinError do
     end
   end
 
+  it 'should raise an Unauthorized error when token is invalid' do
+    Pin::Base.new('arbitrary_token', :test)
+    expect { Pin::Customer.charges('foo') }.to raise_error do |error|
+      expect(error).to be_a Pin::Unauthorized
+      expect(error.message).to eq 'Not authorised. (Check API Key)'
+      expect(error.response).to be_a Hash
+    end
+  end
+
 end

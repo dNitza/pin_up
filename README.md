@@ -282,6 +282,9 @@ N.B. All of the above errors return an error object with a `message` and a `resp
 ### ClientError
 An unsupported HTTP verb was used.
 
+### Unauthorized
+Authorization credentials are wrong. Most likely the authorization token needs to be checked.
+
 ## Testing locally
 Create a YAML file under 'spec' called 'test_data.yml' and add in:
 
