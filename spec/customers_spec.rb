@@ -46,7 +46,7 @@ describe 'Customer', :vcr, class: Pin::Customer do
   end
 
   it 'should create a customer given an email and card details' do
-    expect(Pin::Customer.create('email@example.com', number: '5520000000000000', expiry_month: '12', expiry_year: '2016', cvc: '123', name: 'Roland Robot', address_line1: '123 fake street', address_city: 'Melbourne', address_postcode: '1234', address_state: 'Vic', address_country: 'Australia')['token']).to match(/^[a-z]{3}[_]/)
+    expect(Pin::Customer.create('email@example.com', number: '5520000000000000', expiry_month: '12', expiry_year: '2020', cvc: '123', name: 'Roland Robot', address_line1: '123 fake street', address_city: 'Melbourne', address_postcode: '1234', address_state: 'Vic', address_country: 'Australia')['token']).to match(/^[a-z]{3}[_]/)
   end
 
   it 'should update a customer given a token and details to update' do
