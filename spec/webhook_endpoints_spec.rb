@@ -24,7 +24,7 @@ RSpec.describe 'WebhookEndpoints', :vcr, class: Pin::WebhookEndpoints do
   end
 
   it 'should delete a webhook endpoint given a token' do
-    options = { url: "http://example.com/webhooks_delete/" }
+    options = { url: "http://example.com/webhooks_delete#{Time.now.to_i}/" }
     token = Pin::WebhookEndpoints.create(options)['token']
 
     expect(Pin::WebhookEndpoints.delete(token).response.code).to eq "204"
