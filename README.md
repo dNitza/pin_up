@@ -155,7 +155,7 @@ You can also use a card token rather than a card hash
 
 ##### Delete a card given a customer and a token
 This method will raise an exception if attempting to remove the user's primary card
-    
+
     customer_token = 'customer_token'
     card_token = 'card_token'
     Pin::Customer.delete_card(customer_token, card_token)
@@ -257,6 +257,24 @@ A bank account token can only be used once to create a recipient. The token auto
 `options = { name: 'Roland Robot', bsb: '123456', number: '987654321' } `
 
 `Pin::BankAccounts.create(options) `
+
+## Webhook Endpoints
+The Webhook Endpoints API allows you to create and view your webhook endpoints to enable your website to receive push notifications of events that occur on your Pin Payments account.
+
+##### Create a new webhook endpoint and returns its details.
+`options = { url: "http://example.com/webhooks/" }`
+
+`Pin::WebhookEndpoints.create(options)`
+
+##### Get a paginated list of all webhook endpoints.
+`Pin::WebhookEndpoints.all`
+
+##### Get the details of a webhook endpoint.
+`Pin::WebhookEndpoints.find(token)`
+
+##### Delete a webhook endpoint and all of its webhook requests. You will not be able to recover them.
+`token = "whe_foobar"`
+`Pin::WebhookEndpoints.delete(token)`
 
 ## Receipts
 
