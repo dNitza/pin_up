@@ -7,7 +7,9 @@ RSpec.describe 'WebhookEndpoints', :vcr, class: Pin::WebhookEndpoints do
 
   it 'should create a webhook endpoint and returns its details' do
     options = { url: "http://example.com/webhooks#{Time.now.to_i}/" }
-    expect(Pin::WebhookEndpoints.create(options)['token']).to match(/^whe_/)
+    token = Pin::WebhookEndpoints.create(options)['token']
+    expect(token).to match(/^whe_/)
+    Pin::WebhookEndpoints.delete(token) # since we are only allowed 5 or so sandbox webhooks
   end
 
   it 'should list webhook endpoints' do
