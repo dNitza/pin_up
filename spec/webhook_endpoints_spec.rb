@@ -13,16 +13,29 @@ RSpec.describe 'WebhookEndpoints', :vcr, class: Pin::WebhookEndpoints do
   end
 
   it 'should list webhook endpoints' do
+    options = { url: "http://example.com/webhooks#{Time.now.to_i}/" }
+    token = Pin::WebhookEndpoints.create(options)['token']
     expect(Pin::WebhookEndpoints.all).to_not eq []
+    Pin::WebhookEndpoints.delete(token) # since we are only allowed 5 or so sandbox webhooks
   end
 
   it 'should list webhook endpoint on a page given a page' do
     request = Pin::WebhookEndpoints.all(1, true)
+    options = { url: "http://example.com/webhooks#{Time.now.to_i}/" }
+    token = Pin::WebhookEndpoints.create(options)['token']
+
     expect(request[:response]).to_not eq []
+
+    Pin::WebhookEndpoints.delete(token) # since we are only allowed 5 or so sandbox webhooks
   end
 
   it 'should show a webhook endpoint given a token' do
-    expect(Pin::WebhookEndpoints.find('whe__ld78HRWava8Wx2wQMxyew')['token']).to eq 'whe__ld78HRWava8Wx2wQMxyew'
+    options = { url: "http://example.com/webhooks#{Time.now.to_i}/" }
+    token = Pin::WebhookEndpoints.create(options)['token']
+
+    expect(Pin::WebhookEndpoints.find(token)['token']).to eq token
+
+    Pin::WebhookEndpoints.delete(token) # since we are only allowed 5 or so sandbox webhooks
   end
 
   it 'should delete a webhook endpoint given a token' do
