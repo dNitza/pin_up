@@ -117,4 +117,9 @@ describe 'Errors', :vcr, class: Pin::PinError do
     end
   end
 
+  it 'should raise a CannotReplayWebhook error when event can\'t be replayed' do
+    token = Pin::Webhooks.all(1, true)[:response].last['token']
+    expect { Pin::Webhooks.replay(token) }.to raise_error Pin::CannotReplayWebhook
+  end
+
 end
