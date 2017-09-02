@@ -15,7 +15,7 @@ RSpec.describe 'Webhooks', :vcr, class: Pin::Webhooks do
     expect(Pin::Webhooks.find(token)['token']).to eq token
   end
 
-  xit 'replays a webhook given a token' do
+  it 'replays a webhook given a token' do
     token = Pin::Webhooks.all(1, true)[:response].last['token']
     expect(Pin::Webhooks.replay(token)['token']).to eq token
   end

@@ -276,6 +276,20 @@ The Webhook Endpoints API allows you to create and view your webhook endpoints t
 `token = "whe_foobar"`
 `Pin::WebhookEndpoints.delete(token)`
 
+## Webhooks
+The webhooks API allows you to view and replay webhooks—requests that have been sent to your webhook endpoints. When an event occurs, Pin Payments creates a webhook record and sends a web request to each of your endpoints.
+
+Replaying a webhook causes Pin Payments to request the URL again. It will not repeat other webhook requests for the same event. Replaying a webhook will reset the error information recorded during the original request and record any new errors that occur during the replay.
+
+##### Get a paginated list of all webhooks.
+`Pin::Webhooks.all`
+
+##### Get the details of a webhook.
+`Pin::Webhooks.find(token)`
+
+##### Replay a webhook.
+`Pin::Webhooks.replay(token)`
+
 ## Receipts
 
 Receipts have been extracted out into their [own gem](https://github.com/dNitza/pin_up_receipts)
