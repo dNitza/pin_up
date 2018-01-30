@@ -18,6 +18,8 @@ module Pin
         case response['error']
         when 'cannot_delete_primary_card'
           raise Pin::InvalidResource.new(response, response['error_description'])
+        when 'cannot_replay_webhook'
+          raise Pin::CannotReplayWebhook.new(response, response['error_description'])
         else
           raise Pin::ChargeError.new(response)
         end
@@ -73,6 +75,9 @@ module Pin
   end
 
   class InvalidResource < SimpleError
+  end
+
+  class CannotReplayWebhook < SimpleError
   end
 
   class ChargeError < StandardError
