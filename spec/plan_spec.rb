@@ -40,7 +40,20 @@ describe 'Plan', :vcr, class: Pin::Plan do
     expect(Pin::Plan.all).to_not eq []
   end
 
-  it 'should return the details of a specified plan' do
+  it 'should go to a specific page when page paramater is passed' do
+    request = Pin::Plan.all(2, true)
+    expect(request[:pagination]['current']).to eq 2
+  end
+
+  it 'should list customers on a page given a page' do
+    request = Pin::Plan.all(1, true)
+    expect(request[:response]).to_not eq []
+  end
+
+  it 'should return pagination if true is passed for pagination' do
+    request = Pin::Plan.all(1, true)
+    request[:pagination].keys.include?(%W('current previous next per_page pages count))
+  end
   end
 
   it 'should update the name of a specified plan' do
