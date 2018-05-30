@@ -41,5 +41,14 @@ module Pin
     def self.update(token, options = {})
       build_response(make_request(:put, { url: "plans/#{token}", options: options }))
     end
+
+    ##
+    # Delete a plan given a token
+    # args: token (String)
+    # returns: nil
+    # https://www.pinpayments.com/developers/api-reference/plans#delete-plan
+    def self.delete(token)
+      build_response(make_request(:delete, {url: "plans/#{token}" } ))
+    end
   end
 end
