@@ -46,8 +46,8 @@ describe 'Errors', :vcr, class: Pin::PinError do
       ip_address: '127.0.0.1',
       card: {
         number: '5560000000000001',
-        expiry_month: '05',
-        expiry_year: '2018',
+        expiry_month: '12',
+        expiry_year: '2025',
         cvc: '123',
         name: 'Roland Robot',
         address_line1: '42 Sevenoaks St',
@@ -68,12 +68,60 @@ describe 'Errors', :vcr, class: Pin::PinError do
                         customer_token: customer_token)
   }
 
+  let(:time) { Time.now.iso8601(4) }
+
+  let(:plan) {
+    { name: "Plan#{time}",
+     amount: '1000',
+     currency: 'AUD',
+     interval: 30,
+     interval_unit: 'day',
+     setup_amount: 0,
+     trial_amount: 0,
+     trial_interval: 7,
+     trial_interval_unit: 'day' }
+  }
+
+  let(:plan_token) {
+    Pin::Plan.create(plan)['token']
+  }
+  
   before(:each) do
     Pin::Base.new(ENV['PIN_SECRET'], :test)
   end
 
+  ###
+  # Customer Errors
+  ###
+  it 'should raise a 400 error when attempting to delete customer\'s primary card' do
+    cards = Pin::Customer.cards(customer_token)
+    primary_card_token = cards.select{|card| card['primary'] }.first['token']
+    expect { Pin::Customer.delete_card(customer_token, primary_card_token) }.to raise_error do |error|
+      expect(error).to be_a Pin::InvalidResource
+      expect(error.message).to eq 'You cannot delete a customer\'s primary card token'
+      expect(error.response).to be_a Hash
+    end
+  end
+
   it 'should raise a 404 error when looking for a customer that doesn\'t exist' do
     expect { Pin::Customer.find('foo') }.to raise_error do |error|
+      expect(error).to be_a Pin::ResourceNotFound
+      expect(error.message).to eq 'The requested resource could not be found.'
+      expect(error.response).to be_a Hash
+    end
+  end
+
+  it 'should raise an Unauthorized error when token is invalid' do
+    Pin::Base.new('arbitrary_token', :test)
+    expect { Pin::Customer.charges('foo') }.to raise_error do |error|
+      expect(error).to be_a Pin::Unauthorized
+      expect(error.message).to eq 'Not authorised. (Check API Key)'
+      expect(error.response).to be_a Hash
+    end
+  end
+
+  it 'Should raise a ResourceNotFound error when can\'t find customer' do
+    expect { Pin::Customer.charges('foo') }.to raise_error do |error|
       expect(error).to be_a Pin::ResourceNotFound
       expect(error.message).to eq 'The requested resource could not be found.'
       expect(error.response).to be_a Hash
@@ -87,19 +135,24 @@ describe 'Errors', :vcr, class: Pin::PinError do
     end
     expect { Pin::Customer.update(customer_token, hash_w_no_credit_card_or_name) }.to raise_error do |error|
       expect(error).to be_a Pin::InvalidResource
-      expect(error.message).to eq "card_number_invalid: Card number can't be blank card_name_invalid: Card name can't be blank "
-      expect(error.response).to be_a Hash
+      expect(error.response['messages']).to be_a Array
+      expect(error.response['messages'][0]).to match a_hash_including("message"=>"Card number can't be blank")
+      expect(error.response['messages'][1]).to match a_hash_including("message"=>"Card name can't be blank")
     end
   end
 
+  ###
+  # Charge Errors
+  ###
   it 'should raise a 422 error when trying to make a payment with an expired card' do
     hash_w_expired_credit_card = hash_of_details.tap do |h|
       h[:card][:expiry_year] = '2001'
     end
     expect { Pin::Charges.create(hash_w_expired_credit_card) }.to raise_error do |error|
       expect(error).to be_a Pin::InvalidResource
-      expect(error.message).to eq 'card_expiry_month_invalid: Card expiry month is expired card_expiry_year_invalid: Card expiry year is expired '
-      expect(error.response).to be_a Hash
+      expect(error.response['messages']).to be_a Array
+      expect(error.response['messages'][0]).to match a_hash_including("message"=>"Card expiry month is expired")
+      expect(error.response['messages'][1]).to match a_hash_including("message"=>"Card expiry year is expired")
     end
   end
 
@@ -111,24 +164,18 @@ describe 'Errors', :vcr, class: Pin::PinError do
   end
 
   it 'should raise a 422 error when trying to make a payment with an invalid card' do
-     hash_w_invalid_card = hash_of_details.tap do |h|
+    hash_w_invalid_card = hash_of_details.tap do |h|
       h[:card][:number] = '5520000000000099'
     end
     expect { Pin::Charges.create(hash_w_invalid_card) }.to raise_error do |error|
       expect(error).to be_a Pin::InvalidResource
-      expect(error.message).to eq 'card_number_invalid: Card number is not valid '
-      expect(error.response).to be_a Hash
+      expect(error.response['messages'][0]).to match a_hash_including("message"=>"Card number is not valid")
     end
   end
 
-  it 'Should raise a ResourceNotFound error when can\'t find customer' do
-    expect { Pin::Customer.charges('foo') }.to raise_error do |error|
-      expect(error).to be_a Pin::ResourceNotFound
-      expect(error.message).to eq 'The requested resource could not be found.'
-      expect(error.response).to be_a Hash
-    end
-  end
-
+  ###
+  # Refund Errors
+  ###
   it 'should raise a 422 error if no 2nd argument is given' do
     expect { Pin::Refund.create(charge['token']) }.to raise_error do |error|
       expect(error).to be_a Pin::InvalidResource
@@ -137,22 +184,55 @@ describe 'Errors', :vcr, class: Pin::PinError do
     end
   end
 
-  it 'should raise a 400 error when attempting to delete customer\'s primary card' do
-    cards = Pin::Customer.cards(customer_token)
-    primary_card_token = cards.select{|card| card['primary'] }.first['token']
-    expect { Pin::Customer.delete_card(customer_token, primary_card_token) }.to raise_error do |error|
+  ###
+  # Plan Errors
+  ###
+  it 'should raise a 422 when creating a plan token and any field validation fails' do
+    plan_w_no_name = plan.tap { |h| h[:name] = '' }
+    expect { Pin::Plan.create(plan_w_no_name) }.to raise_error do |error|
       expect(error).to be_a Pin::InvalidResource
-      expect(error.message).to eq 'You cannot delete a customer\'s primary card token'
+      expect(error.response['messages'][0]).to match a_hash_including("message"=>"Name can't be blank")
+    end
+  end
+
+  it 'should raise a 404 error when trying to find a plan token that does not exist' do
+    expect { Pin::Plan.find('invalid_plan_token') }.to raise_error do |error|
+      expect(error).to be_a Pin::ResourceNotFound
+      expect(error.message).to eq 'No resource was found at this URL.'
       expect(error.response).to be_a Hash
     end
   end
 
-  it 'should raise an Unauthorized error when token is invalid' do
-    Pin::Base.new('arbitrary_token', :test)
-    expect { Pin::Customer.charges('foo') }.to raise_error do |error|
-      expect(error).to be_a Pin::Unauthorized
-      expect(error.message).to eq 'Not authorised. (Check API Key)'
+  it 'should raise a 404 error when updating a plan token that does not exist' do
+    expect { Pin::Plan.update('invalid_plan_token', { name: 'new_plan_name' }) }.to raise_error do |error|
+      expect(error).to be_a Pin::ResourceNotFound
+      expect(error.message).to eq 'No resource was found at this URL.'
       expect(error.response).to be_a Hash
     end
+  end
+
+  it 'should raise a 422 when updating a plan token and any field validation fails' do
+    expect { Pin::Plan.update(plan_token, { currency: 'USD' }) }.to raise_error do |error|
+      expect(error).to be_a Pin::InvalidResource
+      expect(error.response['messages'][0]).to match a_hash_including("message"=>"Name can't be blank")
+      expect(error.response).to be_a Hash
+    end
+  end
+
+  it 'should raise a 400 cannot delete plan which has active subscriptions' do
+  end
+
+  it 'should raise a 404 not found when deleting a plan token that does not exist' do
+    expect { Pin::Plan.delete('invalid_plan_token') }.to raise_error do |error|
+      expect(error).to be_a Pin::ResourceNotFound
+      expect(error.message).to eq 'No resource was found at this URL.'
+      expect(error.response).to be_a Hash
+    end
+  end
+
+  it 'should raise a 404 not found when creating a new subscription on a plan token that does not exist' do
+  end
+
+  it 'should raise a 404 not found when returning a list of subscriptions for a plan token that does not exist' do
   end
 end
