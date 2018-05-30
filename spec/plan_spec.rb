@@ -14,6 +14,10 @@ describe 'Plan', :vcr, class: Pin::Plan do
       trial_interval_unit: 'day' }
   }
 
+  let(:plan_token) {
+    Pin::Plan.create(plan)['token']
+  }
+
   before(:each) do
     Pin::Base.new(ENV['PIN_SECRET'], :test)
   end
@@ -54,6 +58,9 @@ describe 'Plan', :vcr, class: Pin::Plan do
     request = Pin::Plan.all(1, true)
     request[:pagination].keys.include?(%W('current previous next per_page pages count))
   end
+
+  it 'should return the details of a specified plan given a token' do
+    expect(Pin::Plan.find(plan_token)['token']).to eq(plan_token)
   end
 
   it 'should update the name of a specified plan' do
