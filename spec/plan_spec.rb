@@ -67,6 +67,10 @@ describe 'Plan', :vcr, class: Pin::Plan do
     expect(Pin::Plan.update(plan_token, { name: "Updated#{plan[:name]}" })['name']).to eq "Updated#{plan[:name]}"
   end
 
+  it 'should delete a plan given a token' do
+    expect(Pin::Plan.delete(plan_token).code).to eq 204
+  end
+
   it 'should delete a plan and all of its subscriptions' do
   end
 
