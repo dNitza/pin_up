@@ -102,7 +102,6 @@ describe 'Customer', :vcr, class: Pin::Customer do
   end
 
   it 'should create a card given customer token and card hash' do
-    # card = { publishable_api_key: ENV['PUBLISHABLE_SECRET'], number: '5520000000000000', expiry_month: '12', expiry_year: '2018', cvc: '123', name: 'Roland TestRobot', address_line1: '123 Fake Road', address_line2: '', address_city: 'Melbourne', address_postcode: '1223', address_state: 'Vic', address_country: 'AU' }
     expect(Pin::Customer.create_card(customer_token, card_1)['token']).to match(/(card)[_]([\w-]{22})/)
   end
 
