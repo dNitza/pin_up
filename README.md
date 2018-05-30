@@ -199,6 +199,8 @@ Only use this method if you're comfortable sending card details to your server -
              trial_amount: 0, 
              trial_interval: 7, 
              trial_interval_unit: 'day' }
+             
+Note: setup_amount, trial_amount, trial_interval and trial_interval_unit are all optional fields. 
 
     Pin::Plan.create(plan)
     
@@ -220,16 +222,77 @@ With Pagination:
     Return the details of a specified plan
     
 ##### Update a Plan
-    Update the name of a specified plan. Only the plan name can be updated!
+Update the name of a specified plan. Only the plan name can be updated!
     
     Pin::Plan.update(plan_token, name_hash)
     
     name_hash = { name: 'new_plan_name' }
 
 ##### Delete a Plan
-    Deletes a plan and all of its subscriptions. You will not be able to recover this. Plans can only be deleted if they have no running subscriptions.
+Deletes a plan and all of its subscriptions. You will not be able to recover this. 
+
+Note: Plans can only be deleted if they have no running subscriptions.
     
     Pin::Plan.delete(plan_token)
+
+## Subscriptions
+##### Create A Subscription
+Activate a new subscription and return its details. The customer's card will immeadiately be billed the initial plan amount, unless there's a trial period. 
+
+
+    subscription =     { plan_token: plan_token,
+                         customer_token: customer_token,
+                         card_token: card_token,
+                         include_setup_fee: true }
+
+Note: card_token and include_setup_fee are both optional.
+
+    Pin::Subscription.create(subscription)
+    
+##### List All Subscriptions
+
+    Pin::Subscription.all
+
+Show Subscriptions on a particular page:
+
+    Pin::Subscription.all(3)
+
+With Pagination:
+
+    Pin::Subscription.all(3,true)
+    
+##### Find a Subscription
+Return the details of a subscription.
+
+    Pin::Subscription.find(subscription_token)
+    
+##### Update a Subscription
+Updates the card associated with a subscription identified by the subscription token.
+    
+Note: The card token must already be associated to the customer of the subscription.
+    
+    Pin::Subscription.update(subscription_token, card_token)
+    
+##### Delete a Subscription
+Cancels the subscription identified by the subscription token. Subscriptions can only be cancelled if they are in a trial or active state. 
+
+Note: Subscriptions will only attain a cancelled state once the subscription period has elapsed. Until such time subscriptions will be in a state of 'Cancelling'.
+    
+    Pin::Subscription.delete(plan_token)
+    
+##### Reactivate a Subscription
+Reactivates the subscription identified by the subscription token returning the details of the subscription
+    
+    Pin::Subscription.reactivate(plan_token)
+
+##### List Subscription history
+Fetch the ledger entries relating to a subscription identified by a subscription token
+    
+    Pin::Subscription.history(subscription_token)
+
+###### With pagination
+
+    Pin::Subscription.history(subscription_token, 3, true)
 
 ## Recipients
 The recipients API allows you to post bank account details and retrieve a token that you can safely store in your app. You can send funds to recipients using the [transfers API].

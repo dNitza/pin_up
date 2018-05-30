@@ -14,6 +14,24 @@ describe 'Errors', :vcr, class: Pin::PinError do
       address_country: 'Australia' }
   }
 
+  let(:card_2) {
+    { number: '4200000000000000',
+     expiry_month: '12',
+     expiry_year: '2020',
+     cvc: '111',
+     name: 'Roland TestRobot',
+     address_line1: '123 Fake Road',
+     address_line2: '',
+     address_city: 'Melbourne',
+     address_postcode: '1223',
+     address_state: 'Vic',
+     address_country: 'AU' }
+  }
+
+  let(:card_2_token) {
+    Pin::Card.create(card_2)['token']
+  }
+
   let(:customer_token) {
     Pin::Customer.create('email@example.com', card_1)['token']
   }
@@ -85,7 +103,17 @@ describe 'Errors', :vcr, class: Pin::PinError do
   let(:plan_token) {
     Pin::Plan.create(plan)['token']
   }
-  
+
+  let(:subscription_1) {
+    { plan_token: plan_token,
+      customer_token: customer_token,
+      include_setup_fee: false }
+  }
+
+  let(:subscription_1_token) {
+    Pin::Subscription.create(subscription_1)['token']
+  }
+
   before(:each) do
     Pin::Base.new(ENV['PIN_SECRET'], :test)
   end
@@ -230,9 +258,96 @@ describe 'Errors', :vcr, class: Pin::PinError do
     end
   end
 
-  it 'should raise a 404 not found when creating a new subscription on a plan token that does not exist' do
+  it 'should raise a 404 not found when creating a new subscription on an invalid plan token' do
+    expect { Pin::Plan.create_subscription('invalid_plan_token', customer_token) }.to raise_error do |error|
+      expect(error).to be_a Pin::ResourceNotFound
+      expect(error.message).to eq 'No resource was found at this URL.'
+      expect(error.response).to be_a Hash
+    end
   end
 
   it 'should raise a 404 not found when returning a list of subscriptions for a plan token that does not exist' do
+    expect { Pin::Plan.subscriptions('invalid_plan_token') }.to raise_error do |error|
+      expect(error).to be_a Pin::ResourceNotFound
+      expect(error.message).to eq 'No resource was found at this URL.'
+      expect(error.response).to be_a Hash
+    end
+  end
+
+  ###
+  # Subscription Errors
+  ###
+  it 'should raise a 400 when creating a subscription token & any field validation fails' do
+    subscription_w_no_plan_token = subscription_1.tap { |h| h[:plan_token] = '' }
+    expect { Pin::Subscription.create(subscription_w_no_plan_token) }.to raise_error do |error|
+      expect(error).to be_a Pin::InvalidResource
+      expect(error.response['messages'][0]).to match a_hash_including("message"=>"Plan must exist")
+    end
+  end
+
+  it 'should raise a 404 error when trying to create a subscription with an invalid plan token' do
+    subscription_w_invalid_plan_token = subscription_1.tap { |h| h[:plan_token] = 'invalid_token' }
+    expect { Pin::Subscription.create(subscription_w_invalid_plan_token) }.to raise_error do |error|
+      expect(error).to be_a Pin::ResourceNotFound
+      expect(error.message).to eq 'No resource was found at this URL.'
+      expect(error.response).to be_a Hash
+    end
+  end
+
+  it 'should raise a 404 error when searching for an invalid subscription token' do
+    expect { Pin::Subscription.find('invalid_plan_token') }.to raise_error do |error|
+      expect(error).to be_a Pin::ResourceNotFound
+      expect(error.message).to eq 'No resource was found at this URL.'
+      expect(error.response).to be_a Hash
+    end
+  end
+
+  it 'should raise a 400 when updating a subscription & no card token is supplied' do
+    expect { Pin::Subscription.update(subscription_1_token, '') }.to raise_error do |error|
+      expect(error).to be_a Pin::InvalidResource
+      expect(error.response['messages'][0]).to match a_hash_including("message"=>"Card token must be present")
+      expect(error.response).to be_a Hash
+    end
+  end
+
+  it 'should raise a 400 error when update a subscription with an invalid card token' do
+    expect { Pin::Subscription.update(subscription_1_token, 'invalid_card_token') }.to raise_error do |error|
+      expect(error).to be_a Pin::InvalidResource
+      expect(error.message).to eq("Invalid card token")
+      expect(error.response).to be_a Hash
+    end
+  end
+
+  it 'should raise a 404 when updating a subscription with invalid token' do
+    expect { Pin::Subscription.update('invalid_subscription_token', card_2_token) }.to raise_error do |error|
+      expect(error).to be_a Pin::ResourceNotFound
+      expect(error.message).to eq 'No resource was found at this URL.'
+      expect(error.response).to be_a Hash
+    end
+  end
+
+  it 'should raise a 404 not found when deleting an invalid subscription token' do
+    expect { Pin::Subscription.delete('invalid_subscription_token') }.to raise_error do |error|
+      expect(error).to be_a Pin::ResourceNotFound
+      expect(error.message).to eq 'No resource was found at this URL.'
+      expect(error.response).to be_a Hash
+    end
+  end
+
+  it 'should raise a 400 invalid state when deleting a cancelled subscription' do
+    deleted_subscription_token = Pin::Subscription.delete(subscription_1_token)['token']
+    expect { Pin::Subscription.delete(deleted_subscription_token) }.to raise_error do |error|
+      expect(error).to be_a Pin::InvalidResource
+      expect(error.message).to eq 'Cannot cancel subscription when state is trial_cancelling'
+      expect(error.response).to be_a Hash
+    end
+  end
+
+  it 'should raise a 404 when reactivating a subscription with invalid token' do
+    expect { Pin::Subscription.reactivate('invalid_subscription_token') }.to raise_error do |error|
+      expect(error).to be_a Pin::ResourceNotFound
+      expect(error.message).to eq 'No resource was found at this URL.'
+      expect(error.response).to be_a Hash
+    end
   end
 end
