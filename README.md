@@ -308,11 +308,32 @@ Create a YAML file under 'spec' called 'test_data.yml' and add in:
 
     PIN_SECRET: "your pin test secret"
 
-uncomment line 13 in spec_helper.rb and
+uncomment line 16 in spec_helper.rb and
 
 run
 
     rspec spec/*.rb
+
+### Record New VCR cassettes
+After cloning the project one should create a new set of cassettes.
+
+In spec_helper change 
+
+    VCR.use_cassette(name, options) { example.call }
+to
+
+    VCR.use_cassette(name, record: :all) { example.call }
+
+Run all tests and then change the line back (replace record: :all with options)
+
+### Updating VCR test cassettes
+A contributor can update cassettes previously recorded by adding the following syntax:
+     
+     record: :all, :match_requests_on => [:method, :host, :path]
+
+E.g. in a particular spec file:
+
+    describe Pin::Balance, :vcr, record: :all, :match_requests_on => [:method, :host, :path] do
 
 ## Contributing to pin_up
 

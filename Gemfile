@@ -3,7 +3,6 @@ source "http://rubygems.org"
 gem "httparty", ">= 0.11.0"
 
 group :development do
-  gem "shoulda", "~> 3.5"
   gem "rdoc", "~> 3.12"
   gem "rspec" #, "~> 2.13"
   gem "jeweler", "~> 2.1.1"
