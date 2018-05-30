@@ -37,6 +37,7 @@ describe 'Plan', :vcr, class: Pin::Plan do
   end
 
   it 'should return a paginated list of all plans' do
+    expect(Pin::Plan.all).to_not eq []
   end
 
   it 'should return the details of a specified plan' do
