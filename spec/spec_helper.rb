@@ -25,7 +25,8 @@ RSpec.configure do |config|
           .metadata[:full_description]
           .split(/\s+/, 2).join('/')
           .gsub(/[^\w\/]+/, '_')
-    options = example.metadata.slice(:record, :match_on_requests_on)
+    valid_keys = %w[record match_on_requests_on]
+    options = example.metadata.select { |key,_| valid_keys.include? key }
     VCR.use_cassette(name, options) { example.call }
   end
 end
