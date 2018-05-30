@@ -58,7 +58,7 @@ With Pagination:
     # request[:response] => response hash
     # request[:pagination] => "pagination":{"current":3,"previous":2,"next":4,"per_page":25,"pages":10,"count":239}
 
-See https://pin.net.au/docs/api/charges#search-charges for a full list of options.
+See [Pin Payments Charges API](https://pinpayments.com/developers/api-reference/charges#search-charges) for a full list of options.
 
 ##### Create A Charge
     charge = {email: "email@example.com", description: "Description", amount: "400", currency: "AUD", ip_address: "127.0.0.1", customer_token: "cus_token"   }
@@ -184,7 +184,7 @@ This will list all refunds for a particular charge (will return an empty hash if
 
 Will return a card_token that can be stored against a customer.
 
-Only use this method if you're comfortable sending card details to your server - otherwise you can use a form that Pin provides (https://pin.net.au/docs/guides/payment-forms) and get the card_token that way.
+Only use this method if you're comfortable sending card details to your server - otherwise you can use a form that Pin provides (https://pinpayments.com/developers/integration-guides/payment-forms) and get the card_token that way.
 
 ## Plans
 ##### Create A Plan
@@ -244,7 +244,7 @@ With Pagination:
     # request[:response] => response hash
     # request[:pagination] => "pagination":{"current":3,"previous":2,"next":4,"per_page":25,"pages":10,"count":239}
 
-See https://pin.net.au/docs/api/transfers#search-transfers for a full list of options.
+See [Pin Payments Transfers API](https://pinpayments.com/developers/api-reference/transfers#search-transfers) for a full list of options.
 
 ##### Get the line items associated with transfer.
 `Pin::Transfer.line_items(transfer_token)`
@@ -298,7 +298,7 @@ The requested resource could not be found in Pin.
 A number of parameters sent to Pin were invalid.
 
 ### ChargeError
-Something went wrong while creating a charge in Pin. This could be due to insufficient funds, a card being declined or expired. A full list of possible errors is available [here](https://pin.net.au/docs/api/charges).
+Something went wrong while creating a charge in Pin. This could be due to insufficient funds, a card being declined or expired. A full list of possible errors is available [here](https://pinpayments.com/developers/api-reference/charges).
 
 ### InsufficientPinBalance
 
