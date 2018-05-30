@@ -23,5 +23,14 @@ module Pin
     def self.create(options = {})
       build_response(make_request(:post, { url: 'plans', options: options }))
     end
+
+    ##
+    # Find a plan for your account given a token
+    # args: token (String)
+    # returns: a plan object
+    # https://www.pinpayments.com/developers/api-reference/plans#get-plan
+    def self.find(token)
+      build_response(make_request(:get, {url: "plans/#{token}" } ))
+    end
   end
 end
