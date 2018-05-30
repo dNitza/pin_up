@@ -27,7 +27,7 @@ An optional second parameter can be passed in to set the environment (:live or :
 
 An optional third parameter can be passed in to set the timeout of HTTParty in seconds. The default is `1800` (30 minutes).
 
-### Charges
+## Charges
 ##### List All Charges
     Pin::Charges.all
 
@@ -75,7 +75,7 @@ Also known as a pre-auth, this will hold a charge to be captured by for up to 5 
 ##### Capture an authorised charge
     Pin::Charges.capture(charge)
 
-### Customers
+## Customers
 ##### List All Customers
     Pin::Customer.all
 
@@ -112,19 +112,17 @@ With Pagination:
 
 ##### Update A Customer
 ###### Update Card details
----
+
     Pin::Customer.update('cus_token', hash_of_details)
 
 If passing a hash of details, it must be the full list of details of the credit card to be stored. (https://pin.net.au/docs/api/customers#put-customer)
 
 ###### Update only an email
----
 
     hash_of_details = {email: 'new_email@example.com'}
     Pin::Customer.update('cus_token', hash_of_details)
 
 ###### Update card by token
----
 
     hash_of_details = {card_token: 'new_card_token'}
     Pin::Customer.update('cus_token', hash_of_details)
