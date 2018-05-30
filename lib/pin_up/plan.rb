@@ -11,6 +11,9 @@ module Pin
     # and the pagination hash with [:pagination]
     #
     # https://www.pinpayments.com/developers/api-reference/plans
+    def self.all(page = nil, pagination = false)
+      build_collection_response(make_request(:get, {url: "plans?page=#{page}" } ), pagination)
+    end
 
     ##
     # Create a plan given plan details
