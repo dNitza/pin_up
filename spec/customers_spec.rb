@@ -63,7 +63,7 @@ describe 'Customer', :vcr, class: Pin::Customer do
   end
 
   it 'should not list customers on a page given a page if there are no customers' do
-    request = Pin::Customer.all(25, true)
+    request = Pin::Customer.all(900, true)
     expect(request[:response]).to eq []
   end
 
