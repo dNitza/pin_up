@@ -32,5 +32,14 @@ module Pin
     def self.find(token)
       build_response(make_request(:get, {url: "plans/#{token}" } ))
     end
+
+    ##
+    # Update a plan given a token
+    # args: token (String), options (Hash)
+    # returns: a plan object
+    # https://www.pinpayments.com/developers/api-reference/plans#put-plan
+    def self.update(token, options = {})
+      build_response(make_request(:put, { url: "plans/#{token}", options: options }))
+    end
   end
 end
