@@ -50,5 +50,14 @@ module Pin
     def self.delete(token)
       build_response(make_request(:delete, { url: "plans/#{token}" } ))
     end
+
+    ##
+    # List Subscriptions associated with a plan given a token
+    # args: token (String)
+    # returns: nil
+    # 
+    def self.subscriptions(token, page = nil, pagination = false)
+      build_collection_response(make_request(:get, { url: "plans/#{token}/subscriptions" } ), pagination)
+    end
   end
 end
