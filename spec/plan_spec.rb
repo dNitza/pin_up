@@ -83,6 +83,10 @@ describe 'Plan', :vcr, class: Pin::Plan do
       include_setup_fee: false }
   }
 
+  let(:subscription_token) {
+    Pin::Subscription.create(subscription)['token']
+  }
+
   before(:each) do
     Pin::Base.new(ENV['PIN_SECRET'], :test)
   end
