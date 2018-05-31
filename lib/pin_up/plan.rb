@@ -59,5 +59,21 @@ module Pin
     def self.subscriptions(token, page = nil, pagination = false)
       build_collection_response(make_request(:get, { url: "plans/#{token}/subscriptions" } ), pagination)
     end
+
+    ##
+    # Create a subscription for a plan given a customer_token OR a card_token
+    # args: customer_token (String), card (String) see docs.
+    # returns: a subscription object
+    #
+    def self.create_subscription(token, customer_token, card_token = nil)
+      options = if card_token
+                  { customer_token: customer_token,
+                    card_token: card_token}
+                else
+                  { customer_token: customer_token }
+                end
+
+      build_response(make_request(:post, {url: "plans/#{token}/subscriptions", options: options} ))
+    end
   end
 end
