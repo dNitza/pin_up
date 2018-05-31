@@ -98,7 +98,7 @@ describe 'Plan', :vcr, class: Pin::Plan do
       .to eq("Updated#{plan[:name]}")
   end
 
-  it 'should delete a plan given a token' do
+  it 'should delete a plan with zero subscriptions given a token' do
     expect(Pin::Plan.delete(plan_token).code).to eq 204
   end
 
