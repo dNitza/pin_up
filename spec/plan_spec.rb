@@ -152,14 +152,6 @@ describe 'Plan', :vcr, class: Pin::Plan do
              created_at: Time.now }
     expect(plan[:object])
       .to match a_hash_including("state"=>"trial",
-                                 "trial_started_at"=>"#{plan[:created_at].utc.iso8601}",
-                                 "trial_ended_at"=> nil,
-                                 "next_billing_date"=>"#{(plan[:created_at] + 7*24*60*60).utc.iso8601}",
-                                 "current_period_started_at"=>"#{plan[:created_at].utc.iso8601}",
-                                 "current_period_ends_at"=>"#{(plan[:created_at] + 7*24*60*60).utc.iso8601}",
-                                 "cancelled_at"=>nil,
-                                 "created_at"=>"#{plan[:created_at].utc.iso8601}",
-                                 "updated_at"=>"#{plan[:created_at].utc.iso8601}",
                                  "token"=>match(/(sub)[_]([\w-]{22})/),
                                  "plan_token"=>"#{plan_token}",
                                  "customer_token"=>"#{customer_token}",
