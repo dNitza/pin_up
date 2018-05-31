@@ -86,7 +86,7 @@ describe 'Plan', :vcr, class: Pin::Plan do
 
   it 'should return pagination if true is passed for pagination' do
     request = Pin::Plan.all(1, true)
-    request[:pagination].keys.include?(%W('current previous next per_page pages count))
+    request[:pagination].key?(%W('current previous next per_page pages count))
   end
 
   it 'should return the details of a specified plan given a token' do
