@@ -102,7 +102,10 @@ describe 'Plan', :vcr, class: Pin::Plan do
     expect(Pin::Plan.delete(plan_token).code).to eq 204
   end
 
-  it 'should delete a plan and all of its subscriptions' do
+  it 'should delete a plan and all de-activated subscriptions' do
+    subscription_token # attach a subscription to the plan
+    Pin::Subscription.delete(subscription_token) #deactivate subscription
+    expect(Pin::Plan.delete(plan_token).code).to eq 204 
   end
 
   it 'should create a new subscription to the specified plan' do
