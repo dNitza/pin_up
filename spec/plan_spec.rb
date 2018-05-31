@@ -112,5 +112,8 @@ describe 'Plan', :vcr, class: Pin::Plan do
   end
 
   it 'should return a paginated list of subscriptions for a plan' do
+    subscription_token # attach a subscription to the plan
+    subscription_list = Pin::Plan.subscriptions(plan_token)
+    expect(subscription_list[0]['token']).to eq(subscription_token)
   end
 end
