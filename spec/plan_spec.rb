@@ -18,6 +18,36 @@ describe 'Plan', :vcr, class: Pin::Plan do
     Pin::Plan.create(plan)['token']
   }
 
+  let(:card_1) {
+    { number: '5520000000000000',
+     expiry_month: '12',
+     expiry_year: '2025',
+     cvc: '123',
+     name: 'Roland Robot',
+     address_line1: '123 Fake Street',
+     address_city: 'Melbourne',
+     address_postcode: '1234',
+     address_state: 'Vic',
+     address_country: 'Australia' }
+  }
+
+  let(:customer) {
+    Pin::Customer.create('email@example.com', card_1)
+  }
+
+  let(:customer_token) {
+    customer['token']
+  }
+
+  let(:subscription) {
+    { plan_token: plan_token,
+      customer_token: customer_token,
+      include_setup_fee: false }
+  }
+
+  let(:subscription_token) {
+    Pin::Subscription.create(subscription)['token']
+  }
   before(:each) do
     Pin::Base.new(ENV['PIN_SECRET'], :test)
   end
