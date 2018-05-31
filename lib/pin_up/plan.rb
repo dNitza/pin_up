@@ -48,7 +48,7 @@ module Pin
     # returns: nil
     # https://www.pinpayments.com/developers/api-reference/plans#delete-plan
     def self.delete(token)
-      build_response(make_request(:delete, {url: "plans/#{token}" } ))
+      build_response(make_request(:delete, { url: "plans/#{token}" } ))
     end
   end
 end
