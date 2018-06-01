@@ -18,7 +18,7 @@ describe 'Plan', :vcr, class: Pin::Plan do
     { name: "Subscription#{time}",
      amount: '1000',
      currency: 'AUD',
-     interval: 30,
+     interval: 1,
      interval_unit: 'day',
      setup_amount: 27900,
      trial_amount: 0,
@@ -87,6 +87,16 @@ describe 'Plan', :vcr, class: Pin::Plan do
     Pin::Subscription.create(subscription)['token']
   }
 
+  let(:subscription_2) {
+    { plan_token: plan_2_token,
+     customer_token: customer_token,
+     include_setup_fee: false }
+  }
+
+  let(:subscription_2_token) {
+    Pin::Subscription.create(subscription_2)['token']
+  }
+
   before(:each) do
     Pin::Base.new(ENV['PIN_SECRET'], :test)
   end
@@ -143,8 +153,8 @@ describe 'Plan', :vcr, class: Pin::Plan do
   end
 
   it 'should delete a plan and all de-activated subscriptions' do
-    subscription_token # attach a subscription to the plan
-    Pin::Subscription.delete(subscription_token) #deactivate subscription
+    subscription_2_token # attach a subscription to the plan
+    Pin::Subscription.delete(subscription_2_token) # deactivate subscription
     expect(Pin::Plan.delete(plan_token).code).to eq 204 
   end
 
