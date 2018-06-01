@@ -133,8 +133,9 @@ describe 'Plan', :vcr, class: Pin::Plan do
   end
 
   it 'should update the name of a specified plan given a token' do
-    expect(Pin::Plan.update(plan_token, { name: "Updated#{plan[:name]}" })['name'])
-      .to eq("Updated#{plan[:name]}")
+    expect(Pin::Plan.update(plan_token, { name: "Updated" })['name'])
+      .to eq("Updated")
+    Pin::Plan.delete(plan_token) # Cleanup as Plan names must be unique
   end
 
   it 'should delete a plan with zero subscriptions given a token' do
