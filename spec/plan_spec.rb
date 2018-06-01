@@ -93,7 +93,7 @@ describe 'Plan', :vcr, class: Pin::Plan do
 
   it 'should create a new plan and return its details' do
     expect(Pin::Plan.create(plan))
-      .to match a_hash_including("name"=>"Plan#{time}",
+      .to match a_hash_including("name"=>match(/(Plan)/),
                                  "token"=>match(/(plan)[_]([\w-]{22})/),
                                  "amount"=>1000,
                                  "currency"=>"AUD",
