@@ -113,13 +113,12 @@ describe 'Errors', :vcr, class: Pin::PinError do
   end
 
   it 'should raise a 422 error when trying to make a payment with an invalid card' do
-     hash_w_invalid_card = hash_of_details.tap do |h|
+    hash_w_invalid_card = hash_of_details.tap do |h|
       h[:card][:number] = '5520000000000099'
     end
     expect { Pin::Charges.create(hash_w_invalid_card) }.to raise_error do |error|
       expect(error).to be_a Pin::InvalidResource
-      expect(error.message).to eq 'card_number_invalid: Card number is not valid '
-      expect(error.response).to be_a Hash
+      expect(error.response['messages'][0]).to match a_hash_including("message"=>"Card number is not valid")
     end
   end
 
