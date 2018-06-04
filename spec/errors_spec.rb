@@ -46,8 +46,8 @@ describe 'Errors', :vcr, class: Pin::PinError do
       ip_address: '127.0.0.1',
       card: {
         number: '5560000000000001',
-        expiry_month: '05',
-        expiry_year: '2018',
+        expiry_month: '12',
+        expiry_year: '2025',
         cvc: '123',
         name: 'Roland Robot',
         address_line1: '42 Sevenoaks St',
@@ -87,8 +87,9 @@ describe 'Errors', :vcr, class: Pin::PinError do
     end
     expect { Pin::Customer.update(customer_token, hash_w_no_credit_card_or_name) }.to raise_error do |error|
       expect(error).to be_a Pin::InvalidResource
-      expect(error.message).to eq "card_number_invalid: Card number can't be blank card_name_invalid: Card name can't be blank "
-      expect(error.response).to be_a Hash
+      expect(error.response['messages']).to be_a Array
+      expect(error.response['messages'][0]).to match a_hash_including("message"=>"Card number can't be blank")
+      expect(error.response['messages'][1]).to match a_hash_including("message"=>"Card name can't be blank")
     end
   end
 
