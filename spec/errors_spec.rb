@@ -99,8 +99,9 @@ describe 'Errors', :vcr, class: Pin::PinError do
     end
     expect { Pin::Charges.create(hash_w_expired_credit_card) }.to raise_error do |error|
       expect(error).to be_a Pin::InvalidResource
-      expect(error.message).to eq 'card_expiry_month_invalid: Card expiry month is expired card_expiry_year_invalid: Card expiry year is expired '
-      expect(error.response).to be_a Hash
+      expect(error.response['messages']).to be_a Array
+      expect(error.response['messages'][0]).to match a_hash_including("message"=>"Card expiry month is expired")
+      expect(error.response['messages'][1]).to match a_hash_including("message"=>"Card expiry year is expired")
     end
   end
 
