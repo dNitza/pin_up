@@ -223,6 +223,11 @@ describe 'Errors', :vcr, class: Pin::PinError do
   end
 
   it 'should raise a 404 not found when deleting a plan token that does not exist' do
+    expect { Pin::Plan.delete('invalid_plan_token') }.to raise_error do |error|
+      expect(error).to be_a Pin::ResourceNotFound
+      expect(error.message).to eq 'No resource was found at this URL.'
+      expect(error.response).to be_a Hash
+    end
   end
 
   it 'should raise a 404 not found when creating a new subscription on a plan token that does not exist' do
