@@ -204,6 +204,11 @@ describe 'Errors', :vcr, class: Pin::PinError do
   end
 
   it 'should raise a 404 error when updating a plan token that does not exist' do
+    expect { Pin::Plan.update('invalid_plan_token', { name: 'new_plan_name' }) }.to raise_error do |error|
+      expect(error).to be_a Pin::ResourceNotFound
+      expect(error.message).to eq 'No resource was found at this URL.'
+      expect(error.response).to be_a Hash
+    end
   end
 
   it 'should raise a 422 when updating a plan token and any field validation fails' do
