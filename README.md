@@ -220,7 +220,7 @@ With Pagination:
     Return the details of a specified plan
     
 ##### Update a Plan
-    Update the name of a specified plan
+    Update the name of a specified plan. Only the plan name can be updated!
     
     Pin::Plan.update(plan_token, name_hash)
     
