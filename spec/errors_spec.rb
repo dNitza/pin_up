@@ -68,6 +68,24 @@ describe 'Errors', :vcr, class: Pin::PinError do
                         customer_token: customer_token)
   }
 
+  let(:time) { Time.now.iso8601(4) }
+
+  let(:plan) {
+    { name: "Plan#{time}",
+     amount: '1000',
+     currency: 'AUD',
+     interval: 30,
+     interval_unit: 'day',
+     setup_amount: 0,
+     trial_amount: 0,
+     trial_interval: 7,
+     trial_interval_unit: 'day' }
+  }
+
+  let(:plan_token) {
+    Pin::Plan.create(plan)['token']
+  }
+  
   before(:each) do
     Pin::Base.new(ENV['PIN_SECRET'], :test)
   end
@@ -169,10 +187,15 @@ describe 'Errors', :vcr, class: Pin::PinError do
   ###
   # Plan Errors
   ###
-  
+
   it 'should raise a 422 when creating a plan token and any field validation fails' do
+    plan_w_no_name = plan.tap { |h| h[:name] = '' }
+    expect { Pin::Plan.create(plan_w_no_name) }.to raise_error do |error|
+      expect(error).to be_a Pin::InvalidResource
+      expect(error.response['messages'][0]).to match a_hash_including("message"=>"Name can't be blank")
+    end
   end
-  
+
   it 'should raise a 404 error when trying to find a plan token that does not exist' do
   end
 
