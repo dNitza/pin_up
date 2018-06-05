@@ -226,6 +226,10 @@ With Pagination:
     
     name_hash = { name: 'new_plan_name' }
 
+##### Delete a Plan
+    Deletes a plan and all of its subscriptions. You will not be able to recover this. Plans can only be deleted if they have no running subscriptions.
+    
+    Pin::Plan.delete(plan_token)
 
 ## Recipients
 The recipients API allows you to post bank account details and retrieve a token that you can safely store in your app. You can send funds to recipients using the [transfers API].
