@@ -190,11 +190,29 @@ Only use this method if you're comfortable sending card details to your server -
 ##### Create A Plan
     Pin::Plan.create(plan)
 
-    plan = { name: 'Coffee Plan', amount: '1000', currency: 'AUD', interval:
-      30, interval_unit: 'day', setup_amount: 0, trial_amount: 0,
-      trial_interval: 7, trial_interval_unit: 'day' }
+    plan = { name: 'Coffee Plan', 
+             amount: '1000', 
+             currency: 'AUD', 
+             interval: 30, 
+             interval_unit: 'day', 
+             setup_amount: 0, 
+             trial_amount: 0, 
+             trial_interval: 7, 
+             trial_interval_unit: 'day' }
 
     Pin::Plan.create(plan)
+    
+##### List All Plans
+    Pin::Plan.all
+
+Show Plans on a particular page:
+
+    Pin::Plan.all(3)
+
+With Pagination:
+
+    Pin::Plan.all(3,true)
+    
 
 ## Recipients
 The recipients API allows you to post bank account details and retrieve a token that you can safely store in your app. You can send funds to recipients using the [transfers API].
