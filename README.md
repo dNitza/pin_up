@@ -219,6 +219,13 @@ With Pagination:
 
     Return the details of a specified plan
     
+##### Update a Plan
+    Update the name of a specified plan
+    
+    Pin::Plan.update(plan_token, name_hash)
+    
+    name_hash = { name: 'new_plan_name' }
+
 
 ## Recipients
 The recipients API allows you to post bank account details and retrieve a token that you can safely store in your app. You can send funds to recipients using the [transfers API].
