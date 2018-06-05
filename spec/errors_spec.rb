@@ -187,7 +187,6 @@ describe 'Errors', :vcr, class: Pin::PinError do
   ###
   # Plan Errors
   ###
-
   it 'should raise a 422 when creating a plan token and any field validation fails' do
     plan_w_no_name = plan.tap { |h| h[:name] = '' }
     expect { Pin::Plan.create(plan_w_no_name) }.to raise_error do |error|
