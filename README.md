@@ -213,6 +213,12 @@ With Pagination:
 
     Pin::Plan.all(3,true)
     
+##### Find a Plan
+
+    Pin::Plan.find(plan_token)
+
+    Return the details of a specified plan
+    
 
 ## Recipients
 The recipients API allows you to post bank account details and retrieve a token that you can safely store in your app. You can send funds to recipients using the [transfers API].
