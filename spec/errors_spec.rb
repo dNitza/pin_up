@@ -72,8 +72,38 @@ describe 'Errors', :vcr, class: Pin::PinError do
     Pin::Base.new(ENV['PIN_SECRET'], :test)
   end
 
+  ###
+  # Customer Errors
+  ###
+  it 'should raise a 400 error when attempting to delete customer\'s primary card' do
+    cards = Pin::Customer.cards(customer_token)
+    primary_card_token = cards.select{|card| card['primary'] }.first['token']
+    expect { Pin::Customer.delete_card(customer_token, primary_card_token) }.to raise_error do |error|
+      expect(error).to be_a Pin::InvalidResource
+      expect(error.message).to eq 'You cannot delete a customer\'s primary card token'
+      expect(error.response).to be_a Hash
+    end
+  end
+
   it 'should raise a 404 error when looking for a customer that doesn\'t exist' do
     expect { Pin::Customer.find('foo') }.to raise_error do |error|
+      expect(error).to be_a Pin::ResourceNotFound
+      expect(error.message).to eq 'The requested resource could not be found.'
+      expect(error.response).to be_a Hash
+    end
+  end
+
+  it 'should raise an Unauthorized error when token is invalid' do
+    Pin::Base.new('arbitrary_token', :test)
+    expect { Pin::Customer.charges('foo') }.to raise_error do |error|
+      expect(error).to be_a Pin::Unauthorized
+      expect(error.message).to eq 'Not authorised. (Check API Key)'
+      expect(error.response).to be_a Hash
+    end
+  end
+
+  it 'Should raise a ResourceNotFound error when can\'t find customer' do
+    expect { Pin::Customer.charges('foo') }.to raise_error do |error|
       expect(error).to be_a Pin::ResourceNotFound
       expect(error.message).to eq 'The requested resource could not be found.'
       expect(error.response).to be_a Hash
@@ -93,6 +123,9 @@ describe 'Errors', :vcr, class: Pin::PinError do
     end
   end
 
+  ###
+  # Charge Errors
+  ###
   it 'should raise a 422 error when trying to make a payment with an expired card' do
     hash_w_expired_credit_card = hash_of_details.tap do |h|
       h[:card][:expiry_year] = '2001'
@@ -122,14 +155,9 @@ describe 'Errors', :vcr, class: Pin::PinError do
     end
   end
 
-  it 'Should raise a ResourceNotFound error when can\'t find customer' do
-    expect { Pin::Customer.charges('foo') }.to raise_error do |error|
-      expect(error).to be_a Pin::ResourceNotFound
-      expect(error.message).to eq 'The requested resource could not be found.'
-      expect(error.response).to be_a Hash
-    end
-  end
-
+  ###
+  # Refund Errors
+  ###
   it 'should raise a 422 error if no 2nd argument is given' do
     expect { Pin::Refund.create(charge['token']) }.to raise_error do |error|
       expect(error).to be_a Pin::InvalidResource
@@ -138,22 +166,7 @@ describe 'Errors', :vcr, class: Pin::PinError do
     end
   end
 
-  it 'should raise a 400 error when attempting to delete customer\'s primary card' do
-    cards = Pin::Customer.cards(customer_token)
-    primary_card_token = cards.select{|card| card['primary'] }.first['token']
-    expect { Pin::Customer.delete_card(customer_token, primary_card_token) }.to raise_error do |error|
-      expect(error).to be_a Pin::InvalidResource
-      expect(error.message).to eq 'You cannot delete a customer\'s primary card token'
-      expect(error.response).to be_a Hash
-    end
   end
 
-  it 'should raise an Unauthorized error when token is invalid' do
-    Pin::Base.new('arbitrary_token', :test)
-    expect { Pin::Customer.charges('foo') }.to raise_error do |error|
-      expect(error).to be_a Pin::Unauthorized
-      expect(error.message).to eq 'Not authorised. (Check API Key)'
-      expect(error.response).to be_a Hash
-    end
   end
 end
