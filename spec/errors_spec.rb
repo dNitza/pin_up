@@ -212,6 +212,11 @@ describe 'Errors', :vcr, class: Pin::PinError do
   end
 
   it 'should raise a 422 when updating a plan token and any field validation fails' do
+    expect { Pin::Plan.update(plan_token, { currency: 'USD' }) }.to raise_error do |error|
+      expect(error).to be_a Pin::InvalidResource
+      expect(error.response['messages'][0]).to match a_hash_including("message"=>"Name can't be blank")
+      expect(error.response).to be_a Hash
+    end
   end
 
   it 'should raise a 400 cannot delete plan which has active subscriptions' do
