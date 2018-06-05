@@ -166,7 +166,31 @@ describe 'Errors', :vcr, class: Pin::PinError do
     end
   end
 
+  ###
+  # Plan Errors
+  ###
+  
+  it 'should raise a 422 when creating a plan token and any field validation fails' do
+  end
+  
+  it 'should raise a 404 error when trying to find a plan token that does not exist' do
   end
 
+  it 'should raise a 404 error when updating a plan token that does not exist' do
+  end
+
+  it 'should raise a 422 when updating a plan token and any field validation fails' do
+  end
+
+  it 'should raise a 400 cannot delete plan which has active subscriptions' do
+  end
+
+  it 'should raise a 404 not found when deleting a plan token that does not exist' do
+  end
+
+  it 'should raise a 404 not found when creating a new subscription on a plan token that does not exist' do
+  end
+
+  it 'should raise a 404 not found when returning a list of subscriptions for a plan token that does not exist' do
   end
 end
