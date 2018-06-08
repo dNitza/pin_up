@@ -27,7 +27,7 @@ An optional second parameter can be passed in to set the environment (:live or :
 
 An optional third parameter can be passed in to set the timeout of HTTParty in seconds. The default is `1800` (30 minutes).
 
-### Charges
+## Charges
 ##### List All Charges
     Pin::Charges.all
 
@@ -58,7 +58,7 @@ With Pagination:
     # request[:response] => response hash
     # request[:pagination] => "pagination":{"current":3,"previous":2,"next":4,"per_page":25,"pages":10,"count":239}
 
-See https://pin.net.au/docs/api/charges#search-charges for a full list of options.
+See [Pin Payments Charges API](https://pinpayments.com/developers/api-reference/charges#search-charges) for a full list of options.
 
 ##### Create A Charge
     charge = {email: "email@example.com", description: "Description", amount: "400", currency: "AUD", ip_address: "127.0.0.1", customer_token: "cus_token"   }
@@ -75,7 +75,7 @@ Also known as a pre-auth, this will hold a charge to be captured by for up to 5 
 ##### Capture an authorised charge
     Pin::Charges.capture(charge)
 
-### Customers
+## Customers
 ##### List All Customers
     Pin::Customer.all
 
@@ -112,19 +112,17 @@ With Pagination:
 
 ##### Update A Customer
 ###### Update Card details
----
+
     Pin::Customer.update('cus_token', hash_of_details)
 
 If passing a hash of details, it must be the full list of details of the credit card to be stored. (https://pin.net.au/docs/api/customers#put-customer)
 
 ###### Update only an email
----
 
     hash_of_details = {email: 'new_email@example.com'}
     Pin::Customer.update('cus_token', hash_of_details)
 
 ###### Update card by token
----
 
     hash_of_details = {card_token: 'new_card_token'}
     Pin::Customer.update('cus_token', hash_of_details)
@@ -186,8 +184,52 @@ This will list all refunds for a particular charge (will return an empty hash if
 
 Will return a card_token that can be stored against a customer.
 
-Only use this method if you're comfortable sending card details to your server - otherwise you can use a form that Pin provides (https://pin.net.au/docs/guides/payment-forms) and get the card_token that way.
+Only use this method if you're comfortable sending card details to your server - otherwise you can use a form that Pin provides (https://pinpayments.com/developers/integration-guides/payment-forms) and get the card_token that way.
 
+## Plans
+##### Create A Plan
+    Pin::Plan.create(plan)
+
+    plan = { name: 'Coffee Plan', 
+             amount: '1000', 
+             currency: 'AUD', 
+             interval: 30, 
+             interval_unit: 'day', 
+             setup_amount: 0, 
+             trial_amount: 0, 
+             trial_interval: 7, 
+             trial_interval_unit: 'day' }
+
+    Pin::Plan.create(plan)
+    
+##### List All Plans
+    Pin::Plan.all
+
+Show Plans on a particular page:
+
+    Pin::Plan.all(3)
+
+With Pagination:
+
+    Pin::Plan.all(3,true)
+    
+##### Find a Plan
+
+    Pin::Plan.find(plan_token)
+
+    Return the details of a specified plan
+    
+##### Update a Plan
+    Update the name of a specified plan. Only the plan name can be updated!
+    
+    Pin::Plan.update(plan_token, name_hash)
+    
+    name_hash = { name: 'new_plan_name' }
+
+##### Delete a Plan
+    Deletes a plan and all of its subscriptions. You will not be able to recover this. Plans can only be deleted if they have no running subscriptions.
+    
+    Pin::Plan.delete(plan_token)
 
 ## Recipients
 The recipients API allows you to post bank account details and retrieve a token that you can safely store in your app. You can send funds to recipients using the [transfers API].
@@ -237,7 +279,7 @@ With Pagination:
     # request[:response] => response hash
     # request[:pagination] => "pagination":{"current":3,"previous":2,"next":4,"per_page":25,"pages":10,"count":239}
 
-See https://pin.net.au/docs/api/transfers#search-transfers for a full list of options.
+See [Pin Payments Transfers API](https://pinpayments.com/developers/api-reference/transfers#search-transfers) for a full list of options.
 
 ##### Get the line items associated with transfer.
 `Pin::Transfer.line_items(transfer_token)`
@@ -291,7 +333,7 @@ The requested resource could not be found in Pin.
 A number of parameters sent to Pin were invalid.
 
 ### ChargeError
-Something went wrong while creating a charge in Pin. This could be due to insufficient funds, a card being declined or expired. A full list of possible errors is available [here](https://pin.net.au/docs/api/charges).
+Something went wrong while creating a charge in Pin. This could be due to insufficient funds, a card being declined or expired. A full list of possible errors is available [here](https://pinpayments.com/developers/api-reference/charges).
 
 ### InsufficientPinBalance
 
