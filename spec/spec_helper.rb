@@ -13,7 +13,7 @@ require 'net/https'
 require 'uri'
 
 ## Uncomment to load in a .yml with your pin key
-# ENV.update YAML.load(File.read(File.expand_path('../test_data.yml', __FILE__)))
+ENV.update YAML.load(File.read(File.expand_path('../test_data.yml', __FILE__)))
 
 # require pin_up gem
 require 'pin_up'
@@ -27,7 +27,7 @@ RSpec.configure do |config|
           .gsub(/[^\w\/]+/, '_')
     valid_keys = %w[record match_on_requests_on]
     options = example.metadata.select { |key,_| valid_keys.include? key }
-    VCR.use_cassette(name, options) { example.call }
+    VCR.use_cassette(name, record: :all) { example.call }
   end
 end
 
