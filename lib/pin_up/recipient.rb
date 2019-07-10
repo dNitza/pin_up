@@ -4,7 +4,7 @@ module Pin
   class Recipient < Base
     ##
     # Creates a new recipient and returns its details.
-    # https://pin.net.au/docs/api/recipients#post-recipients
+    # https://pinpayments.com/docs/api/recipients#post-recipients
     # args: options (Hash)
     # returns: recipient (Hash)
     def self.create(options)
@@ -19,7 +19,7 @@ module Pin
     # if pagination is passed, access the response hash with [:response]
     # and the pagination hash with [:pagination]
     #
-    # https://pin.net.au/docs/api/recipients#get-recipients
+    # https://pinpayments.com/docs/api/recipients#get-recipients
     def self.all(page = nil, pagination = false)
       build_collection_response(make_request(:get, {url: "recipients?page=#{page}" } ), pagination)
     end
@@ -28,7 +28,7 @@ module Pin
     # Find a recipient for your account given a token
     # args: token (String)
     # returns: a recipient
-    # https://pin.net.au/docs/api/recipients#get-recipient
+    # https://pinpayments.com/docs/api/recipients#get-recipient
     def self.find(token)
       build_response(make_request(:get, {url: "recipients/#{token}" } ))
     end
@@ -38,7 +38,7 @@ module Pin
     # and any of: email, name, bank_account (hash)
     # args: token (String), options (Hash)
     # returns: a recipient
-    # https://pin.net.au/docs/api/recipients#put-recipient
+    # https://pinpayments.com/docs/api/recipients#put-recipient
     def self.update(token, options = {})
       build_response(make_request(:put, { url: "recipients/#{token}", options: options }))
     end
