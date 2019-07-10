@@ -27,7 +27,7 @@ An optional second parameter can be passed in to set the environment (:live or :
 
 An optional third parameter can be passed in to set the timeout of HTTParty in seconds. The default is `1800` (30 minutes).
 
-### Charges
+## Charges
 ##### List All Charges
     Pin::Charges.all
 
@@ -58,7 +58,7 @@ With Pagination:
     # request[:response] => response hash
     # request[:pagination] => "pagination":{"current":3,"previous":2,"next":4,"per_page":25,"pages":10,"count":239}
 
-See https://pinpayments.com/docs/api/charges#search-charges for a full list of options.
+See [Pin Payments Charges API](https://pinpayments.com/developers/api-reference/charges#search-charges) for a full list of options.
 
 ##### Create A Charge
     charge = {email: "email@example.com", description: "Description", amount: "400", currency: "AUD", ip_address: "127.0.0.1", customer_token: "cus_token"   }
@@ -75,7 +75,7 @@ Also known as a pre-auth, this will hold a charge to be captured by for up to 5 
 ##### Capture an authorised charge
     Pin::Charges.capture(charge)
 
-### Customers
+## Customers
 ##### List All Customers
     Pin::Customer.all
 
@@ -112,19 +112,17 @@ With Pagination:
 
 ##### Update A Customer
 ###### Update Card details
----
+
     Pin::Customer.update('cus_token', hash_of_details)
 
 If passing a hash of details, it must be the full list of details of the credit card to be stored. (https://pinpayments.com/docs/api/customers#put-customer)
 
 ###### Update only an email
----
 
     hash_of_details = {email: 'new_email@example.com'}
     Pin::Customer.update('cus_token', hash_of_details)
 
 ###### Update card by token
----
 
     hash_of_details = {card_token: 'new_card_token'}
     Pin::Customer.update('cus_token', hash_of_details)
@@ -186,8 +184,115 @@ This will list all refunds for a particular charge (will return an empty hash if
 
 Will return a card_token that can be stored against a customer.
 
-Only use this method if you're comfortable sending card details to your server - otherwise you can use a form that Pin provides (https://pinpayments.com/docs/guides/payment-forms) and get the card_token that way.
+Only use this method if you're comfortable sending card details to your server - otherwise you can use a form that Pin provides (https://pinpayments.com/developers/integration-guides/payment-forms) and get the card_token that way.
 
+## Plans
+##### Create A Plan
+    Pin::Plan.create(plan)
+
+    plan = { name: 'Coffee Plan', 
+             amount: '1000', 
+             currency: 'AUD', 
+             interval: 30, 
+             interval_unit: 'day', 
+             setup_amount: 0, 
+             trial_amount: 0, 
+             trial_interval: 7, 
+             trial_interval_unit: 'day' }
+             
+Note: setup_amount, trial_amount, trial_interval and trial_interval_unit are all optional fields. 
+
+    Pin::Plan.create(plan)
+    
+##### List All Plans
+    Pin::Plan.all
+
+Show Plans on a particular page:
+
+    Pin::Plan.all(3)
+
+With Pagination:
+
+    Pin::Plan.all(3,true)
+    
+##### Find a Plan
+
+    Pin::Plan.find(plan_token)
+
+    Return the details of a specified plan
+    
+##### Update a Plan
+Update the name of a specified plan. Only the plan name can be updated!
+    
+    Pin::Plan.update(plan_token, name_hash)
+    
+    name_hash = { name: 'new_plan_name' }
+
+##### Delete a Plan
+Deletes a plan and all of its subscriptions. You will not be able to recover this. 
+
+Note: Plans can only be deleted if they have no running subscriptions.
+    
+    Pin::Plan.delete(plan_token)
+
+## Subscriptions
+##### Create A Subscription
+Activate a new subscription and return its details. The customer's card will immeadiately be billed the initial plan amount, unless there's a trial period. 
+
+
+    subscription =     { plan_token: plan_token,
+                         customer_token: customer_token,
+                         card_token: card_token,
+                         include_setup_fee: true }
+
+Note: card_token and include_setup_fee are both optional.
+
+    Pin::Subscription.create(subscription)
+    
+##### List All Subscriptions
+
+    Pin::Subscription.all
+
+Show Subscriptions on a particular page:
+
+    Pin::Subscription.all(3)
+
+With Pagination:
+
+    Pin::Subscription.all(3,true)
+    
+##### Find a Subscription
+Return the details of a subscription.
+
+    Pin::Subscription.find(subscription_token)
+    
+##### Update a Subscription
+Updates the card associated with a subscription identified by the subscription token.
+    
+Note: The card token must already be associated to the customer of the subscription.
+    
+    Pin::Subscription.update(subscription_token, card_token)
+    
+##### Delete a Subscription
+Cancels the subscription identified by the subscription token. Subscriptions can only be cancelled if they are in a trial or active state. 
+
+Note: Subscriptions will only attain a cancelled state once the subscription period has elapsed. Until such time subscriptions will be in a state of 'Cancelling'.
+    
+    Pin::Subscription.delete(plan_token)
+    
+##### Reactivate a Subscription
+Reactivates the subscription identified by the subscription token returning the details of the subscription
+    
+    Pin::Subscription.reactivate(plan_token)
+
+##### List Subscription history
+Fetch the ledger entries relating to a subscription identified by a subscription token
+    
+    Pin::Subscription.history(subscription_token)
+
+###### With pagination
+
+    Pin::Subscription.history(subscription_token, 3, true)
 
 ## Recipients
 The recipients API allows you to post bank account details and retrieve a token that you can safely store in your app. You can send funds to recipients using the [transfers API].
@@ -237,7 +342,7 @@ With Pagination:
     # request[:response] => response hash
     # request[:pagination] => "pagination":{"current":3,"previous":2,"next":4,"per_page":25,"pages":10,"count":239}
 
-See https://pinpayments.com/docs/api/transfers#search-transfers for a full list of options.
+See [Pin Payments Transfers API](https://pinpayments.com/developers/api-reference/transfers#search-transfers) for a full list of options.
 
 ##### Get the line items associated with transfer.
 `Pin::Transfer.line_items(transfer_token)`
@@ -291,7 +396,7 @@ The requested resource could not be found in Pin.
 A number of parameters sent to Pin were invalid.
 
 ### ChargeError
-Something went wrong while creating a charge in Pin. This could be due to insufficient funds, a card being declined or expired. A full list of possible errors is available [here](https://pinpayments.com/docs/api/charges).
+Something went wrong while creating a charge in Pin. This could be due to insufficient funds, a card being declined or expired. A full list of possible errors is available [here](https://pinpayments.com/developers/api-reference/charges).
 
 ### InsufficientPinBalance
 
@@ -308,11 +413,32 @@ Create a YAML file under 'spec' called 'test_data.yml' and add in:
 
     PIN_SECRET: "your pin test secret"
 
-uncomment line 13 in spec_helper.rb and
+uncomment line 16 in spec_helper.rb and
 
 run
 
     rspec spec/*.rb
+
+### Record New VCR cassettes
+After cloning the project one should create a new set of cassettes.
+
+In spec_helper change 
+
+    VCR.use_cassette(name, options) { example.call }
+to
+
+    VCR.use_cassette(name, record: :all) { example.call }
+
+Run all tests and then change the line back (replace record: :all with options)
+
+### Updating VCR test cassettes
+A contributor can update cassettes previously recorded by adding the following syntax:
+     
+     record: :all, :match_requests_on => [:method, :host, :path]
+
+E.g. in a particular spec file:
+
+    describe Pin::Balance, :vcr, record: :all, :match_requests_on => [:method, :host, :path] do
 
 ## Contributing to pin_up
 

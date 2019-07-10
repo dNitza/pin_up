@@ -13,5 +13,7 @@ require 'pin_up/recipient'
 require 'pin_up/refund'
 require 'pin_up/transfer'
 require 'pin_up/webhook_endpoints'
+require 'pin_up/plan'
+require 'pin_up/subscription'
 
 require 'pin_up/pin_errors'

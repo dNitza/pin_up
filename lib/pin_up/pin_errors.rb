@@ -18,6 +18,12 @@ module Pin
         case response['error']
         when 'cannot_delete_primary_card'
           raise Pin::InvalidResource.new(response, response['error_description'])
+        when 'invalid_card'
+          raise Pin::InvalidResource.new(response, response['error_description'])
+        when 'invalid_state'
+          raise Pin::InvalidResource.new(response, response['error_description'])
+        when 'invalid_request'
+          raise Pin::InvalidResource.new(response, response['error_description'])
         else
           raise Pin::ChargeError.new(response)
         end
