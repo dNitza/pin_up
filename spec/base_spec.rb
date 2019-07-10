@@ -12,11 +12,11 @@ RSpec.describe 'Base', :vcr, class: Pin::Base do
 
   it 'should set environment to live if no env set' do
     @pin = Pin::Base.new('KEY', :live)
-    expect(@pin.base_uri).to eq 'https://api.pin.net.au/1/'
+    expect(@pin.base_uri).to eq 'https://api.pinpayments.com/1/'
   end
 
   it 'should set environment to test when set' do
-    expect(@test_pin.base_uri).to eq 'https://test-api.pin.net.au/1/'
+    expect(@test_pin.base_uri).to eq 'https://test-api.pinpayments.com/1/'
   end
 
   it 'should raise an error if anything other than '' :live or :test is passed to a new instance' do
@@ -24,7 +24,7 @@ RSpec.describe 'Base', :vcr, class: Pin::Base do
   end
 
   it 'should succesfully connect to Pin' do
-    stub_request(:get, "https://#{@test_pin.key}:''@test-api.pin.net.au/1/customers")
+    stub_request(:get, "https://#{@test_pin.key}:''@test-api.pinpayments.com/1/customers")
     expect(Pin::Base.make_request(:get, { url: 'customers' }).code).to eq 200
   end
 
