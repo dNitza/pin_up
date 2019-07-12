@@ -21,9 +21,7 @@ describe 'Plan', :vcr, class: Pin::Plan do
      interval: 1,
      interval_unit: 'day',
      setup_amount: 27900,
-     trial_amount: 0,
-     trial_interval: '',
-     trial_interval_unit: '' }
+     trial_amount: 0}
   }
 
   let(:plan_2_token) {
@@ -102,9 +100,9 @@ describe 'Plan', :vcr, class: Pin::Plan do
   end
 
   it 'should create a new plan and return its details' do
-    expect(Pin::Plan.create(plan))
+    res = Pin::Plan.create(plan)
+    expect(res)
       .to match a_hash_including("name"=>match(/(Plan)/),
-                                 "token"=>match(/(plan)[_]([\w-]{22})/),
                                  "amount"=>1000,
                                  "currency"=>"AUD",
                                  "setup_amount"=>0,
@@ -113,8 +111,9 @@ describe 'Plan', :vcr, class: Pin::Plan do
                                  "interval_unit"=>"day",
                                  "trial_interval"=>7,
                                  "trial_interval_unit"=>"day",
-                                 "expiration_interval"=>0,
-                                 "expiration_interval_unit"=>"",
+                                 "created_at"=>match(/\d/),
+                                 "customer_permissions"=>["cancel"],
+                                 "token"=>match(/(plan)[_]([\w-]{22})/),
                                  "active_subscriptions"=>0,
                                  "trial_subscriptions"=>0)
   end

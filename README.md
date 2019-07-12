@@ -190,20 +190,20 @@ Only use this method if you're comfortable sending card details to your server -
 ##### Create A Plan
     Pin::Plan.create(plan)
 
-    plan = { name: 'Coffee Plan', 
-             amount: '1000', 
-             currency: 'AUD', 
-             interval: 30, 
-             interval_unit: 'day', 
-             setup_amount: 0, 
-             trial_amount: 0, 
-             trial_interval: 7, 
+    plan = { name: 'Coffee Plan',
+             amount: '1000',
+             currency: 'AUD',
+             interval: 30,
+             interval_unit: 'day',
+             setup_amount: 0,
+             trial_amount: 0,
+             trial_interval: 7,
              trial_interval_unit: 'day' }
-             
-Note: setup_amount, trial_amount, trial_interval and trial_interval_unit are all optional fields. 
+
+Note: setup_amount, trial_amount, trial_interval and trial_interval_unit are all optional fields.
 
     Pin::Plan.create(plan)
-    
+
 ##### List All Plans
     Pin::Plan.all
 
@@ -214,30 +214,30 @@ Show Plans on a particular page:
 With Pagination:
 
     Pin::Plan.all(3,true)
-    
+
 ##### Find a Plan
 
     Pin::Plan.find(plan_token)
 
     Return the details of a specified plan
-    
+
 ##### Update a Plan
 Update the name of a specified plan. Only the plan name can be updated!
-    
+
     Pin::Plan.update(plan_token, name_hash)
-    
+
     name_hash = { name: 'new_plan_name' }
 
 ##### Delete a Plan
-Deletes a plan and all of its subscriptions. You will not be able to recover this. 
+Deletes a plan and all of its subscriptions. You will not be able to recover this.
 
 Note: Plans can only be deleted if they have no running subscriptions.
-    
+
     Pin::Plan.delete(plan_token)
 
 ## Subscriptions
 ##### Create A Subscription
-Activate a new subscription and return its details. The customer's card will immeadiately be billed the initial plan amount, unless there's a trial period. 
+Activate a new subscription and return its details. The customer's card will immeadiately be billed the initial plan amount, unless there's a trial period.
 
 
     subscription =     { plan_token: plan_token,
@@ -248,7 +248,7 @@ Activate a new subscription and return its details. The customer's card will imm
 Note: card_token and include_setup_fee are both optional.
 
     Pin::Subscription.create(subscription)
-    
+
 ##### List All Subscriptions
 
     Pin::Subscription.all
@@ -260,34 +260,34 @@ Show Subscriptions on a particular page:
 With Pagination:
 
     Pin::Subscription.all(3,true)
-    
+
 ##### Find a Subscription
 Return the details of a subscription.
 
     Pin::Subscription.find(subscription_token)
-    
+
 ##### Update a Subscription
 Updates the card associated with a subscription identified by the subscription token.
-    
+
 Note: The card token must already be associated to the customer of the subscription.
-    
+
     Pin::Subscription.update(subscription_token, card_token)
-    
+
 ##### Delete a Subscription
-Cancels the subscription identified by the subscription token. Subscriptions can only be cancelled if they are in a trial or active state. 
+Cancels the subscription identified by the subscription token. Subscriptions can only be cancelled if they are in a trial or active state.
 
 Note: Subscriptions will only attain a cancelled state once the subscription period has elapsed. Until such time subscriptions will be in a state of 'Cancelling'.
-    
+
     Pin::Subscription.delete(plan_token)
-    
+
 ##### Reactivate a Subscription
 Reactivates the subscription identified by the subscription token returning the details of the subscription
-    
+
     Pin::Subscription.reactivate(plan_token)
 
 ##### List Subscription history
 Fetch the ledger entries relating to a subscription identified by a subscription token
-    
+
     Pin::Subscription.history(subscription_token)
 
 ###### With pagination
@@ -422,7 +422,7 @@ run
 ### Record New VCR cassettes
 After cloning the project one should create a new set of cassettes.
 
-In spec_helper change 
+In spec_helper change
 
     VCR.use_cassette(name, options) { example.call }
 to
@@ -433,7 +433,7 @@ Run all tests and then change the line back (replace record: :all with options)
 
 ### Updating VCR test cassettes
 A contributor can update cassettes previously recorded by adding the following syntax:
-     
+
      record: :all, :match_requests_on => [:method, :host, :path]
 
 E.g. in a particular spec file:
