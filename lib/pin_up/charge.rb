@@ -10,7 +10,7 @@ module Pin
     # if pagination is passed, access the response hash with [:response]
     # and the pagination hash with [:pagination]
     #
-    # https://pin.net.au/docs/api/charges#get-charges
+    # https://pinpayments.com/docs/api/charges#get-charges
     def self.all(page = nil, pagination = false)
       build_collection_response(make_request(:get, { url: "charges?page=#{page}" }), pagination)
     end
@@ -19,7 +19,7 @@ module Pin
     # Find a charge for your account given a token
     # args: token (String)
     # returns: a charge object
-    # https://pin.net.au/docs/api/charges#get-charge
+    # https://pinpayments.com/docs/api/charges#get-charge
     def self.find(token)
       build_response(make_request(:get, {url: "charges/#{token}" } ))
     end
@@ -31,7 +31,7 @@ module Pin
     # if pagination is passed, access the response hash with [:response]
     # and the pagination hash with [:pagination]
     #
-    # https://pin.net.au/docs/api/charges#search-charges
+    # https://pinpayments.com/docs/api/charges#search-charges
     def self.search(page = nil, pagination = false, **options)
       term = ''
       options.merge! page: page if page
@@ -46,7 +46,7 @@ module Pin
     # a card_token or a customer_token
     # args: options (Hash)
     # returns: a charge object
-    # https://pin.net.au/docs/api/charges#post-charges
+    # https://pinpayments.com/docs/api/charges#post-charges
     def self.create(options = {})
       build_response(make_request(:post, {url: 'charges', options: options} ))
     end
@@ -54,7 +54,7 @@ module Pin
     # Captures a previously authorised charge and returns its details.
     # args: charge-token (String)
     # returns: charge object
-    # https://pin.net.au/docs/api/charges#put-charges
+    # https://pinpayments.com/docs/api/charges#put-charges
     def self.capture(token)
       build_response(make_request(:put, { url: "charges/#{token}/capture" } ))
     end

@@ -1,6 +1,6 @@
 ## pin_up
 
-A Ruby gem wrapper for the pin-payments (pin.net.au) API, all of it.
+A Ruby gem wrapper for the pin-payments (pinpayments.com) API, all of it.
 
 Support for Ruby Ruby 2.x.x
 
@@ -115,7 +115,7 @@ With Pagination:
 
     Pin::Customer.update('cus_token', hash_of_details)
 
-If passing a hash of details, it must be the full list of details of the credit card to be stored. (https://pin.net.au/docs/api/customers#put-customer)
+If passing a hash of details, it must be the full list of details of the credit card to be stored. (https://pinpayments.com/docs/api/customers#put-customer)
 
 ###### Update only an email
 

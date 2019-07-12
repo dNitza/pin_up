@@ -11,7 +11,7 @@ module Pin
     # A bank account token can only be used once to create a recipient.
     # The token automatically expires after 1 month if it hasn’t been used.
     #
-    # https://pin.net.au/docs/api/bank-accounts
+    # https://pinpayments.com/docs/api/bank-accounts
     def self.create(options)
       build_response(make_request(:post, { url: 'bank_accounts', options: options }))
     end

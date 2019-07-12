@@ -19,9 +19,9 @@ module Pin
       @@auth = { username: @key, password: '' }
       @@timeout = timeout
       @@base_url = if env == :live
-                     'https://api.pin.net.au/1/'
+                     'https://api.pinpayments.com/1/'
                    elsif env == :test
-                     'https://test-api.pin.net.au/1/'
+                     'https://test-api.pinpayments.com/1/'
                    else
                      fail "'env' option must be :live or :test. Leave blank for live payments"
                    end

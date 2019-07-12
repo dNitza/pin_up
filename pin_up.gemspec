@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib".freeze]
   s.authors = ["Daniel Nitsikopoulos".freeze]
   s.date = "2018-06-15"
-  s.description = "A Ruby gem wrapper for the pin-payments (pin.net.au) API".freeze
+  s.description = "A Ruby gem wrapper for the pin-payments (pinpayments.com) API".freeze
   s.email = "dnitza@gmail.com".freeze
   s.extra_rdoc_files = [
     "LICENSE.txt",

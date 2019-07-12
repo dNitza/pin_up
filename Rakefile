@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/dNitza/pin_up"
   gem.license = "MIT"
   gem.summary = %Q{A Ruby gem wrapper for the pin-payments API}
-  gem.description = %Q{A Ruby gem wrapper for the pin-payments (pin.net.au) API}
+  gem.description = %Q{A Ruby gem wrapper for the pin-payments (pinpayments.com) API}
   gem.email = "dnitza@gmail.com"
   gem.authors = ["Daniel Nitsikopoulos"]
   # dependencies defined in Gemfile
