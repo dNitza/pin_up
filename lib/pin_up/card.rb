@@ -4,10 +4,10 @@ module Pin
   class Card < Base
     ##
     # creates a card given a hash of options
-    # https://pin.net.au/docs/api/cards
+    # https://pinpayments.com/docs/api/cards
     # Only use if you have a secure server connection, if in doubt use
     # the form example provided by Pin to create a card_token
-    # https://pin.net.au/docs/guides/payment-forms
+    # https://pinpayments.com/docs/guides/payment-forms
     # args: card_details (Hash)
     # returns: card object
     def self.create(options)

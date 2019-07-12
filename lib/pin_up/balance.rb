@@ -7,7 +7,7 @@ module Pin
     # Transfers can only be made using the funds in the available balance.
     # The pending amount will become available after the 7 day settlement schedule on your charges.
     #
-    # https://pin.net.au/docs/api/balance
+    # https://pinpayments.com/docs/api/balance
     def self.get
       build_response(make_request(:get, { url: 'balance' }))
     end
