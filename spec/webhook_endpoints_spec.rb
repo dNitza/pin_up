@@ -1,8 +1,9 @@
 require 'spec_helper'
+require 'securerandom'
 
 RSpec.describe 'WebhookEndpoints', :vcr, class: Pin::WebhookEndpoints do
   let(:token) {
-    Pin::WebhookEndpoints.create({ url: "http://example.com/webhooks#{Time.now.to_i}/" })['token']
+    Pin::WebhookEndpoints.create({ url: "http://example.com/webhooks#{SecureRandom.urlsafe_base64}/" })['token']
   }
 
   before(:each) do
