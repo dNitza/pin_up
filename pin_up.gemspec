@@ -71,7 +71,7 @@ Gem::Specification.new do |s|
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<httparty>.freeze, [">= 0.11.0"])
+      s.add_runtime_dependency(%q<httparty>.freeze, ["= 0.17.0"])
       s.add_development_dependency(%q<rdoc>.freeze, ["~> 3.12"])
       s.add_development_dependency(%q<rspec>.freeze, [">= 0"])
       s.add_development_dependency(%q<jeweler>.freeze, ["~> 2.3.9"])
@@ -81,7 +81,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<guard-rspec>.freeze, [">= 0"])
       s.add_development_dependency(%q<terminal-notifier-guard>.freeze, ["~> 1.5.3"])
     else
-      s.add_dependency(%q<httparty>.freeze, [">= 0.11.0"])
+      s.add_dependency(%q<httparty>.freeze, ["= 0.17.0"])
       s.add_dependency(%q<rdoc>.freeze, ["~> 3.12"])
       s.add_dependency(%q<rspec>.freeze, [">= 0"])
       s.add_dependency(%q<jeweler>.freeze, ["~> 2.3.9"])
@@ -92,7 +92,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<terminal-notifier-guard>.freeze, ["~> 1.5.3"])
     end
   else
-    s.add_dependency(%q<httparty>.freeze, [">= 0.11.0"])
+    s.add_dependency(%q<httparty>.freeze, ["= 0.17.0"])
     s.add_dependency(%q<rdoc>.freeze, ["~> 3.12"])
     s.add_dependency(%q<rspec>.freeze, [">= 0"])
     s.add_dependency(%q<jeweler>.freeze, ["~> 2.3.9"])
