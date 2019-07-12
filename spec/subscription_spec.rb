@@ -148,7 +148,7 @@ describe 'Subscription', :vcr, class: Pin::Subscription do
   end
 
   it 'should not list subscriptions for a given page if there are no subscriptions' do
-    request = Pin::Subscription.all(25, true)
+    request = Pin::Subscription.all(250, true)
     expect(request[:response]).to eq []
   end
 
