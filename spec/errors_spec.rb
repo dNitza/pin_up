@@ -239,13 +239,14 @@ describe 'Errors', :vcr, class: Pin::PinError do
     end
   end
 
-  it 'should raise a 422 when updating a plan token and any field validation fails' do
-    expect { Pin::Plan.update(plan_token, { currency: 'USD' }) }.to raise_error do |error|
-      expect(error).to be_a Pin::InvalidResource
-      expect(error.response['messages'][0]).to match a_hash_including("message"=>"Name can't be blank")
-      expect(error.response).to be_a Hash
-    end
-  end
+  # Name is now optional in the API
+  # it 'should raise a 422 when updating a plan token and any field validation fails' do
+  #   expect { Pin::Plan.update(plan_token, { currency: 'USD' }) }.to raise_error do |error|
+  #     expect(error).to be_a Pin::InvalidResource
+  #     expect(error.response['messages'][0]).to match a_hash_including("message"=>"Name can't be blank")
+  #     expect(error.response).to be_a Hash
+  #   end
+  # end
 
   it 'should raise a 400 cannot delete plan which has active subscriptions' do
   end
@@ -281,7 +282,7 @@ describe 'Errors', :vcr, class: Pin::PinError do
     subscription_w_no_plan_token = subscription_1.tap { |h| h[:plan_token] = '' }
     expect { Pin::Subscription.create(subscription_w_no_plan_token) }.to raise_error do |error|
       expect(error).to be_a Pin::InvalidResource
-      expect(error.response['messages'][0]).to match a_hash_including("message"=>"Plan must exist")
+      expect(error.response['messages'][0]).to match a_hash_including("message"=>"Plan token must be present")
     end
   end
 
