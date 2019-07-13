@@ -23,6 +23,7 @@ spec/vcr/
 
 # jeweler generated
 pkg
+bin/
 
 # Have editor/IDE/OS specific files you need to ignore? Consider using a global gitignore:
 #
@@ -80,3 +81,6 @@ tmp
 .yardoc
 _yardoc
 doc/
+
+#ASDF
+.tool-versions
