@@ -170,7 +170,7 @@ This will list all refunds for a particular charge (will return an empty hash if
 
     Pin::Refund.get('refund_token')
 
-This will return a the details of the specified refund ( will throw a `Pin::ResourceNotFound` if nothing is found)
+This will return the details of the specified refund ( will throw a `Pin::ResourceNotFound` if nothing is found)
 
 ##### Create A Refund Specifying An Amount
 
