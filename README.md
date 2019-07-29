@@ -166,6 +166,12 @@ This method will raise an exception if attempting to remove the user's primary c
 
 This will list all refunds for a particular charge (will return an empty hash if nothing is found)
 
+##### Get A Refund
+
+    Pin::Refund.get('refund_token')
+
+This will return a the details of the specified refund ( will throw a `Pin::ResourceNotFound` if nothing is found)
+
 ##### Create A Refund Specifying An Amount
 
     Pin::Refund.create('charge_token', '400')
