@@ -16,6 +16,16 @@ module Pin
     end
 
     ##
+    # Returns the details of the specified refund.
+    # returns: a refund object
+    # args: token (String)
+    #
+    # https://pinpayments.com/docs/api/refunds#get-refund
+    def self.get(token)
+      build_response(make_request(:get, { url: "refunds/#{token}" } ))
+    end
+
+    ##
     # Create a refund for a charge
     # args: token (String), amount (String - optional)
     # returns: a refund object
