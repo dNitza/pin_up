@@ -5,7 +5,7 @@ describe Pin::Transfer, :vcr do
     { email: 'test@example.com',
       name: 'Roland Robot',
       bank_account: { name: 'Roland Robot',
-                      bsb: '123456',
+                      bsb: '012984',
                       number: 987654321 } }
   }
 
@@ -55,5 +55,5 @@ describe Pin::Transfer, :vcr do
 
   it 'should list transfers for search on a page given a page' do
     expect(Pin::Transfer.search(1, query: 'Pay day')).to_not eq []
-  end  
+  end
 end

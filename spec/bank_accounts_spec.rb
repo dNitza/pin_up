@@ -6,7 +6,7 @@ describe Pin::BankAccounts, :vcr do
   end
 
   it 'creates a bank account token and returns its details' do
-    options = { name: 'Roland Robot', bsb: '123456', number: '987654321' }
+    options = { name: 'Roland Robot', bsb: '012984', number: '987654321' }
     expect(Pin::BankAccounts.create(options)['token']).to match(/^[a-z]{2}[_]/)
   end
 end

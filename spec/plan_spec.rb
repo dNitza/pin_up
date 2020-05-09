@@ -114,8 +114,12 @@ describe 'Plan', :vcr, class: Pin::Plan do
                                  "created_at"=>match(/\d/),
                                  "customer_permissions"=>["cancel"],
                                  "token"=>match(/(plan)[_]([\w-]{22})/),
-                                 "active_subscriptions"=>0,
-                                 "trial_subscriptions"=>0)
+                                 "subscription_counts" => {
+                                   "trial"=>0,
+                                    "active"=>0,
+                                    "cancelling"=>0,
+                                    "cancelled"=>0
+                                 })
   end
 
   it 'should return a paginated list of all plans' do

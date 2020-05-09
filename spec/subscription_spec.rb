@@ -173,27 +173,30 @@ describe 'Subscription', :vcr, class: Pin::Subscription do
     expect(Pin::Subscription.reactivate(deactivated['token'])['state']).to eq('active')
   end
 
-  it 'should fetch history for a subscription given a token' do
-    expect(Pin::Subscription.history(subscription_2_token)).to_not eq []
-  end
+  ## History no longer exists as an endpoint
+  ## Leaving this in for reference
 
-  it 'should go to a specific page when page parameter is passed' do
-    request = Pin::Subscription.history(subscription_2_token, 20, true)
-    expect(request[:pagination]['current']).to eq 20
-  end
+  # it 'should fetch history for a subscription given a token' do
+  #   expect(Pin::Subscription.history(subscription_2_token)).to_not eq []
+  # end
 
-  it 'should list subscriptions on a page given a page' do
-    request = Pin::Subscription.history(subscription_2_token, 1, true)
-    expect(request[:response]).to_not eq []
-  end
+  # it 'should go to a specific page when page parameter is passed' do
+  #   request = Pin::Subscription.history(subscription_2_token, 20, true)
+  #   expect(request[:pagination]['current']).to eq 20
+  # end
 
-  it 'should return pagination if true is passed for pagination' do
-    request = Pin::Subscription.history(subscription_2_token, 1, true)
-    request[:pagination].key?(%W('current previous next per_page pages count))
-  end
+  # it 'should list subscriptions on a page given a page' do
+  #   request = Pin::Subscription.history(subscription_2_token, 1, true)
+  #   expect(request[:response]).to_not eq []
+  # end
 
-  it 'should not list subscriptions for a given page if there are no subscriptions' do
-    request = Pin::Subscription.history(subscription_2_token, 25, true)
-    expect(request[:response]).to eq []
-  end
+  # it 'should return pagination if true is passed for pagination' do
+  #   request = Pin::Subscription.history(subscription_2_token, 1, true)
+  #   request[:pagination].key?(%W('current previous next per_page pages count))
+  # end
+
+  # it 'should not list subscriptions for a given page if there are no subscriptions' do
+  #   request = Pin::Subscription.history(subscription_2_token, 25, true)
+  #   expect(request[:response]).to eq []
+  # end
 end

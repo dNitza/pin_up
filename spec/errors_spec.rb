@@ -339,7 +339,7 @@ describe 'Errors', :vcr, class: Pin::PinError do
     deleted_subscription_token = Pin::Subscription.delete(subscription_1_token)['token']
     expect { Pin::Subscription.delete(deleted_subscription_token) }.to raise_error do |error|
       expect(error).to be_a Pin::InvalidResource
-      expect(error.message).to eq 'Cannot cancel subscription when state is trial_cancelling'
+      expect(error.message).to eq 'Cannot cancel subscription when state is cancelling'
       expect(error.response).to be_a Hash
     end
   end
