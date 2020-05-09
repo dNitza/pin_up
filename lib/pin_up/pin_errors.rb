@@ -36,6 +36,8 @@ module Pin
       when 422
         message = handle_bad_response(response)
         raise Pin::InvalidResource.new(response, message)
+      else
+        raise Pin::Unknown.new(response, "Unknown error with status code #{http_status}")
       end
     end
 
@@ -70,6 +72,9 @@ module Pin
     def to_s
       @message
     end
+  end
+
+  class Unknown < SimpleError
   end
 
   class Unauthorized < SimpleError
