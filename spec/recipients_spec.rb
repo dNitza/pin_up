@@ -6,7 +6,7 @@ describe Pin::Recipient, :vcr do
       name: 'Roland Robot',
       bank_account: {
         name: 'Roland Robot',
-        bsb: '123456',
+        bsb: '012984',
         number: 987654321
       } }
   }

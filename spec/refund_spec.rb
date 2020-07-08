@@ -58,4 +58,9 @@ describe 'Refund', :vcr, class: Pin::Refund do
   it 'should create a refund for a given amount and charge' do
     expect(Pin::Refund.find(charge['token'])[0]['amount']).to eq 400
   end
+
+  it 'should return details of specified refund' do
+    refund_token = Pin::Refund.find(charge['token'])[0]['token']
+    expect(Pin::Refund.get(refund_token)['amount']).to eq 400
+  end
 end
