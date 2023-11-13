@@ -2,8 +2,12 @@ require 'spec_helper'
 require 'securerandom'
 
 RSpec.describe 'WebhookEndpoints', :vcr, class: Pin::WebhookEndpoints do
+  let(:create_endpoint) {
+    Pin::WebhookEndpoints.create(url: "http://example.com/webhooks#{SecureRandom.urlsafe_base64}/")
+  }
+
   let(:token) {
-    Pin::WebhookEndpoints.create({ url: "http://example.com/webhooks#{SecureRandom.urlsafe_base64}/" })['token']
+    create_endpoint['token']
   }
 
   before(:each) do
@@ -16,11 +20,13 @@ RSpec.describe 'WebhookEndpoints', :vcr, class: Pin::WebhookEndpoints do
   end
 
   it 'should list webhook endpoints' do
+    create_endpoint
     expect(Pin::WebhookEndpoints.all).to_not eq []
     Pin::WebhookEndpoints.delete(token) # since we are only allowed 5 or so sandbox webhooks
   end
 
   it 'should list webhook endpoint on a page given a page' do
+    create_endpoint
     request = Pin::WebhookEndpoints.all(1, true)
     expect(request[:response]).to_not eq []
     Pin::WebhookEndpoints.delete(token) # since we are only allowed 5 or so sandbox webhooks
