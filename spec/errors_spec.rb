@@ -315,11 +315,11 @@ describe 'Errors', :vcr, class: Pin::PinError do
     end
   end
 
-  it 'should raise a 400 invalid state when deleting a cancelled subscription' do
+  it 'should raise a 422 invalid state when deleting a cancelled subscription' do
     deleted_subscription_token = Pin::Subscription.delete(subscription_1_token)['token']
     expect { Pin::Subscription.delete(deleted_subscription_token) }.to raise_error do |error|
       expect(error).to be_a Pin::InvalidResource
-      expect(error.message).to eq 'Cannot cancel subscription when state is cancelling'
+      expect(error.message).to eq 'invalid_request: Cannot cancel subscription when state is cancelling'
       expect(error.response).to be_a Hash
     end
   end
