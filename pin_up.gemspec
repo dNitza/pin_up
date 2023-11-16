@@ -73,6 +73,8 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<httparty>.freeze)
       s.add_runtime_dependency(%q<rexml>.freeze)
+      s.add_development_dependency(%q<jeweler>)
+      s.add_development_dependency(%q<rake>)
       s.add_development_dependency(%q<rdoc>)
       s.add_development_dependency(%q<rspec>.freeze)
       s.add_development_dependency(%q<simplecov>.freeze)
