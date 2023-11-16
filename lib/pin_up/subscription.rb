@@ -38,7 +38,7 @@ module Pin
     # and any of: email, card (hash),card_token
     # args: token (String), options (Hash)
     # returns: a subscription object
-    # https://pin.net.au/docs/api/subscriptions#put-subscription
+    # https://pinpayments.com/developers/api-reference/subscriptions#put-subscription
     # NB: When providing a card (hash), you need to specify
     # the full list of details.
     def self.update(token, card_token = nil)
