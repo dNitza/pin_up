@@ -1,10 +1,3 @@
-PATH
-  remote: .
-  specs:
-    pin_up (1.4.4)
-      httparty
-      rexml
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -17,30 +10,49 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.5.0)
     docile (1.4.0)
-    faraday (0.9.2)
-      multipart-post (>= 1.2, < 3)
+    faraday (1.10.3)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-httpclient (~> 1.0)
+      faraday-multipart (~> 1.0)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.0)
+      faraday-patron (~> 1.0)
+      faraday-rack (~> 1.0)
+      faraday-retry (~> 1.0)
+      ruby2_keywords (>= 0.0.4)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-httpclient (1.0.1)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.2.0)
+    faraday-patron (1.0.0)
+    faraday-rack (1.0.0)
+    faraday-retry (1.0.3)
     git (1.18.0)
       addressable (~> 2.8)
       rchardet (~> 1.8)
-    github_api (0.11.3)
-      addressable (~> 2.3)
-      descendants_tracker (~> 0.0.1)
-      faraday (~> 0.8, < 0.10)
-      hashie (>= 1.2)
-      multi_json (>= 1.7.5, < 2.0)
-      nokogiri (~> 1.6.0)
-      oauth2
+    github_api (0.19.0)
+      addressable (~> 2.4)
+      descendants_tracker (~> 0.0.4)
+      faraday (>= 0.8, < 2)
+      hashie (~> 3.5, >= 3.5.2)
+      oauth2 (~> 1.0)
     hashdiff (1.0.1)
-    hashie (5.0.0)
+    hashie (3.6.0)
     highline (2.1.0)
     httparty (0.21.0)
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
-    jeweler (2.1.2)
+    juwelier (2.1.3)
       builder
-      bundler (>= 1.0)
+      bundler (>= 1.13)
       git (>= 1.2.5)
-      github_api (~> 0.11.0)
+      github_api
       highline (>= 1.6.15)
       nokogiri (>= 1.5.10)
       rake
@@ -48,22 +60,24 @@ GEM
       semver
     jwt (2.7.1)
     mini_mime (1.1.5)
-    mini_portile2 (2.1.0)
+    mini_portile2 (2.8.5)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.3.0)
-    nokogiri (1.6.8.1)
-      mini_portile2 (~> 2.1.0)
-    oauth2 (1.4.8)
-      faraday (>= 0.8, < 3.0)
+    nokogiri (1.15.4)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    oauth2 (1.4.11)
+      faraday (>= 0.17.3, < 3.0)
       jwt (>= 1.0, < 3.0)
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
-      rack (>= 1.2, < 3)
+      rack (>= 1.2, < 4)
     psych (5.1.1.1)
       stringio
     public_suffix (5.0.3)
-    rack (2.2.8)
+    racc (1.7.3)
+    rack (3.0.8)
     rake (13.1.0)
     rchardet (1.8.0)
     rdoc (6.6.0)
@@ -82,6 +96,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.12.0)
     rspec-support (3.12.1)
+    ruby2_keywords (0.0.5)
     semver (1.0.1)
     simplecov (0.22.0)
       docile (~> 1.1)
@@ -101,10 +116,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  jeweler
-  pin_up!
+  httparty
+  juwelier (~> 2.1.0)
   rake
   rdoc
+  rexml
   rspec
   simplecov
   vcr
