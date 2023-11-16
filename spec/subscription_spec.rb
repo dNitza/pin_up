@@ -35,7 +35,7 @@ describe 'Subscription', :vcr, class: Pin::Subscription do
   let(:card_1) {
     { number: '5520000000000000',
      expiry_month: '12',
-     expiry_year: '2025',
+     expiry_year: Date.today.next_year.year.to_s,
      cvc: '123',
      name: 'Roland Robot',
      address_line1: '123 Fake Street',
@@ -48,7 +48,7 @@ describe 'Subscription', :vcr, class: Pin::Subscription do
   let(:card_2) {
     { number: '4200000000000000',
      expiry_month: '12',
-     expiry_year: '2020',
+     expiry_year: Date.today.next_year.year.to_s,
      cvc: '111',
      name: 'Roland TestRobot',
      address_line1: '123 Fake Road',

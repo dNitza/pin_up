@@ -37,7 +37,7 @@ module Pin
       options.merge! page: page if page
 
       options.each do |key, option|
-        term += "#{key.to_s}=#{URI.encode(option.to_s)}&"
+        term += "#{key.to_s}=#{CGI.escape(option.to_s)}&"
       end
       build_collection_response(make_request(:get, {url: "charges/search?#{term}" } ), pagination)
     end

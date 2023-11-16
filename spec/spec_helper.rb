@@ -25,7 +25,7 @@ RSpec.configure do |config|
           .gsub(/[^\w\/]+/, '_')
     valid_keys = %w[record match_on_requests_on]
     options = example.metadata.select { |key,_| valid_keys.include? key }
-    VCR.use_cassette(name, record: :all) { example.call }
+    VCR.use_cassette(name, record: :once) { example.call }
   end
 end
 
@@ -33,4 +33,7 @@ VCR.configure do |c|
   c.cassette_library_dir = 'spec/vcr'
   c.hook_into :webmock
   c.allow_http_connections_when_no_cassette = true
+
+  c.filter_sensitive_data('PIN_SECRET') { ENV['PIN_SECRET'] }
+  c.filter_sensitive_data('PIN_SECRET_BASIC_AUTH') { Base64.strict_encode64(ENV['PIN_SECRET'].to_s + ':') }
 end

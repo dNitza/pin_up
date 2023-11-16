@@ -4,7 +4,7 @@ describe 'Charge', :vcr, class: Pin::Charges do
   let(:card_1) {
     { number: '5520000000000000',
       expiry_month: '12',
-      expiry_year: '2025',
+      expiry_year: Date.today.next_year.year.to_s,
       cvc: '123',
       name: 'Roland Robot',
       address_line1: '123 Fake Street',

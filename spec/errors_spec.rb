@@ -4,7 +4,7 @@ describe 'Errors', :vcr, class: Pin::PinError do
   let(:card_1) {
     { number: '5520000000000000',
       expiry_month: '12',
-      expiry_year: '2025',
+      expiry_year: Date.today.next_year.year.to_s,
       cvc: '123',
       name: 'Roland Robot',
       address_line1: '123 Fake Street',
@@ -17,7 +17,7 @@ describe 'Errors', :vcr, class: Pin::PinError do
   let(:card_2) {
     { number: '4200000000000000',
      expiry_month: '12',
-     expiry_year: '2020',
+     expiry_year: Date.today.next_year.year.to_s,
      cvc: '111',
      name: 'Roland TestRobot',
      address_line1: '123 Fake Road',
@@ -36,26 +36,6 @@ describe 'Errors', :vcr, class: Pin::PinError do
     Pin::Customer.create('email@example.com', card_1)['token']
   }
 
-  let(:charge_hash) {
-    { email: 'email@example.com',
-      description: 'A new charge from testing Pin gem',
-      amount: '400',
-      currency: 'AUD',
-      ip_address: '127.0.0.1',
-      card: {
-        number: '5520000000000000',
-        expiry_month: '05',
-        expiry_year: '2012',
-        cvc: '123',
-        name: 'Roland Robot',
-        address_line1: '42 Sevenoaks St',
-        address_city: 'Lathlain',
-        address_postcode: '6454',
-        address_state: 'WA',
-        address_country: 'Australia'
-      } }
-  }
-
   let(:hash_of_details) {
     { email: 'email@example.com',
       description: 'A new charge from testing Pin gem',
@@ -65,7 +45,7 @@ describe 'Errors', :vcr, class: Pin::PinError do
       card: {
         number: '5560000000000001',
         expiry_month: '12',
-        expiry_year: '2025',
+        expiry_year: Date.today.next_year.year.to_s,
         cvc: '123',
         name: 'Roland Robot',
         address_line1: '42 Sevenoaks St',
@@ -335,11 +315,11 @@ describe 'Errors', :vcr, class: Pin::PinError do
     end
   end
 
-  it 'should raise a 400 invalid state when deleting a cancelled subscription' do
+  it 'should raise a 422 invalid state when deleting a cancelled subscription' do
     deleted_subscription_token = Pin::Subscription.delete(subscription_1_token)['token']
     expect { Pin::Subscription.delete(deleted_subscription_token) }.to raise_error do |error|
       expect(error).to be_a Pin::InvalidResource
-      expect(error.message).to eq 'Cannot cancel subscription when state is cancelling'
+      expect(error.message).to eq 'invalid_request: Cannot cancel subscription when state is cancelling'
       expect(error.response).to be_a Hash
     end
   end
