@@ -13,11 +13,13 @@ module Pin
     #  env: The environment you want to use.
     #    Leave blank for live and pass :test for test
     # An error is raised if an invalid env is passed in.
-    def initialize(key = '', env = :live, timeout = 1800)
+    # raise_on_fail: Be able to disable execptions on fail
+    def initialize(key = '', env = :live, timeout = 1800, raise_on_fail = true)
       @key = key
       env = env.to_sym
       @@auth = { username: @key, password: '' }
       @@timeout = timeout
+      @@raise_on_fail = raise_on_fail
       @@base_url = if env == :live
                      'https://api.pinpayments.com/1/'
                    elsif env == :test
@@ -45,7 +47,7 @@ module Pin
     # Builds a response of a single object
     def self.build_response(response)
       if response.code >= 400
-        Pin::PinError.handle_error(response.code, response.parsed_response)
+        @@raise_on_fail ? Pin::PinError.handle_error(response.code, response.parsed_response) : response.parsed_response
       elsif response.code == 204
         response
       else
